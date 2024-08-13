@@ -1,10 +1,10 @@
 import React from "react";
-
+import Job1 from "../Components/Job1";
 const HomePage = () => {
   return (
     <div>
         <div className="container mx-auto md:w-[1320px]">
-            HomePage
+           <Job1/>
         </div>
     </div>
   );
