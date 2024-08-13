@@ -1,0 +1,34 @@
+.read-more-link {
+    position: relative;
+    display: inline-flex;
+    /* Use inline-flex to keep the text and icon in one line */
+    align-items: center;
+    /* Vertically align the text and icon */
+    gap: 0.3rem;
+    /* Adjust the gap between text and icon */
+    text-decoration: none;
+    /* Remove default underline */
+}
+
+.read-more-link::before {
+    content: '';
+    height: 1px;
+    width: 0;
+    background-color: blue;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-out;
+}
+
+.read-more-link:hover::before {
+    width: 33%;
+}
+
+.read-more-link .icon {
+    transition: transform 0.3s ease-out;
+}
+
+.read-more-link:hover .icon {
+    transform: translateX(5px);
+}
