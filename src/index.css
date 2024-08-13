@@ -9,3 +9,16 @@ body {
 .link {
     color: rgb(25 103 210) !important;
 }
+.jost-medium {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+  .jost-regular {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  

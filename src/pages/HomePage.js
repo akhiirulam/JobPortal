@@ -6,8 +6,10 @@ import FindJob from "../components/FindJob/FindJob";
 import Counts from "../components/Counts/Counts";
 import NewsArticles from "../components/NewsArticles/NewsArticles";
 import Joblist from "../components/JobList/JobList";
-
-
+import AppDownload from "../AppDownload/AppDownload";
+import RecruitingBanner from "../components/Banner/RecruitingBanner";
+import Footer from "../components/Footer/Footer";
+import BottomFooter from "../components/Footer/BottomFooter";
 const HomePage = () => {
   return (
     <div>
@@ -25,6 +27,15 @@ const HomePage = () => {
           <Counts />
         </div>
         <NewsArticles />
+        <div className="container mx-auto md:w-[1320px]">
+        <AppDownload/>
+        <RecruitingBanner/>
+        <Footer/>
+      </div>
+      <hr className="w-full"/>
+      <div className="container mx-auto md:w-[1320px]">
+        <BottomFooter/>
+        </div> 
       </div>
     </div>
   );
