@@ -1,11 +1,17 @@
 import React from "react";
+import Banner from "../components/Banner";
+import Navbar from "../components/Navbar";
+
+
 
 const HomePage = () => {
   return (
-    <div>
-        <div className="container mx-auto md:w-[1320px]">
-            HomePage
-        </div>
+      <div className="w-full">
+          <Navbar/>
+          <Banner />
+        <div className="container">
+        
+      </div>
     </div>
   );
 };
