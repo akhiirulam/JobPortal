@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Img from "../public/slider1.png";
+import Img from "../../public/slider1.png";
 import { BiChevronDown } from "react-icons/bi";
 import { IoSearchOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";

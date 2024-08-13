@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import JobNavDrop from "./JobNavDrop";
 import SideBarJobSub from "./SideBarJobSub";
+import { GoBell } from "react-icons/go";
 import {
   FaFacebookF,
   FaTwitter,
@@ -8,7 +9,6 @@ import {
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
-
 
 class Navbar extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class Navbar extends Component {
       <div>
         {/* Navbar */}
         <div className="w-screen flex justify-between items-center bg-gradient-to-r from-custom-light to-custom-dark p-2 md:px-4 lg:px-8 relative z-20">
-        <div className="flex items-center space-x-4 md:space-x-8 ml-4 md:ml-8">
+          <div className="flex items-center space-x-4 md:space-x-8 ml-4 md:ml-8">
             <h1 className="text-xl md:text-2xl font-bold">Logo</h1>
           </div>
           <button
@@ -64,14 +64,17 @@ class Navbar extends Component {
             <span>Blog</span>
             <span>Pages</span>
           </div>
-          <div className="flex space-x-4 md:space-x-8 mr-4">
-            <button className="bg-blue-600 h-[40px] w-[120px] text-sm border rounded hidden md:block">
-              Login / Register
-            </button>
-            <button className="bg-blue-600 h-[40px] w-[120px] text-sm border rounded hidden md:block">
-              Job Portal
-            </button>
-          </div>
+          <div className="flex items-center justify-between md:justify-start md:space-x-8 mr-4">
+  <div className="hidden md:flex space-x-4">
+    <button className="bg-blue-600 h-[40px] w-[120px] text-sm border rounded">
+      Login / Register
+    </button>
+    <button className="bg-blue-600 h-[40px] w-[120px] text-sm border rounded">
+      Job Portal
+    </button>
+  </div>
+  <GoBell className="h-[25px] w-[25px] mr-6 sm:mr-12"/>
+</div>
         </div>
 
         {/* Mobile Sidebar */}
@@ -99,7 +102,6 @@ class Navbar extends Component {
                   Home
                   <FaChevronRight className="ml-auto mr-4" />
                 </button>
-                
               </div>
 
               {/* Jobs Menu Item with Button */}
@@ -122,7 +124,6 @@ class Navbar extends Component {
                   Employers
                   <FaChevronRight className="ml-auto mr-4" />
                 </button>
-                
               </div>
 
               {/* Candidates Menu Item */}
@@ -134,7 +135,6 @@ class Navbar extends Component {
                   Candidates
                   <FaChevronRight className="ml-auto mr-4" />
                 </button>
-              
               </div>
 
               {/* Blog Menu Item */}
@@ -146,7 +146,6 @@ class Navbar extends Component {
                   Blog
                   <FaChevronRight className="ml-auto mr-4" />
                 </button>
-              
               </div>
 
               {/* Pages Menu Item */}
@@ -158,7 +157,6 @@ class Navbar extends Component {
                   Pages
                   <FaChevronRight className="ml-auto mr-4" />
                 </button>
-              
               </div>
             </div>
 
