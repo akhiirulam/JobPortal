@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    font-family: 'Jost', sans-serif;
+}
+
+.link {
+    color: rgb(25 103 210) !important;
+}
