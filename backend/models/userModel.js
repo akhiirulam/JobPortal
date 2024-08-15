@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        requried: true,
         trim: true,
     },
     role: {
@@ -35,7 +34,6 @@ const userSchema = new mongoose.Schema({
     },
     Designation: {
         type: String,
-        required: true
     },
     bio: {
         type: String,
@@ -51,7 +49,24 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'User'
         }
-    ]
+    ],
+    previousHistory:{
+        designation:{
+            type:String
+        },
+        salary:{
+            type:Number
+        },
+        companyName:{
+            type:String
+        },
+        reasonFotQuit:{
+            type:String
+        },
+        lastWorkingDate:{
+            type:Date
+        }
+    }
 
 }, { timestamps: true });
 
