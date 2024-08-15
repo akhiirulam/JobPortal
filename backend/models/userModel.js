@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
         requried: true,
         trim: true,
     },
-    address: {
+    location: {
         type: String,
         trim: true,
     },
@@ -31,12 +31,60 @@ const userSchema = new mongoose.Schema({
     },
     companyName: {
         type: String,
+        trim: true,
     },
-    Designation: {
+    designation: {
         type: String,
+        trim: true,
+    },
+    DOB:{
+        type:String
+    },
+    gender:{
+        type:String
+    },
+    educationalQualification:{
+        type:String
+    },
+    languages:[{
+        type:String
+    }],
+    experience:{
+        type:String
     },
     bio: {
         type: String,
+    },
+    foundYear:{
+        type:String,
+    },
+    companySize:{
+        type:Range
+    },
+    facebook:{
+        type:String,
+        default:null,
+        trim: true,
+    },
+    facebook:{
+        type:String,
+        default:null,
+        trim: true,
+    },
+    twitter:{
+        type:String,
+        default:null,
+        trim: true,
+    },
+    instagram:{
+        type:String,
+        default:null,
+        trim: true,
+    },
+    personalWebsite:{
+        type:String,
+        default:null,
+        trim: true,
     },
     listedJobs: [
         {
@@ -50,23 +98,80 @@ const userSchema = new mongoose.Schema({
             ref: 'User'
         }
     ],
-    previousHistory:{
+    educationalHistory:[{
+        collegeName:{
+            type:String,
+            trim: true,
+        },
+        degreeName:{
+            type:String,
+            trim:true
+        },
+        shortSummery:{
+            type:String,
+            trim: true,
+        },
+        startDate:{
+            type:Date
+        },
+        endDate:{
+            type:Date
+        }
+    }],
+    previousWorkHistory:[{
         designation:{
-            type:String
+            type:String,
+            trim: true,
         },
         salary:{
             type:Number
         },
         companyName:{
-            type:String
+            type:String,
+            trim: true,
         },
         reasonFotQuit:{
-            type:String
+            type:String,
+            trim: true,
         },
         lastWorkingDate:{
             type:Date
         }
-    }
+    }],
+    profileImg:{
+        type:String,
+    },
+    portfolioImgs:[
+        {
+            type:String
+        }
+    ],
+    profileVideo:{
+        type:String
+    },
+    resume:[{
+        type:String
+    }],
+    awards:[{
+        occasionName:{
+            type:String,
+            trim: true,
+        },
+        awardName:{
+            type:String,
+            trim:true
+        },
+        shortSummery:{
+            type:String,
+            trim: true,
+        },
+        startDate:{
+            type:Date
+        },
+        endDate:{
+            type:Date
+        }
+    }]
 
 }, { timestamps: true });
 
