@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema({
         type:String,
     },
     companySize:{
-        type:Range
+        type:Number
     },
     facebook:{
         type:String,

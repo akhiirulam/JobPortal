@@ -1,11 +1,31 @@
-const express = require ('express');
+const express = require('express');
 const app = express();
-require("./Db/DbConnection")
+const cors = require('cors');
+const session = require('express-session'); 
+const cookieParser = require('cookie-parser');
+const asyncHandler = require('express-async-handler');
+const http = require('http');
+
+const port = process.env.PORT || 5000;
+const apiRouter = require('./routes');
+
+require('dotenv').config();
+require('./Db/DbConnection'); 
 
 
-app.get('/',(req,res) =>
-{
-    res.send("Hai");
-})
+app.use(cookieParser()); 
+const corsOptions = {
+  origin: 'http://localhost:5000', 
+  credentials: true,
+};
+app.use(cors(corsOptions)); 
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: false })); 
 
-app.listen(5000,console.log("Application Running"));
+
+app.use('/api', apiRouter);
+
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
