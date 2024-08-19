@@ -8,39 +8,70 @@ const jobController = {
             title,
             description,
             location,
-            salary,
+            salaryType,
+            minSalary,
+            maxSalary,
             type,
             category,
             company,
-            shiftType,
             experience,
-            requiredSkills,
-            preferedSkills,
-            educationalQualification,
-            tags
-        } = req.body;
-
-        const job = await Job.create({
-            title,
-            description,
-            location,
-            salary,
-            type,
-            category,
-            company,
-            shiftType,
-            experience,
-            requiredSkills,
-            preferedSkills,
-            educationalQualification,
+            preferredSkills,
+            qualification,
             tags,
-            appliedCandidates: []
-        });
-
-        res.status(201).json({
-            message: 'Job created successfully',
-            job
-        });
+            gender,
+            jobApplyType,
+            externalURLforApply,
+            jobApplyEmail,
+            careerLevel,
+            introVideoURL,
+            applicationDeadlineDate,
+            address,
+            featuredImage,
+            photos
+        } = req.body;
+        
+        try {
+            // Validate required fields
+            if (!title || !description || !location || !salaryType || !minSalary || !maxSalary) {
+                return res.status(400).json({ error: "Missing required fields" });
+            }
+    
+            // Create a new job object
+            const newJob = new Job({
+                title,
+                description,
+                location,
+                salaryType,
+                minSalary,
+                maxSalary,
+                type,
+                category,
+                company,
+                experience,
+                preferredSkills,
+                qualification,
+                tags,
+                gender,
+                jobApplyType,
+                externalURLforApply,
+                jobApplyEmail,
+                careerLevel,
+                introVideoURL,
+                applicationDeadlineDate,
+                address,
+                featuredImage,
+                photos
+            });
+    
+            // Save the new job to the database
+            const job = await newJob.save();
+    
+            // Respond with the created job
+            res.status(201).json({ message: "Job created successfully", job });
+        } catch (error) {
+            console.error("Error details:", error);
+            res.status(500).json({ error: "An error occurred while creating the job" });
+        }
     }),
 
     // Edit Job Details

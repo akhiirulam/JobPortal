@@ -14,9 +14,9 @@ const OTP = require("../models/otpModel");
 
 const userController = {
 
-login: asyncHandler(async (req, res) => {
+  login: asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
+    
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -30,7 +30,12 @@ login: asyncHandler(async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
 
-    res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
+    res.cookie('token', token, { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'development', 
+      sameSite: 'Strict', 
+      maxAge: 3600000 
+  });
     res.cookie('email', email, { httpOnly: true, maxAge: 3600000 });
 
     res.json({ message: "Login successful", token });
