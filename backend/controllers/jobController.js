@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Job = require('../models/jobModel');
+const {uploadImage} = require('../Middlewares/imageUpload');
 
 const jobController = {
     // Add Job Details
@@ -30,6 +31,30 @@ const jobController = {
             photos
         } = req.body;
         
+        console.log( 
+            title,
+            description,
+            salaryType,
+            minSalary,
+            maxSalary,
+            type,
+            category,
+            company,
+            experience,
+            preferredSkills,
+            qualification,
+            tags,
+            gender,
+            jobApplyType,
+            externalURLforApply,
+            jobApplyEmail,
+            careerLevel,
+            introVideoURL,
+            applicationDeadlineDate,
+            address,
+            featuredImage,
+            photos)
+
         try {
             // Validate required fields
             if (!title || !description || !location || !salaryType || !minSalary || !maxSalary) {
@@ -40,7 +65,7 @@ const jobController = {
             const newJob = new Job({
                 title,
                 description,
-                location,
+                //location,
                 salaryType,
                 minSalary,
                 maxSalary,
