@@ -1,13 +1,12 @@
 import React from "react";
-import Job1 from "../Components/Job1";
+import Mainjob from "../Components/MainJob";
+
+
 const HomePage = () => {
   return (
-    <div>
-        <div className="container mx-auto md:w-[1320px]">
-           <Job1/>
-        </div>
-    </div>
+    <div><Mainjob/></div>
+    
   );
 };
 
-export default HomePage
+export default HomePage;
