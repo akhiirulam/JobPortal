@@ -14,7 +14,6 @@ const jobSchema = new Schema({
     },
     company: {
         type: String,
-        required: true,
     },
     title: {
         type: String,
@@ -47,7 +46,6 @@ const jobSchema = new Schema({
     },
     externalURLforApply: {
         type: String,
-        required: true,
     },
     jobApplyEmail: {
         type: String,
@@ -58,11 +56,11 @@ const jobSchema = new Schema({
         required: true,
     },
     minSalary: {
-        type: Number,
+        type: String,
         required: true,
     },
     maxSalary: {
-        type: Number,
+        type: String,
         required: true,
     },
     experience: {
@@ -96,17 +94,17 @@ const jobSchema = new Schema({
     address: {
         type: String,
     },
-    // location: {
-    //     type: {
-    //         type: String,  // This will always be 'Point'
-    //         enum: ['Point'],
-    //         required: true,
-    //     },
-    //     coordinates: {
-    //         type: [Number],  // Array of numbers: [longitude, latitude]
-    //         required: true,
-    //     },
-    // },
+    location: {
+        type: {
+            type: String,  // This will always be 'Point'
+            enum: ['Point'],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],  // Array of numbers: [longitude, latitude]
+            required: true,
+        },
+    },
     preferredSkills: [
         {
             type: String,

@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
+import axios from "axios";
+import toast from 'react-hot-toast'
 
 const Jobpost = () => {
+
+  const [loading, setLoading] = useState(false)
+
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("idle");
   // const [selectedOption, setSelectedOption] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
   const [jobTitle, setJobTitle] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [jobDescription, setJobDescription] = useState("");
- 
+
   const [tag, setTag] = useState("");
   const [jobApplyEmail, setJobApplyEmail] = useState("");
   const [minSalary, setMinSalary] = useState("");
@@ -26,8 +32,8 @@ const Jobpost = () => {
   const [type, setType] = useState(null);
   const [gender, setGender] = useState(null);
   const [salaryType, setSalaryType] = useState(null);
-  const [CareerType,setCareerType] = useState(null);
-  const [videoURL,setVideoURL] = useState(null);
+  const [CareerType, setCareerType] = useState(null);
+  const [videoURL, setVideoURL] = useState(null);
 
   const categoryOptionsArray = [
     { value: "Accounting/Finance", label: "Accounting/Finance" },
@@ -116,6 +122,7 @@ const Jobpost = () => {
   const handleSaveAndPreview = async () => {
     const formData = {
       jobTitle,
+      companyName,
       jobDescription,
       featuredImage: file,
       category: category?.value,
@@ -134,25 +141,20 @@ const Jobpost = () => {
       videoURL,
       applicationDeadline,
       address,
-      location,  
+      location,
     };
 
-    try {
-      const response = await fetch("/api/jobs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    console.log(formData);
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Job posted successfully:", result);
-        // Handle success
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:5000/api/v1/job/add', formData);
+      setLoading(false);
+
+      if (response.status === 201) {
+        toast.success("Job added successfully");
       } else {
-        console.error("Failed to post job:", response.statusText);
-        // Handle error
+        toast.error("Failed to add job");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -161,14 +163,14 @@ const Jobpost = () => {
   };
 
 
+
   return (
     <div className="flex fixed w-full  flex-col md:flex-row h-full">
       {/* Sidebar */}
 
       <div
-        className={`fixed h-auto md:mb-32 left-0 h-full border bg-blue-200 p-4 transition-transform transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } overflow-auto h-screen md:w-72 md:relative md:translate-x-0`}
+        className={`fixed  md:mb-32 left-0 h-full border bg-blue-200 p-4 transition-transform transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } overflow-auto h-screen md:w-72 md:relative md:translate-x-0`}
         style={{ zIndex: 1000 }}
       >
         <button
@@ -188,20 +190,19 @@ const Jobpost = () => {
           <input
             id="Test1"
             type="text"
-       
+
             className="bg-gray-100 h-8 p-4 mt-1 block w-full"
-        
+
           />
-          
+
           {/* Add more content if needed */}
         </div>
       </div>
 
       {/* Main Content */}
       <div
-        className={`flex-1 border overflow-auto h-full mb-12 bg-gray-200 p-4 transition-all duration-300 ${
-          isSidebarOpen ? "ml-24 md:ml-48" : "ml-0"
-        }`}
+        className={`flex-1 border overflow-auto h-full mb-12 bg-gray-200 p-4 transition-all duration-300 ${isSidebarOpen ? "ml-24 md:ml-48" : "ml-0"
+          }`}
       >
         {/* Show Open Sidebar button only on mobile view */}
         {!isSidebarOpen && (
@@ -229,7 +230,7 @@ const Jobpost = () => {
 
           <label
             htmlFor="file-upload"
-            className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded inline-block flex justify-center items-center"
+            className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded  flex justify-center items-center"
           >
             {status === "uploading" ? "Uploading..." : "Browse"}
           </label>
@@ -263,6 +264,20 @@ const Jobpost = () => {
             className="bg-gray-100 h-10 p-4 mt-1 block w-full"
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
+          />
+
+          <label
+            htmlFor="job-title"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Conpany Name*
+          </label>
+          <input
+            id="job-title"
+            type="text"
+            className="bg-gray-100 h-10 p-4 mt-1 block w-full"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
           />
 
           <label
@@ -392,7 +407,7 @@ const Jobpost = () => {
               </label>
               <label
                 htmlFor="file-upload"
-                className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded inline-block flex justify-center items-center"
+                className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded flex justify-center items-center"
               >
                 {status === "uploading" ? "Uploading..." : "Browse"}
               </label>
@@ -484,7 +499,7 @@ const Jobpost = () => {
                 className="bg-gray-100 h-10 p-4 mt-1 block w-full"
                 value={maxSalary}
                 onChange={(e) => setMaxSalary(e.target.value)}
-                
+
               />
 
               <label
@@ -525,7 +540,7 @@ const Jobpost = () => {
           </label>
           <input
             id="job-title"
-            type="text"
+            type="date"
             className="bg-gray-100 h-10 p-4 mt-1 block w-full"
             value={applicationDeadline}
             onChange={(e) => setApplicationDeadline(e.target.value)}
@@ -558,9 +573,9 @@ const Jobpost = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <button className="bg-button-clr w-36 mb-8 text-white text-sm h-8 p-2 rounded hover:bg-white hover:text-blue-600 hover:border flex justify-center items-center"
-           onClick={handleSaveAndPreview}>
-            Save & Preview
+          <button disabled={loading} className="bg-button-clr w-36 mb-8 text-white text-sm h-8 p-2 rounded hover:bg-white hover:text-blue-600 hover:border flex justify-center items-center"
+            onClick={handleSaveAndPreview}>
+            {loading ? "loading..." : "Save and Preview"}
           </button>
         </div>
       </div>

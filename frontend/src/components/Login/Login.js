@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import toast from "react-hot-toast";
 
 const Login = () => {
+
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,14 +17,17 @@ const Login = () => {
     console.log("Email before login request:", email);
 
     try {
+      setLoading(true);
       const response = await axios.post("http://localhost:5000/api/v1/user/login", {
         email,
         password,
       });
 
+      setLoading(false);
+
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
-        alert("Login successful!");
+        toast.success("Login successful");
         navigate('/employer');
       }
     } catch (err) {
@@ -79,8 +85,8 @@ const Login = () => {
               </a>
             </div>
             <div className="mt-8">
-              <button className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">
-                Login
+              <button disabled={loading} className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">
+                {loading ? "Loading..." : "Login"}
               </button>
             </div>
           </form>

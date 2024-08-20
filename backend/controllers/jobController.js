@@ -6,8 +6,8 @@ const jobController = {
     // Add Job Details
     addJobDetails: asyncHandler(async (req, res) => {
         const {
-            title,
-            description,
+            jobTitle: title,
+            jobDescription: description,
             location,
             salaryType,
             minSalary,
@@ -23,7 +23,7 @@ const jobController = {
             jobApplyType,
             externalURLforApply,
             jobApplyEmail,
-            careerLevel,
+            CareerType: careerLevel,
             introVideoURL,
             applicationDeadlineDate,
             address,
@@ -31,36 +31,13 @@ const jobController = {
             photos
         } = req.body;
         
-        console.log( 
-            title,
-            description,
-            salaryType,
-            minSalary,
-            maxSalary,
-            type,
-            category,
-            company,
-            experience,
-            preferredSkills,
-            qualification,
-            tags,
-            gender,
-            jobApplyType,
-            externalURLforApply,
-            jobApplyEmail,
-            careerLevel,
-            introVideoURL,
-            applicationDeadlineDate,
-            address,
-            featuredImage,
-            photos)
-
         try {
             // Validate required fields
             if (!title || !description || !location || !salaryType || !minSalary || !maxSalary) {
                 return res.status(400).json({ error: "Missing required fields" });
             }
-    
+
+
             // Create a new job object
             const newJob = new Job({
                 title,
@@ -87,10 +64,10 @@ const jobController = {
                 featuredImage,
                 photos
             });
-    
+
             // Save the new job to the database
             const job = await newJob.save();
-    
+
             // Respond with the created job
             res.status(201).json({ message: "Job created successfully", job });
         } catch (error) {
@@ -133,6 +110,16 @@ const jobController = {
         res.json({
             message: 'Job deleted successfully'
         });
+    }),
+
+    //list jobs
+    listJobs: asyncHandler(async (req, res) => {
+        const jobs = await Job.find();
+        if (!jobs) {
+            res.status(404);
+            throw new Error('No jobs found');
+        }
+        res.json(jobs);
     })
 };
 
