@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Route to add job details
-router.post('/add', upload.single('featuredImage'), jobController.addJobDetails);
+router.post('/add', upload.single('featuredImage'),isAuth, jobController.addJobDetails);
 
 // Route to edit job details
 router.put('/edit/:id', isAuth, jobController.editJobDetails);
@@ -26,6 +26,9 @@ router.put('/edit/:id', isAuth, jobController.editJobDetails);
 router.delete('/delete/:id', isAuth, jobController.deleteJobDetails);
 
 //list all jobs 
-router.get('/jobs', jobController.listJobs);
+router.get('/jobs',isAuth, jobController.listJobs);
+
+//filtering jobs
+router.get('/job-filter', jobController.filterJobs)
 
 module.exports = router;

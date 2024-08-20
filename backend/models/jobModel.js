@@ -56,11 +56,11 @@ const jobSchema = new Schema({
         required: true,
     },
     minSalary: {
-        type: String,
+        type: Number,
         required: true,
     },
     maxSalary: {
-        type: String,
+        type: Number,
         required: true,
     },
     experience: {
