@@ -25,7 +25,4 @@ router.put('/edit/:id', isAuth, jobController.editJobDetails);
 // Route to delete job details
 router.delete('/delete/:id', isAuth, jobController.deleteJobDetails);
 
-//list all jobs 
-router.get('/jobs', jobController.listJobs);
-
 module.exports = router;

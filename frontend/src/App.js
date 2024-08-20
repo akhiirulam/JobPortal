@@ -1,10 +1,9 @@
-import  HomePage  from "./pages/HomePage";
-
+import Routing from './pages/Routing'
 
 function App() {
   return (
     <div className="App">
-      <HomePage/>
+      <Routing/>
     </div>
   );
 }
