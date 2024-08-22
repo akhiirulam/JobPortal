@@ -1,0 +1,48 @@
+import React, { useState } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
+
+const NewPage = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  return (
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
+      <div
+        className={`transition-transform fixed top-0 left-0 h-full bg-gray-800 text-white p-4 ${
+          isSidebarOpen ? "w-64" : "w-0"
+        } md:w-64 md:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} duration-300 ease-in-out`}
+      >
+        <button
+          className="text-white md:hidden absolute top-4 right-4"
+          onClick={toggleSidebar}
+        >
+          <FaTimes />
+        </button>
+        <h2 className="text-xl font-bold">Sidebar</h2>
+        {/* Add sidebar content here */}
+      </div>
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 p-4 ml-0 md:ml-64 transition-all duration-300 ease-in-out ${
+          isSidebarOpen ? "ml-64" : "ml-0"
+        }`}
+      >
+        <button
+          className="md:hidden mb-4 p-2 bg-blue-500 text-white rounded"
+          onClick={toggleSidebar}
+        >
+          <FaBars />
+        </button>
+        <h1 className="text-2xl font-bold">Main Content</h1>
+        {/* Add main content here */}
+      </div>
+    </div>
+  );
+};
+
+export default NewPage;

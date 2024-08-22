@@ -2,7 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Login from "../components/Login/Login";
-import Employer from "./Employer";
+import FindJobs from "./Employer";
+import MainJob from "./MainJobList";
+import EmployerList from "./EmployerList";
+import DashBoard from './UserDashBoard'
 
 function Landing() {
   return (
@@ -10,7 +13,10 @@ function Landing() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/employer" element = {<Employer/>} />
+        <Route path="/mainJobList" element={<MainJob/>} />
+        <Route path="/findJobs" element = {<FindJobs/>} />
+        <Route path="/employerList" element = {<EmployerList/>} />
+        <Route path="/dashBoard" element = {<DashBoard/>} />
       </Routes>
     </Router>
   );

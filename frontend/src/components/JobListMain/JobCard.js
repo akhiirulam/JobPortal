@@ -2,7 +2,7 @@ import React from 'react';
 import { PiBriefcaseLight } from 'react-icons/pi';
 import { CiLocationOn, CiBookmark } from 'react-icons/ci';
 import { GiMoneyStack } from 'react-icons/gi';
-import logo from '../../public/airbnb.jpg';
+
 
 const Button = ({ label, className }) => (
   <button className={`px-4 py-1 rounded-full text-xs ${className}`}>
