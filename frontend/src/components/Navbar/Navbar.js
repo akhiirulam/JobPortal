@@ -50,7 +50,7 @@ class Navbar extends Component {
     return (
       <div>
         {/* Navbar */}
-        <div className="w-screen flex justify-between items-center bg-gradient-to-r from-custom-light to-custom-dark p-2 md:px-4 lg:px-8 relative z-20">
+        <div className="w-screen h-[111px] flex justify-between items-center bg-gradient-to-r from-custom-light to-custom-dark p-2 md:px-4 lg:px-8 relative z-20">
           <div className="flex items-center space-x-4 md:space-x-8 ml-4 md:ml-8">
             <h1 className="text-xl md:text-2xl font-bold">Logo</h1>
           </div>

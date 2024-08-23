@@ -9,3 +9,19 @@ body {
 .link {
     color: rgb(25 103 210) !important;
 }
+
+.scrollbar-custom {
+    &::-webkit-scrollbar {
+      width: 12px; /* Adjust the width as needed */
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #00000000; /* Customize thumb color */
+      border: 3px solid #fff; /* Add border for contrast */
+      border-radius: 10px;
+
+    }
+    &:hover::-webkit-scrollbar-thumb{
+        background-color: #ccc
+    }
+  }
