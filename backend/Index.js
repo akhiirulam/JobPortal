@@ -15,7 +15,7 @@ require('./Db/DbConnection');
 
 app.use(cookieParser()); 
 const corsOptions = {
-  origin: 'http://localhost:5000', 
+  origin: 'http://localhost:3000', 
   credentials: true,
 };
 app.use(cors(corsOptions)); 
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 
 
-app.use('/api', apiRouter);
+app.use('/api/v1', apiRouter);
 
 
 app.listen(port, () => {

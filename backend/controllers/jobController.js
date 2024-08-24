@@ -1,46 +1,79 @@
 const asyncHandler = require('express-async-handler');
 const Job = require('../models/jobModel');
+const {uploadImage} = require('../Middlewares/imageUpload');
 
 const jobController = {
     // Add Job Details
     addJobDetails: asyncHandler(async (req, res) => {
         const {
-            title,
-            description,
+            jobTitle: title,
+            jobDescription: description,
             location,
-            salary,
+            salaryType,
+            minSalary,
+            maxSalary,
             type,
             category,
             company,
-            shiftType,
             experience,
-            requiredSkills,
-            preferedSkills,
-            educationalQualification,
-            tags
-        } = req.body;
-
-        const job = await Job.create({
-            title,
-            description,
-            location,
-            salary,
-            type,
-            category,
-            company,
-            shiftType,
-            experience,
-            requiredSkills,
-            preferedSkills,
-            educationalQualification,
+            preferredSkills,
+            qualification,
             tags,
-            appliedCandidates: []
-        });
+            gender,
+            jobApplyType,
+            externalURLforApply,
+            jobApplyEmail,
+            CareerType: careerLevel,
+            introVideoURL,
+            applicationDeadlineDate,
+            address,
+            featuredImage,
+            photos
+        } = req.body;
+        
+        try {
+            // Validate required fields
+            if (!title || !description || !location || !salaryType || !minSalary || !maxSalary) {
+                return res.status(400).json({ error: "Missing required fields" });
+            }
 
-        res.status(201).json({
-            message: 'Job created successfully',
-            job
-        });
+
+            // Create a new job object
+            const newJob = new Job({
+                title,
+                description,
+                //location,
+                salaryType,
+                minSalary,
+                maxSalary,
+                type,
+                category,
+                company,
+                experience,
+                preferredSkills,
+                qualification,
+                tags,
+                gender,
+                jobApplyType,
+                externalURLforApply,
+                jobApplyEmail,
+                careerLevel,
+                introVideoURL,
+                applicationDeadlineDate,
+                address,
+                featuredImage,
+                photos
+            });
+
+            // Save the new job to the database
+            const job = await newJob.save();
+
+            // Respond with the created job
+            res.status(201).json({ message: "Job created successfully", job });
+        } catch (error) {
+            console.error("Error details:", error);
+            res.status(500).json({ error: "An error occurred while creating the job" });
+        }
     }),
 
     // Edit Job Details
@@ -77,6 +110,16 @@ const jobController = {
         res.json({
             message: 'Job deleted successfully'
         });
+    }),
+
+    //list jobs
+    listJobs: asyncHandler(async (req, res) => {
+        const jobs = await Job.find();
+        if (!jobs) {
+            res.status(404);
+            throw new Error('No jobs found');
+        }
+        res.json(jobs);
     })
 };
 
