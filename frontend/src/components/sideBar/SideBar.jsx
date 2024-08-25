@@ -11,7 +11,7 @@ const sideBarItems = [
     {id:1, icon:faAddressBook, description:"User Dashboard",link:"/user"},
     {id:2, icon:faUserTie, description:"Profile",link:"/profile"},
     {id:3, icon:faFile, description:"My Resume",link:"/resume"},
-    {id:4, icon:faBullhorn, description:"My Applied",link:"/applied-jobs"},
+    {id:4, icon:faBullhorn, description:"My Applied",link:"/candidate/applied-jobs"},
     {id:5, icon:faBookmark, description:"Shortlist Employee",link:"/shortlisted-jobs"},
     {id:6, icon:faUser, description:"Following Employee",link:"/following-employee"},
     {id:7, icon:faBullhorn, description:"Alert Jobs",link:"/alert-jobs"},
@@ -27,7 +27,7 @@ const sideBarItems = [
 const SideBar = () => {
   return (
     <div className=''>
-    <div className=' p-[30px]  w-[350px] h-[calc(-111px_+_100vh)] overflow-y-scroll scrollbar-custom overflow-x-hidden snap-y'>
+    <div className=' p-[30px] border w-[350px] h-[calc(-111px_+_100vh)] overflow-y-scroll scrollbar-custom overflow-x-hidden snap-y'>
         <div className='w-[299px] h-[90px] mb-[30px] flex'>
             <div className='w-[90px] h-[90px] mr-[30px] text-center'>
                 <img className='rounded-full' src={proImg} alt='Profile-image'/></div>
