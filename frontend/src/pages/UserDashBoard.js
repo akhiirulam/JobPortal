@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DashBoard from '../components/UserDashBoard/DashBoard'
 import Navbar from "../components/Navbar/Navbar";
 
-class Employer extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div>
@@ -17,4 +17,4 @@ class Employer extends Component {
     }
 }
 
-export default Employer;
+export default Dashboard;

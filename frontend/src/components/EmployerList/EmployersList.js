@@ -52,10 +52,10 @@ const EmployerList = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex mt-[50px] flex-col h-screen">
       {/* Header */}
       <div className="flex justify-center bg-gray-100">
-        <span className="text-2xl flex items-center font-bold h-36" >Employers</span>
+        <span className="text-2xl flex items-center font-bold h-48" >Employers</span>
       </div>
 
       <div className="flex flex-1">

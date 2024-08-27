@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 import GraphComponent from "./GraphComponent";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faAddressBook,faUser, faFile,faBookmark,faComments,faHandshake} from '@fortawesome/free-regular-svg-icons'
+import {faBullhorn,faUserTie,faLock,faUserXmark,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
+import { NavLink } from 'react-router-dom';
+
 import {
   FaEye,
   FaCheck,
-  FaTachometerAlt,
-  FaUser,
-  FaFileAlt,
-  FaListUl,
+  
   FaStar,
   FaBriefcase,
-  FaBell,
-  FaEnvelope,
-  FaCalendarAlt,
-  FaLock,
-  FaTrashAlt,
-  FaSignOutAlt,
+  
   FaMapMarkerAlt,
   FaDollarSign,
 } from "react-icons/fa";
 import img1 from "../../public/member1.jpg";
 
-const NewPage = () => {
+const DashBoard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const stats = [
     { icon: FaBriefcase, label: "Applied Jobs", value: 5 },
@@ -28,6 +25,22 @@ const NewPage = () => {
     { icon: FaEye, label: "Views", value: 2408 },
     { icon: FaCheck, label: "Shortlisted", value: 3 },
   ];
+
+  const sideBarItems = [
+    {id:1, icon:faAddressBook, description:"User Dashboard",link:"/user"},
+    {id:2, icon:faUserTie, description:"Profile",link:"/profile"},
+    {id:3, icon:faFile, description:"My Resume",link:"/resume"},
+    {id:4, icon:faBullhorn, description:"My Applied",link:"/applied-jobs"},
+    {id:5, icon:faBookmark, description:"Shortlist Employee",link:"/shortlisted-jobs"},
+    {id:6, icon:faUser, description:"Following Employee",link:"/following-employee"},
+    {id:7, icon:faBullhorn, description:"Alert Jobs",link:"/alert-jobs"},
+    {id:8,icon:faComments, description:"Messages",link:"/messages"},
+    {id:9, icon:faHandshake, description:"Meetings",link:"/meetings"},
+    {id:10, icon:faLock, description:"Change Password",link:"/change-password"},
+    {id:11, icon:faUserXmark, description:"Delete Profile",link:"/delete-profile"},
+    {id:12, icon:faArrowRightFromBracket, description:"Logout",link:"/"}
+  
+  ]
 
   const notification = [{ icon: FaBriefcase, label: "Job Status" }];
   const toggleSidebar = () => {
@@ -38,7 +51,7 @@ const NewPage = () => {
     <div className="flex h-[calc(100vh-4rem)] overflow-hidden bg-gray-100 ">
       {/* Sidebar */}
       <div
-        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] overflow-y-auto bg-white text-gray-600 p-4 transition-transform duration-300 ease-in-out scrollbar-custom
+        className={`fixed top-[115px] left-0 h-[calc(100vh-4rem)] overflow-y-auto bg-white text-gray-600 p-4 transition-transform duration-300 ease-in-out scrollbar-custom
     ${isSidebarOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full"} 
     md:w-96 md:translate-x-0`}
       >
@@ -59,60 +72,21 @@ const NewPage = () => {
         </div>
         {/* User Dashboard */}
         <div className="flex flex-col space-y-2 p-4">
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaTachometerAlt className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">User Dashboard</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaUser className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Profile</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaFileAlt className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">My Resume</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaListUl className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">My Applied</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaStar className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Short Listed</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaBriefcase className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Following Employers</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaBell className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Alerts Jobs</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaEnvelope className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Messages</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaCalendarAlt className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Meetings</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaLock className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Change Password</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaTrashAlt className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Delete Profile</span>
-          </div>
-          <div className="flex items-center w-full hover:rounded-md hover:bg-blue-100 h-12">
-            <FaSignOutAlt className="text-blue-500 ml-4 text-xl" />
-            <span className="ml-4">Logout</span>
-          </div>
+        <ul className=''>
+                    {sideBarItems.map((item)=>(
+                    <NavLink to={item.link} activeClassName="active" ><li  key={item.id} className='mb-0.5 px-5 py-[13px] flex hover:text-[#1967D2] hover:bg-[#E8F0FA] text-[#696696] rounded-lg cursor-pointer'>
+                        <div className='mr-[15px] '><FontAwesomeIcon icon={item.icon} size="xl" /></div>
+                        <div>{item.description}</div>
+                    </li>
+                    </NavLink>
+                    ))}
+                </ul>
         </div>
       </div>
 
       {/* Main Content */}
       <div
-        className={`flex-1 p-4  ml-0 md:ml-96 overflow-y-auto transition-all duration-300 ease-in-out ${
+        className={`flex-1 p-4 mt-[50px] ml-0 md:ml-96 overflow-y-auto transition-all duration-300 ease-in-out ${
           isSidebarOpen ? "ml-64" : "ml-0"
         }`}
       >
@@ -124,7 +98,7 @@ const NewPage = () => {
             {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
           </button>
           {/* Main page Cards */}
-          <div>
+          <div className="">
             <div className="flex flex-wrap gap-4 p-4">
               {stats.map((stat, index) => (
                 <div
@@ -207,4 +181,4 @@ const NewPage = () => {
   );
 };
 
-export default NewPage;
+export default DashBoard;

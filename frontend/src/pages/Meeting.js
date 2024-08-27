@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import EmployersList from '../components/EmployerList/EmployersList';
 import Navbar from "../components/Navbar/Navbar";
+import Meeting from "../components/Meeting/Meeting"
 
-class Employerslist extends Component {
+class Meetings extends Component {
     render() {
         return (
             <div>
@@ -10,11 +10,11 @@ class Employerslist extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <EmployersList />
+                    <Meeting />
                 </div>
             </div>
         );
     }
 }
 
-export default Employerslist;
+export default Meetings;

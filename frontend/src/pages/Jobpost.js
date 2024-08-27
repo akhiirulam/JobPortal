@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Jobpost from '../components/employerJobPost/Jobpost';
+import JobPost from '../components/employerJobPost/Jobpost';
 import Navbar from "../components/Navbar/Navbar";
 
-class Employer extends Component {
+class Jobpost extends Component {
     render() {
         return (
             <div>
@@ -10,11 +10,11 @@ class Employer extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <Jobpost />
+                    <JobPost />
                 </div>
             </div>
         );
     }
 }
 
-export default Employer;
+export default Jobpost;

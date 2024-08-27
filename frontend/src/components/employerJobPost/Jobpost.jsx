@@ -107,8 +107,7 @@ const Jobpost = () => {
     if (selectedFile) {
       setFile(selectedFile);
       setStatus("uploading");
-
-      // Simulate file upload process
+      
       setTimeout(() => {
         if (Math.random() > 0.5) {
           setStatus("uploaded");
@@ -158,7 +157,7 @@ const Jobpost = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      // Handle network error
+      
     }
   };
 

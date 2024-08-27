@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import EmployersList from '../components/EmployerList/EmployersList';
+
+import ShortListJobs from "../components/ShortlistJobs/ShortList"
 import Navbar from "../components/Navbar/Navbar";
 
-class Employerslist extends Component {
+class ShortListjobs extends Component {
     render() {
         return (
             <div>
@@ -10,11 +11,11 @@ class Employerslist extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <EmployersList />
+                    <ShortListJobs />
                 </div>
             </div>
         );
     }
 }
 
-export default Employerslist;
+export default ShortListjobs;
