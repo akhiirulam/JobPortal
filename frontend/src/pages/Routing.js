@@ -10,6 +10,10 @@ import ShortListjobs from './ShortListjob';
 import Meeting from "./Meeting";
 import EmpDashBoard from "./EmpDashboard";
 import Jobpost from "./Jobpost";
+import CandidateAppliedJobs from "../components/candidateAppliedJobs/CandidateAppliedJobs";
+import EmployerCandidateAlert from "../components/employerCandidateAlerts/EmployerCandidateAlert";
+import ChangePassword from "../components/changePassword/ChangePassword";
+import DeleteProfile from "../components/deleteProfile/DeleteProfile";
 
 function Landing() {
   return (
@@ -25,6 +29,10 @@ function Landing() {
         <Route path="/meetings" element= {< Meeting/>} />
         <Route path="/empDashBoard" element={< EmpDashBoard/>} />
         <Route path="/jobPost" element={< Jobpost/>} />
+        <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobs/>} />
+        <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlert/>} />
+        <Route path="/change-password" element={<ChangePassword/>} />
+        <Route path="/delete-profile" element={<DeleteProfile/>} />
       </Routes>
     </Router>
   );
