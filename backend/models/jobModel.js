@@ -122,8 +122,6 @@ const jobSchema = new Schema({
             ref: 'User',
         },
     ],
-            type: Schema.ObjectId,
-            ref: 'User',
         }, 
         
         { timestamps: true });
