@@ -27,7 +27,7 @@ const sideBarItems = [
 const SideBar = () => {
   return (
     <div className=''>
-    <div className=' p-[30px] border w-[350px] h-[calc(-111px_+_100vh)] overflow-y-scroll scrollbar-custom overflow-x-hidden snap-y'>
+    <div className=' p-[30px] border w-[350px] h-[calc(-111px_+_100vh)] hover:overflow-y-scroll scrollbar-custom overflow-x-hidden snap-y'>
         <div className='w-[299px] h-[90px] mb-[30px] flex'>
             <div className='w-[90px] h-[90px] mr-[30px] text-center'>
                 <img className='rounded-full' src={proImg} alt='Profile-image'/></div>

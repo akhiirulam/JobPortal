@@ -5,13 +5,15 @@ import SideBar from '../sideBar/SideBar';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
+import {  FaEye, FaTimes } from "react-icons/fa";
+
 const CandidateAppliedJobs = () => {
   return (
     <div>
         <Navbar/>
         <div className='flex'>
         <SideBar/>
-        <div className='w-full px-[15px] h-screen bg-[#F5F7FC]'>
+        <div className='w-full px-[15px] h-[calc(-111px_+_100vh)] bg-[#F5F7FC]'>
           <div className='p-[60px]'>
             <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Applied Jobs</h3>
             <div className='bg-white border p-[30px] mb-[30px] rounded '>
@@ -38,6 +40,93 @@ const CandidateAppliedJobs = () => {
                   
                 </div>
               </div>
+
+              <div>
+              <table className="min-w-full bg-white mb-[26px]">
+                <thead className='h-[68px] bg-[#F5F7FC]'>
+                  <tr className=" text-[#1967D2]">
+                    <th className="px-4 py-2 text-left font-semibold ">
+                      Job Title
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold ">
+                      Date Applied
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold ">
+                      Status
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold ">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b hover:bg-gray-50 ">
+                    <td className="px-4 py-2">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 sm:w-24 sm:h-24">
+                          <a href="#">
+                            <img
+                              src=''
+                              alt="Description of image"
+                              className="rounded-full object-cover w-full h-full"
+                            />
+                          </a>
+                        </div>
+                        <div>
+                          <h2 className="text-sm sm:text-lg font-semibold">
+                            <a
+                              href="#"
+                              className="text-blue-600 hover:underline"
+                            >
+                              Product Designer
+                            </a>
+                          </h2>
+                          <div className="text-xs sm:text-sm text-gray-600">
+                            <div className="flex items-center space-x-2">
+                              <i className="flaticon-briefcase-1"></i>
+                              <a href="#">Accounting / Finance</a>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <i className="flaticon-location"></i>
+                              <a href="#">New York</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-2 text-xs sm:text-sm text-gray-600">
+                      March 29, 2021
+                    </td>
+                    <td className="px-4 py-2 text-xs sm:text-sm text-[#F6BF4E]">
+                      Pending
+                    </td>
+                    <td className="px-4 py-2">
+                      <div className="flex space-x-2">
+                        <button
+                          className="text-red-600 hover:text-red-800"
+                          data-job_id="1044"
+                          data-nonce="ddc42e1639"
+                          data-toggle="tooltip"
+                          title="Remove"
+                        >
+                          <FaTimes />
+                        </button>
+                        <a
+                          href="#"
+                          className="text-blue-600 hover:text-blue-800"
+                          data-toggle="tooltip"
+                          title="View Job"
+                        >
+                          <FaEye />
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+
+
             </div>
           </div>
         </div>
