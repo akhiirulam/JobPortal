@@ -5,16 +5,16 @@ import SideBar from '../sideBar/SideBar';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
-const CandidateAppliedJobs = () => {
+const EmployerCandidateAlert = () => {
   return (
-    <div>
-        <Navbar/>
-        <div className='flex'>
+    <>
+    <Navbar/>
+    <div className='flex'>
         <SideBar/>
         <div className='w-full px-[15px] h-screen bg-[#F5F7FC]'>
           <div className='p-[60px]'>
-            <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Applied Jobs</h3>
-            <div className='bg-white border p-[30px] mb-[30px] rounded '>
+            <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Candidate Alerts</h3>
+            <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
               <div className='w-full h-[47px] mb-[30px] flex w-[1383px] justify-between '>
                 <div className=''>
                   <form className=' bg-[#F0F5F7] w-[199px] flex w-fit rounded-lg'>
@@ -38,16 +38,13 @@ const CandidateAppliedJobs = () => {
                   
                 </div>
               </div>
+              <span className='text-[#54595F] leading-7 font-normal font-[15px]'>No candidate alert found</span>
             </div>
           </div>
         </div>
-        </div>
-        
-        
-        
-        
-</div>
-  );
+    </div>
+    </>
+  ) 
 }
 
-export default CandidateAppliedJobs;
+export default EmployerCandidateAlert;
