@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GraphComponent from "./GraphComponent";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faAddressBook,faUser, faFile,faBookmark,faComments,faHandshake} from '@fortawesome/free-regular-svg-icons'
-import {faBullhorn,faUserTie,faLock,faUserXmark,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
+import {faBullhorn,faBoxesPacking,faUserTie,faLock,faUserXmark,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom';
 
 import {
@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 import img1 from "../../public/member1.jpg";
 
-const DashBoard = () => {
+const EmpDashBoard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const stats = [
     { icon: FaBriefcase, label: "Applied Jobs", value: 5 },
@@ -29,17 +29,17 @@ const DashBoard = () => {
   const sideBarItems = [
     {id:1, icon:faAddressBook, description:"User Dashboard",link:"/user"},
     {id:2, icon:faUserTie, description:"Profile",link:"/profile"},
-    {id:3, icon:faFile, description:"My Resume",link:"/resume"},
-    {id:4, icon:faBullhorn, description:"My Applied",link:"/applied-jobs"},
-    {id:5, icon:faBookmark, description:"Shortlist Employee",link:"/shortlisted-jobs"},
-    {id:6, icon:faUser, description:"Following Employee",link:"/following-employee"},
-    {id:7, icon:faBullhorn, description:"Alert Jobs",link:"/alert-jobs"},
-    {id:8,icon:faComments, description:"Messages",link:"/messages"},
-    {id:9, icon:faHandshake, description:"Meetings",link:"/meetings"},
-    {id:10, icon:faLock, description:"Change Password",link:"/change-password"},
-    {id:11, icon:faUserXmark, description:"Delete Profile",link:"/delete-profile"},
-    {id:12, icon:faArrowRightFromBracket, description:"Logout",link:"/"}
-  
+    {id:3, icon:faFile, description:"My Jobs",link:"/myJobs"},
+    {id:4, icon:faBullhorn, description:"Submit Job",link:"/applied-jobs"},
+    {id:5, icon:faBookmark, description:"Applicants Jobs",link:"/shortlisted-jobs"},
+    {id:6, icon:faUser, description:"Shortlist Candidates",link:"/following-employee"},
+    {id:7, icon:faBullhorn, description:"Candidate Alerts ",link:"/alert-jobs"},
+    {id:8, icon:faBoxesPacking, description:"Packages",link:"/messages"},
+    {id:9, icon:faComments, description:"Messages",link:"/messages"},
+    {id:10, icon:faHandshake, description:"Meetings",link:"/meetings"},
+    {id:11, icon:faLock, description:"Change Password",link:"/change-password"},
+    {id:12, icon:faUserXmark, description:"Delete Profile",link:"/delete-profile"},
+    {id:13, icon:faArrowRightFromBracket, description:"Logout",link:"/"}
   ]
 
   const notification = [{ icon: FaBriefcase, label: "Job Status" }];
@@ -181,4 +181,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default EmpDashBoard;

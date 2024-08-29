@@ -1,12 +1,12 @@
 import React from "react";
-import Joblist1 from "./Joblist1";
+import SideBar from "./SideBar";
 import JobCard from "./JobCard";
 import Record from "./record.json";
 
 const Mainjob = () => {
   return (
-    <>
-      <div className="w-full h-32 flex items-center justify-center bg-gray-200">
+    <div>
+      <div className="w-full mt-12 h-32 flex items-center justify-center bg-gray-200">
         <div className="text-center">
           <h1 className="text-xl font-bold mb-1 text-black">jobList</h1>
           <p className="text-sm text-black">JobPath</p>
@@ -14,7 +14,7 @@ const Mainjob = () => {
       </div>
       <div className="flex flex-col md:flex-row p-4">
         <div className="flex-none w-full md:w-1/4 lg:w-1/5 mb-4 md:mb-0">
-          <Joblist1 />
+          <SideBar />
         </div>
 
         <div className="flex-auto w-full md:w-3/4 lg:w-4/5">
@@ -42,7 +42,7 @@ const Mainjob = () => {
           </section>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ import EmployerList from "./EmployerList";
 import DashBoard from './UserDashBoard';
 import ShortListjobs from './ShortListjob';
 import Meeting from "./Meeting";
+import EmpDashBoard from "./EmpDashboard";
 
 function Landing() {
   return (
@@ -21,6 +22,7 @@ function Landing() {
         <Route path="/dashBoard" element = {<DashBoard/>} />
         <Route path="/shortlistjobs" element = {<ShortListjobs/>} />
         <Route path="/meetings" element= {< Meeting/>} />
+        <Route path="/empDashBoard" element={< EmpDashBoard/>} />
       </Routes>
     </Router>
   );

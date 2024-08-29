@@ -30,7 +30,7 @@ export default function App() {
     twoYears: false,
     threeYears: false,
     fourYears: false,
-    fiveYears: false
+    fiveYears: false,
   });
 
   const handleCheckboxChange = (level) => () => {
@@ -115,7 +115,8 @@ export default function App() {
                 className="text-sky-500"
               />
               <span>Last Hour</span>
-            </label> <label className="flex items-center space-x-2">
+            </label>{" "}
+            <label className="flex items-center space-x-2">
               <input
                 type="radio"
                 name="dateposted"
@@ -236,7 +237,6 @@ export default function App() {
               <option value="fortnightly">Fortnightly</option>
               <option value="monthly">Monthly</option>
               <option value="Biannually">Biannually</option>
-              
             </select>
           </div>
           <button className=" p-2 rounded bg-sky-500 text-white border border-sky-600 hover:bg-white hover:text-sky-600 hover:border border-sky-600 w-full">
@@ -244,7 +244,6 @@ export default function App() {
           </button>
         </div>
       </div>
-
     </div>
   );
 }
