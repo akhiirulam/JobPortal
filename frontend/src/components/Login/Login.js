@@ -28,7 +28,11 @@ const Login = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         toast.success("Login successful");
+<<<<<<< HEAD
         navigate('/dashBoard');
+=======
+        navigate('/employer');
+>>>>>>> origin/doneByBasil
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
@@ -78,7 +82,11 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <a
+<<<<<<< HEAD
                 href="/"
+=======
+                href="#"
+>>>>>>> origin/doneByBasil
                 className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2"
               >
                 Forget Password?
@@ -91,7 +99,11 @@ const Login = () => {
             </div>
           </form>
           <a
+<<<<<<< HEAD
             href="/"
+=======
+            href="#"
+>>>>>>> origin/doneByBasil
             className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
           >
             <div className="flex px-5 justify-center w-full py-3">
@@ -124,7 +136,11 @@ const Login = () => {
           </a>
           <div className="mt-4 flex items-center w-full text-center">
             <a
+<<<<<<< HEAD
               href="/"
+=======
+              href="#"
+>>>>>>> origin/doneByBasil
               className="text-xs text-gray-500 capitalize text-center w-full"
             >
               Don&apos;t have any account yet?

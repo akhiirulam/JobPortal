@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
 const jobSchema = new Schema({
     featuredImage: {
         type: String,
@@ -11,9 +12,11 @@ const jobSchema = new Schema({
     title: {
         type: String,
         required: true,
+        required: true,
     },
     description: {
         type: String,
+        required: true,
         required: true,
     },
     category: {
@@ -36,12 +39,14 @@ const jobSchema = new Schema({
     jobApplyType: {
         type: String,
         required: true,
+        required: true,
     },
     externalURLforApply: {
         type: String,
     },
     jobApplyEmail: {
         type: String,
+        required: true,
         required: true,
     },
     salaryType: {
@@ -50,6 +55,7 @@ const jobSchema = new Schema({
     },
     minSalary: {
         type: String,
+        required: true,
         required: true,
     },
     maxSalary: {
@@ -93,7 +99,19 @@ const jobSchema = new Schema({
             required: true,
         },
     },
+    location: {
+        type: {
+            type: String,  // This will always be 'Point'
+            enum: ['Point'],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],  // Array of numbers: [longitude, latitude]
+            required: true,
+        },
+    },
     preferredSkills: [
+    
         {
             type: String,
         },
@@ -104,8 +122,13 @@ const jobSchema = new Schema({
             ref: 'User',
         },
     ],
-}, { timestamps: true });
+            type: Schema.ObjectId,
+            ref: 'User',
+        }, 
+        
+        { timestamps: true });
 
 const Job = mongoose.model('Job', jobSchema);
 
 module.exports = Job;
+

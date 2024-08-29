@@ -5,7 +5,10 @@ import { GoBell } from "react-icons/go";
 import { FaFacebookF, FaTwitter, FaChevronRight, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import Login from "../Login/Login"; // Import the Login component
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/doneByBasil
 
 class Navbar extends Component {
   
@@ -48,16 +51,23 @@ class Navbar extends Component {
     }));
   }
 
+<<<<<<< HEAD
   handleEmployer(){
     
     <Link to='/employerList'></Link>
   }
 
+=======
+>>>>>>> origin/doneByBasil
   render() {
     return (
       <div>
         {/* Navbar */}
+<<<<<<< HEAD
         <div className="w-screen h-[111px] flex justify-between items-center bg-gradient-to-r from-custom-light to-custom-dark p-2 md:px-4 lg:px-8 relative z-20">
+=======
+        <div className="fixed top-0 w-screen h-[111px] flex justify-between items-center bg-gradient-to-r from-custom-light to-custom-dark p-2 md:px-4 lg:px-8 relative z-20">
+>>>>>>> origin/doneByBasil
           <div className="flex items-center space-x-4 md:space-x-8 ml-4 md:ml-8">
             <h1 className="text-xl md:text-2xl font-bold">Logo</h1>
           </div>
@@ -69,8 +79,13 @@ class Navbar extends Component {
           </button>
           <div className="hidden lg:flex space-x-8 ml-8">
             <Link to='/'><span>Home</span></Link>
+<<<<<<< HEAD
             <Link to='/mainJobList'><span>Find Jobs</span></Link>
             <Link to='/employerList'><span>Employers</span></Link>
+=======
+            <JobNavDrop />
+            <Link to=''><span>Employers</span></Link>
+>>>>>>> origin/doneByBasil
             <Link to=''><span>Candidates</span></Link>
             <Link to=''><span>Blog</span></Link>
             <Link to=''><span>Pages</span></Link>
