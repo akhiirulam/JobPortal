@@ -7,49 +7,113 @@ const User = require("../models/userModel");
 
 const userProfileController = {
   addProfile: asyncHandler(async (req, res) => {
-    const { email } = req.cookies;
-    if (!email) {
-      return res.status(400).send("Email not found in cookies.");
-    }
+    // const { email } = req.cookies;
+    // if (!email) {
+    //   return res.status(400).send("Email not found in cookies.");
+    // }
+
+    const email = "test1@example.com"
+
+
     const {
+      fullName,
+      DOB,
+      gender,
       mobile,
-      location,
+      educationalQualification,
+      yearsOfExperience,
+      languages,
+      salaryType,
+      salary,
+      categories,
+      showMyProfile,
+      jobTitle,
+      description,
+      socialNetwork,
       role,
       companyName,
       designation,
-      DOB,
-      gender,
-      educationalQualification,
-      languages,
-      experience,
-      bio,
-      foundYear,
-      companySize,
+      friendlyAddress,
+      location,
+      introductionVideo,
+      educationalHistory,
+      collegeName,
+      degreeName,
+      educationDescription,
+      startDate,
+      endDate,
+      previousDesignation,
+      previousStartingDate,
+      previousEndDate,
+      previousCompanyName,
+      reasonForQuit,
+      portfolio,
+      award
     } = req.body;
 
+    const profileImage = req.files?.profileImage ? req.files.profileImage[0].path : null;
+    const resumePdf = req.files?.resumePdf ? req.files.resumePdf[0].path : null;
+    const portfolioImgs = req.files?.portfolioImgs ? req.files.portfolioImgs.map(file => file.path) : [];
+
+    const coordinates = Array.isArray(location?.coordinates) 
+        ? location.coordinates.map(coord => parseFloat(coord))
+        : [0, 0];
+
     const newUserData = {
-      mobile: JSON.parse(mobile),
-      location: JSON.parse(location),
-      role: JSON.parse(role),
-      companyName: JSON.parse(companyName),
-      designation: JSON.parse(designation),
-      DOB: JSON.parse(DOB),
-      gender: JSON.parse(gender),
-      educationalQualification: JSON.parse(educationalQualification),
-      languages: JSON.parse(languages),
-      experience: JSON.parse(experience),
-      bio: JSON.parse(bio),
-      foundYear: JSON.parse(foundYear),
-      companySize: JSON.parse(companySize),
+      profileImg: profileImage,
+      name: fullName,
+      DOB,
+      gender,
+      mobile,
+      email :'test1@example.com',
+      educationalQualification,
+      experience: yearsOfExperience,
+      languages,
+      salaryType,
+      salary,
+      categories,
+      showMyProfile,
+      jobTitle,
+      description,
+      socialNetwork,
+      role,
+      companyName,
+      designation,
+      friendlyAddress,
+      location: {
+        type: 'Point',
+        coordinates
+      },
+      introductionVideo,
+      resume: resumePdf ? [resumePdf] : [],
+      educationalHistory: [{
+        collegeName,
+        degreeName,
+        educationDescription,
+        startDate,
+        endDate
+      }],
+      previousWorkHistory: [{
+        previousDesignation,
+        previousCompanyName,
+        reasonForQuit,
+        previousStartingDate,
+        previousEndDate
+      }],
+      portfolioImgs,
+      profileVideo: introductionVideo,
+      awards: award ? [award] : []
     };
+
+    console.log(newUserData)
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).send("User not found.");
     }
 
-    await User.updateOne({ email }, { $set: newUserData }).then(() => {
-      res.status(200).send("User information registered successfully.");
-    });
+    await User.updateOne({ email }, { $set: newUserData });
+    res.status(200).send("User information registered successfully.");
   }),
 
   viewUserProfile: asyncHandler(async (req, res) => {

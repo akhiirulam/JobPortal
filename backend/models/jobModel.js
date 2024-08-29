@@ -3,14 +3,7 @@ const { Schema } = mongoose;
 
 const jobSchema = new Schema({
     featuredImage: {
-        filename: String,
-        contentType: String,
-        length: Number,
-        chunkSize: Number,
-        uploadDate: Date,
-        aliases: [String],
-        metadata: Schema.Types.Mixed,
-        md5: String,
+        type: String,
     },
     company: {
         type: String,
@@ -78,16 +71,11 @@ const jobSchema = new Schema({
     introVideoURL: {
         type: String,
     },
-    photos: {
-        filename: String,
-        contentType: String,
-        length: Number,
-        chunkSize: Number,
-        uploadDate: Date,
-        aliases: [String],
-        metadata: Schema.Types.Mixed,
-        md5: String,
-    },
+    photos: [
+        {
+            type: String,
+        },
+    ],
     applicationDeadlineDate: {
         type: Date,  // Changed to Date type for better handling of dates
     },
