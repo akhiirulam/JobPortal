@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
-import SideBar from '../sideBar/SideBar';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
@@ -9,10 +7,7 @@ import {  FaEye, FaTimes } from "react-icons/fa";
 
 const CandidateAppliedJobs = () => {
   return (
-    <div>
-        <Navbar/>
-        <div className='flex'>
-        <SideBar/>
+    
         <div className='w-full px-[15px] h-[calc(-111px_+_100vh)] bg-[#F5F7FC]'>
           <div className='p-[60px]'>
             <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Applied Jobs</h3>
@@ -130,12 +125,6 @@ const CandidateAppliedJobs = () => {
             </div>
           </div>
         </div>
-        </div>
-        
-        
-        
-        
-</div>
   );
 }
 

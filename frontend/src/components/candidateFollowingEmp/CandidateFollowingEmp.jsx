@@ -7,10 +7,6 @@ import {faMagnifyingGlass,faSuitcase, faLocationDot} from '@fortawesome/free-sol
 
 const CandidateFollowingEmp = () => {
   return (
-    <div>
-        <Navbar/>
-        <div className='flex'>
-        <SideBar/>
         <div className='w-full px-[15px] h-[calc(-111px_+_100vh)] bg-[#F5F7FC]'>
           <div className='p-[60px]'>
             <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Applied Jobs</h3>
@@ -67,8 +63,7 @@ const CandidateFollowingEmp = () => {
               </div>
               </div>
               </div>
-              </div>
-              </div>
+              
 
   );
 }
