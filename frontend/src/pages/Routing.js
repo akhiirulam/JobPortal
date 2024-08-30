@@ -14,6 +14,7 @@ import CandidateAppliedJobs from "../components/candidateAppliedJobs/CandidateAp
 import EmployerCandidateAlert from "../components/employerCandidateAlerts/EmployerCandidateAlert";
 import ChangePassword from "../components/changePassword/ChangePassword";
 import DeleteProfile from "../components/deleteProfile/DeleteProfile";
+import CandidateFollowingEmp from "../components/candidateFollowingEmp/CandidateFollowingEmp";
 
 function Landing() {
   return (
@@ -30,6 +31,7 @@ function Landing() {
         <Route path="/empDashBoard" element={< EmpDashBoard/>} />
         <Route path="/jobPost" element={< Jobpost/>} />
         <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobs/>} />
+        <Route path="/candidate/following-employers" element={<CandidateFollowingEmp/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlert/>} />
         <Route path="/change-password" element={<ChangePassword/>} />
         <Route path="/delete-profile" element={<DeleteProfile/>} />
