@@ -12,10 +12,7 @@ const DeleteProfile = () => {
     const [togglePassword,setTogglePassword] = useState(false)
 
   return (
-    <>
-    <Navbar/>
-    <div className='flex'>
-        <SideBar/>
+    
         <div className='w-full px-[15px] h-[calc(-111px_+_100vh)]  bg-[#F5F7FC]'>
           <div className='p-[60px]'>
           <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Delete Profile </h3>
@@ -42,8 +39,6 @@ const DeleteProfile = () => {
           </div>
           </div>
           </div>
-          </div>
-    </>
   );
 }
 

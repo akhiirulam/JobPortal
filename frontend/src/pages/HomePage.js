@@ -28,11 +28,14 @@ const HomePage = () => {
           <FindJob />
           <Counts />
         </div>
-        <NewsArticles />
+        <NewsArticles />   
+        <div className="container mx-auto md:w-[1320px]">
         <AppDownload />
-       < RecruitingBanner />
-       <Footer />
-       <BottomFooter/>
+        < RecruitingBanner />
+        <Footer />
+        <BottomFooter/>
+        </div>
+       
 
       </div>
     </div>

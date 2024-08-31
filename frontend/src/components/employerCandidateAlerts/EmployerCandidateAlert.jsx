@@ -1,16 +1,11 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
-import SideBar from '../sideBar/SideBar';
+
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
 const EmployerCandidateAlert = () => {
   return (
-    <>
-    <Navbar/>
-    <div className='flex'>
-        <SideBar/>
         <div className='w-full px-[15px] h-screen bg-[#F5F7FC]'>
           <div className='p-[60px]'>
             <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Candidate Alerts</h3>
@@ -42,8 +37,6 @@ const EmployerCandidateAlert = () => {
             </div>
           </div>
         </div>
-    </div>
-    </>
   ) 
 }
 
