@@ -175,7 +175,7 @@ const ShortList = () => {
                     <ul className="py-1">
                       <li>
                         <a
-                          href="#"
+                          href="/"
                           className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                           Option 1
@@ -183,7 +183,7 @@ const ShortList = () => {
                       </li>
                       <li>
                         <a
-                          href="#"
+                          href="/"
                           className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                           Option 2
@@ -191,7 +191,7 @@ const ShortList = () => {
                       </li>
                       <li>
                         <a
-                          href="#"
+                          href="/"
                           className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                           Option 3
@@ -224,10 +224,10 @@ const ShortList = () => {
                     <td className="px-4 py-2">
                       <div className="flex items-center space-x-4">
                         <div className="w-16 h-16 sm:w-24 sm:h-24">
-                          <a href="#">
+                          <a href="/">
                             <img
                               src={img1}
-                              alt="Description of image"
+                              alt="Descriptionofimage"
                               className="rounded-full object-cover w-full h-full"
                             />
                           </a>
@@ -235,7 +235,7 @@ const ShortList = () => {
                         <div>
                           <h2 className="text-sm sm:text-lg font-semibold">
                             <a
-                              href="#"
+                              href="/"
                               className="text-blue-600 hover:underline"
                             >
                               Product Designer
@@ -244,11 +244,11 @@ const ShortList = () => {
                           <div className="text-xs sm:text-sm text-gray-600">
                             <div className="flex items-center space-x-2">
                               <i className="flaticon-briefcase-1"></i>
-                              <a href="#">Accounting / Finance</a>
+                              <a href="/">Accounting / Finance</a>
                             </div>
                             <div className="flex items-center space-x-2">
                               <i className="flaticon-location"></i>
-                              <a href="#">New York</a>
+                              <a href="/">New York</a>
                             </div>
                           </div>
                         </div>
@@ -269,7 +269,7 @@ const ShortList = () => {
                           <FaTimes />
                         </button>
                         <a
-                          href="#"
+                          href="/"
                           className="text-blue-600 hover:text-blue-800"
                           data-toggle="tooltip"
                           title="View Job"

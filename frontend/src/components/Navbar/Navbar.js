@@ -82,8 +82,8 @@ class Navbar extends Component {
               >
                 Login / Register
               </button>
-              <button className="bg-blue-600 h-[40px] w-[120px] text-sm border rounded-md  text-white">
-                Job Portal
+              <button className="bg-blue-600 h-[40px] w-[120px] text-sm border rounded-md ">
+                <Link to= '/jobPost'> <span className="text-white">Job Portal</span> </Link>
               </button>
             </div>
             <GoBell className="h-[25px] w-[25px] mr-6 sm:mr-12" />

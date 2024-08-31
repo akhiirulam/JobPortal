@@ -116,7 +116,7 @@ const Login = () => {
                 </svg>
               </div>
               <div className="flex w-full justify-center">
-                <h1 className="whitespace-nowrap text-gray-600 font-bold">
+                <h1 className="whitespace-nowrap text-sm text-gray-600 font-bold">
                   Sign in with Google
                 </h1>
               </div>

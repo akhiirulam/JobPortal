@@ -28,6 +28,8 @@ const jobController = {
       address,
     } = req.body;
 
+
+    
     try {
       // Validate required fields
       if (
@@ -93,6 +95,8 @@ const jobController = {
         photos,
       });
 
+      console.log("hello");
+
       // Save the new job to the database
       const job = await newJob.save();
 
@@ -142,15 +146,60 @@ const jobController = {
     });
   }),
 
-  //list jobs
-  listJobs: asyncHandler(async (req, res) => {
+   //list jobs
+   listJobs: asyncHandler(async (req, res) => {
     const jobs = await Job.find();
     if (!jobs) {
-      res.status(404);
-      throw new Error("No jobs found");
+        res.status(404);
+        throw new Error('No jobs found');
     }
     res.json(jobs);
-  }),
+}),
+
+//filtering jobs
+
+filterJobs: asyncHandler(async(req,res)=>{
+    
+
+const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query
+
+let filter = {};
+
+if (tags) {
+    filter.tags = { $all: tags }; // Match all tags
+}
+if (location) {
+    filter.location = location;
+}
+if (jobType) {
+    filter.type = jobType;
+}
+if (datePosted) {
+    const lastDay = new Date();
+    lastDay.setDate(lastDay.getDate() - datePosted);
+    filter.updatedAt = { $gte: lastDay };
+}
+if (experienceLevel) {
+    filter.experienceLevel = { $in: experienceLevel }
+}
+if (careerLevel) {
+    filter.careerLevel =  { $in: careerLevel } 
+}
+if (salaryRange) {
+     const [minSalary, maxSalary] = salaryRange.split('-');
+     filter.minSalary = { $gte: parseInt(minSalary)};
+     filter.maxSalary = { $lte: parseInt(maxSalary)};
+  } 
+  console.log(filter);
+  
+     
+
+  const jobs = await Job.find(filter);
+
+  res.send(jobs)
+
+})
 };
+
 
 module.exports = jobController;
