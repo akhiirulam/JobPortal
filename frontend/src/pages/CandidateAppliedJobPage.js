@@ -8,8 +8,9 @@ const CandidateAppliedJobPage = () => {
     <div>
         <Navbar/>
         <div className='flex'>
-        <SideBar/>
+          <SideBar/>
         <CandidateAppliedJobs/>
+        
     </div>
     </div>
   );

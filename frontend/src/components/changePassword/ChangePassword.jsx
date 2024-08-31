@@ -15,11 +15,11 @@ const ChangePassword = () => {
   return (
     
         <div className='w-full px-[15px] h-[calc(-111px_+_100vh)]  bg-[#F5F7FC]'>
-          <div className='p-[60px]'>
+          <div className='md:p-[60px]'>
           <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Change Password </h3>
           <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
             <form>
-                <div className='w-[50%] mb-[30px]'>
+                <div className='xl:w-[50%] mb-[30px]'>
                 <div className='mb-2.5'><label  for='old-password'>Old password</label></div>
                 <div className='flex justify-between items-center'>
                 <input
@@ -31,7 +31,7 @@ const ChangePassword = () => {
                 {toggleOPassword?<FontAwesomeIcon icon={faEye}/> : <FontAwesomeIcon icon={faEyeSlash}/>}</div>
                 </div>
                 </div>
-                <div className='w-[50%] mb-[30px]'>
+                <div className='xl:w-[50%] mb-[30px]'>
                 <div className='mb-2.5'><label  for='old-password'>New password</label></div>
                 <div className='flex justify-between items-center'>
                 <input
@@ -43,7 +43,7 @@ const ChangePassword = () => {
                     {toggleNPassword?<FontAwesomeIcon icon={faEye}/> : <FontAwesomeIcon icon={faEyeSlash}/>}</div>
                 </div>
                 </div>
-                <div className='w-[50%] mb-[30px]'>
+                <div className='xl:w-[50%] mb-[30px]'>
                 <div className='mb-2.5'><label  for='old-password'>Confirm new password</label></div>
                 <div className='flex justify-between items-center'>
                 <input

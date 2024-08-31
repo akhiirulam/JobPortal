@@ -6,8 +6,8 @@ import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
 const EmployerCandidateAlert = () => {
   return (
-        <div className='w-full px-[15px] h-screen bg-[#F5F7FC]'>
-          <div className='p-[60px]'>
+        <div className='w-full px-[15px] min-h-[calc(-111px_+_100vh)] bg-[#F5F7FC]'>
+          <div className='md:p-[60px]'>
             <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Candidate Alerts</h3>
             <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
               <div className='w-full h-[47px] mb-[30px] flex w-[1383px] justify-between '>
@@ -21,8 +21,8 @@ const EmployerCandidateAlert = () => {
                     />
                   </form>
                 </div>
-                <div className='self-center text-center w-[230px] h-[45px] flex '>
-                  <span className='font-normal self-center'>Sort By:</span>
+                <div className='self-center text-center md:w-[230px] h-[45px] flex justify-end'>
+                  <span className='hidden md:block font-normal self-center'>Sort By:</span>
                   <div className='pr-5 w-[148px] bg-[#F0F5F7] flex  rounded-lg'>
                   <select className='outline-blue-400 bg-transparent pr-[25px] h-[45px] px-5 self-center '>
                     <option>Default</option>

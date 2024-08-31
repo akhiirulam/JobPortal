@@ -14,7 +14,7 @@ const DeleteProfile = () => {
   return (
     
         <div className='w-full px-[15px] h-[calc(-111px_+_100vh)]  bg-[#F5F7FC]'>
-          <div className='p-[60px]'>
+          <div className='md:p-[60px]'>
           <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Delete Profile </h3>
           <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
             <div className='text-lg font-medium'>Are you sure! You want to delete your profile.</div>
