@@ -28,7 +28,7 @@ const Login = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         toast.success("Login successful");
-        navigate('/employer');
+        navigate('/dashBoard');
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
@@ -78,7 +78,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <a
-                href="#"
+                href="/"
                 className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2"
               >
                 Forget Password?
@@ -91,7 +91,7 @@ const Login = () => {
             </div>
           </form>
           <a
-            href="#"
+            href="/"
             className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
           >
             <div className="flex px-5 justify-center w-full py-3">
@@ -116,7 +116,7 @@ const Login = () => {
                 </svg>
               </div>
               <div className="flex w-full justify-center">
-                <h1 className="whitespace-nowrap text-gray-600 font-bold">
+                <h1 className="whitespace-nowrap text-sm text-gray-600 font-bold">
                   Sign in with Google
                 </h1>
               </div>
@@ -124,7 +124,7 @@ const Login = () => {
           </a>
           <div className="mt-4 flex items-center w-full text-center">
             <a
-              href="#"
+              href="/"
               className="text-xs text-gray-500 capitalize text-center w-full"
             >
               Don&apos;t have any account yet?

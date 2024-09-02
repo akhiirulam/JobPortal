@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
 import axios from "axios";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 
 const Jobpost = () => {
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] = useState(false)
-
-  const [file, setFile] = useState(null);
   const [status, setStatus] = useState("idle");
+  const [featuredImage, setFeaturedImage] = useState(null);
+  const [photos, setPhotos] = useState([]);
   // const [selectedOption, setSelectedOption] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [jobTitle, setJobTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [jobDescription, setJobDescription] = useState("");
-
   const [tag, setTag] = useState("");
   const [jobApplyEmail, setJobApplyEmail] = useState("");
   const [minSalary, setMinSalary] = useState("");
@@ -102,53 +101,63 @@ const Jobpost = () => {
     console.log(`Option selected:`, option);
   };
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setStatus("uploading");
-
-      // Simulate file upload process
-      setTimeout(() => {
-        if (Math.random() > 0.5) {
-          setStatus("uploaded");
-        } else {
-          setStatus("error");
-        }
-      }, 2000);
+  const handleFileChange = (event, type) => {
+    const files = event.target.files;
+    if (type === "featuredImage") {
+      setFeaturedImage(files[0]);
+    } else if (type === "photos") {
+      setPhotos(Array.from(files));
     }
+    setStatus("uploading");
+    setTimeout(() => {
+      setStatus(null);
+    }, 1000);
   };
 
-  const handleSaveAndPreview = async () => {
-    const formData = {
-      jobTitle,
-      companyName,
-      jobDescription,
-      featuredImage: file,
-      category: category?.value,
-      type: type?.value,
-      tag,
-      gender: gender?.value,
-      jobApplyType: jobApplyType?.value,
-      externalUrl,
-      jobApplyEmail,
-      salaryType: salaryType?.value,
-      minSalary,
-      maxSalary,
-      experience: experience?.value,
-      CareerType: CareerType?.value,
-      qualification: qualification?.value,
-      videoURL,
-      applicationDeadline,
-      address,
-      location,
-    };
+  const handleSaveAndPreview = async (event) => {
+    event.preventDefault();
 
-    console.log(formData);
+    const formData = new FormData();
+    formData.append("jobTitle", jobTitle);
+    formData.append("companyName", companyName);
+    formData.append("jobDescription", jobDescription);
+    formData.append("featuredImage", featuredImage);
+    formData.append("category", category?.value);
+    formData.append("type", type?.value);
+    formData.append("tag", tag);
+    formData.append("gender", gender?.value);
+    formData.append("jobApplyType", jobApplyType?.value);
+    formData.append("externalUrl", externalUrl);
+    formData.append("jobApplyEmail", jobApplyEmail);
+    formData.append("salaryType", salaryType?.value);
+    formData.append("minSalary", minSalary);
+    formData.append("maxSalary", maxSalary);
+    formData.append("experience", experience?.value);
+    formData.append("CareerType", CareerType?.value);
+    formData.append("qualification", qualification?.value);
+    formData.append("videoURL", videoURL);
+    photos.forEach((photo) => {
+      formData.append("photos", photo);
+    });
+    formData.append("applicationDeadline", applicationDeadline);
+    formData.append("address", address);
+    formData.append("location", location);
+
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
 
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:5000/api/v1/job/add', formData);
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/job/add",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setLoading(false);
 
       if (response.status === 201) {
@@ -157,20 +166,20 @@ const Jobpost = () => {
         toast.error("Failed to add job");
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error submitting form:", error);
-      // Handle network error
+      toast.error("Error submitting form");
     }
   };
 
-
-
   return (
-    <div className="flex fixed w-full  flex-col md:flex-row h-full">
+    <div className="flex mt-12  fixed w-full  flex-col md:flex-row h-full">
       {/* Sidebar */}
 
       <div
-        className={`fixed  md:mb-32 left-0 h-full border bg-blue-200 p-4 transition-transform transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } overflow-auto h-screen md:w-72 md:relative md:translate-x-0`}
+        className={`fixed  md:mb-32 left-0 h-full border bg-blue-200 p-4 transition-transform transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } overflow-auto h-screen md:w-72 md:relative md:translate-x-0`}
         style={{ zIndex: 1000 }}
       >
         <button
@@ -190,9 +199,7 @@ const Jobpost = () => {
           <input
             id="Test1"
             type="text"
-
             className="bg-gray-100 h-8 p-4 mt-1 block w-full"
-
           />
 
           {/* Add more content if needed */}
@@ -201,8 +208,9 @@ const Jobpost = () => {
 
       {/* Main Content */}
       <div
-        className={`flex-1 border overflow-auto h-full mb-12 bg-gray-200 p-4 transition-all duration-300 ${isSidebarOpen ? "ml-24 md:ml-48" : "ml-0"
-          }`}
+        className={`flex-1 border overflow-auto h-full mb-12 bg-gray-200 p-4 transition-all duration-300 ${
+          isSidebarOpen ? "ml-24 md:ml-48" : "ml-0"
+        }`}
       >
         {/* Show Open Sidebar button only on mobile view */}
         {!isSidebarOpen && (
@@ -227,28 +235,21 @@ const Jobpost = () => {
           >
             Featured Image *
           </label>
-
           <label
-            htmlFor="file-upload"
-            className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded  flex justify-center items-center"
+            htmlFor="featuredImage" // Ensure this matches the input id
+            className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded flex justify-center items-center"
           >
             {status === "uploading" ? "Uploading..." : "Browse"}
           </label>
           <input
-            id="file-upload"
+            id="featuredImage" // Match this id with the label's htmlFor
             type="file"
             className="hidden"
-            onChange={handleFileChange}
+            onChange={(e) => handleFileChange(e, "featuredImage")}
           />
-          {file && (
+          {featuredImage && (
             <div className="mt-2 text-sm text-gray-800">
-              Selected File: {file.name}
-            </div>
-          )}
-
-          {status === "error" && (
-            <div className="mt-2 text-sm text-red-600">
-              Error uploading file. Please try again.
+              Selected File: {featuredImage.name}
             </div>
           )}
 
@@ -406,20 +407,23 @@ const Jobpost = () => {
                 Photos *
               </label>
               <label
-                htmlFor="file-upload"
+                htmlFor="photos-upload"
                 className="mt-4 w-36 h-10 cursor-pointer bg-gray-100 hover:bg-blue-50 text-blue-500 font-normal py-2 px-4 rounded flex justify-center items-center"
               >
                 {status === "uploading" ? "Uploading..." : "Browse"}
               </label>
               <input
-                id="file-upload"
+                id="photos-upload"
                 type="file"
                 className="hidden"
-                onChange={handleFileChange}
+                multiple // Allow multiple files
+                onChange={(e) => handleFileChange(e, "photos")}
               />
-              {file && (
+              {photos.length > 0 && (
                 <div className="mt-2 text-sm text-gray-800">
-                  Selected File: {file.name}
+                  {photos.map((photo, index) => (
+                    <div key={index}>Selected File: {photo.name}</div>
+                  ))}
                 </div>
               )}
 
@@ -499,7 +503,6 @@ const Jobpost = () => {
                 className="bg-gray-100 h-10 p-4 mt-1 block w-full"
                 value={maxSalary}
                 onChange={(e) => setMaxSalary(e.target.value)}
-
               />
 
               <label
@@ -573,8 +576,11 @@ const Jobpost = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <button disabled={loading} className="bg-button-clr w-36 mb-8 text-white text-sm h-8 p-2 rounded hover:bg-white hover:text-blue-600 hover:border flex justify-center items-center"
-            onClick={handleSaveAndPreview}>
+          <button
+            disabled={loading}
+            className="bg-button-clr w-36 mb-8 text-white text-sm h-8 p-2 rounded hover:bg-white hover:text-blue-600 hover:border flex justify-center items-center"
+            onClick={handleSaveAndPreview}
+          >
             {loading ? "loading..." : "Save and Preview"}
           </button>
         </div>
