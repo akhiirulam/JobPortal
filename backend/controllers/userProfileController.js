@@ -4,6 +4,8 @@ const asyncHandler = require("express-async-handler");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const User = require("../models/userModel");
+const Job = require("../models/jobModel");
+
 
 const userProfileController = {
   addProfile: asyncHandler(async (req, res) => {
@@ -242,6 +244,71 @@ const userProfileController = {
       jobList: companyFound.listedJobs,
     });
   }),
+
+  
+  filterEmployer: asyncHandler(async(req,res)=>{
+    const { tags, location,category,foundDateFrom,foundDateTo} = req.query
+    
+    let filter = {};
+    
+    if (tags) {
+        filter.tags = { $all: tags }; // Match all tags
+    }
+    if (location) {
+        filter.location = location;
+    }
+    if (category) {
+        filter.type = category;
+    }
+    if (foundDateFrom || foundDateTo) {
+      filter.foundDate = {
+        $gte: new Date(foundDateFrom),
+        $lte: new Date(foundDateTo)
+      }
+  }
+
+  console.log(filter);
+  
+
+      const employerList = await User.find(filter);
+    
+      res.send(employerList)
+    
+    }),
+    filterCandidate: asyncHandler(async(req,res)=>{
+      const { tags, location, category,gender,datePosted,experienceLevel,qualification } = req.query
+      
+      let filter = {};
+      
+      if (tags) {
+          filter.tags = { $all: tags }; // Match all tags
+      }
+      if (location) {
+          filter.location = location;
+      }
+      if (category) {
+        filter.type = category;
+    }
+      if (gender) {
+          filter.gender = gender;
+      }
+      if (datePosted) {
+          const lastDay = new Date();
+          lastDay.setDate(lastDay.getDate() - datePosted);
+          filter.updatedAt = { $gte: lastDay };
+      }
+      if (experienceLevel) {
+          filter.experienceLevel = experienceLevel 
+      }
+      if (qualification) {
+          filter.educationalQualification =  qualification  
+      }
+
+        const candidateList = await User.find(filter);
+      
+        res.send(candidateList)
+      
+      }),
   
 };
 
