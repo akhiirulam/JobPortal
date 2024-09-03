@@ -28,7 +28,7 @@ const CandidateAppliedJobs = () => {
   }, [isOpen]);
 
   return (
-    <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
+    <div className="mt-[50px] bg-[#F5F7FC] h-screen">
       <EmpSidebar />
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
         <h3 className="py-4 text-base md:text-2xl">Applied Jobs</h3>
