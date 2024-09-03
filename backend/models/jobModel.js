@@ -63,7 +63,7 @@ const jobSchema = new Schema({
         required: true,
     },
     experience: {
-        type: String,
+        type: Number,
         required: true,
     },
     careerLevel: {
@@ -88,17 +88,8 @@ const jobSchema = new Schema({
     address: {
         type: String,
     },
-    location: {
-        type: {
-            type: String,  // This will always be 'Point'
-            enum: ['Point'],
-            required: true,
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-            required: true,
-        },
-    },
+    
+
     location: {
         type: {
             type: String,  // This will always be 'Point'

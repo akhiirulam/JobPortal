@@ -28,8 +28,6 @@ const jobController = {
       address,
     } = req.body;
 
-
-    
     try {
       // Validate required fields
       if (

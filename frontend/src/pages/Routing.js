@@ -2,19 +2,22 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Login from "../components/Login/Login";
-import FindJobs from "./Jobpost";
+import FindJobs from "./JoblistHomePage";
 import MainJob from "./MainJobList";
 import EmployerList from "./EmployerList";
 import DashBoard from './UserDashBoard';
 import ShortListjobs from './ShortListjob';
 import Meeting from "./Meeting";
 import EmpDashBoard from "./EmpDashboard";
-import Jobpost from "./Jobpost";
+import Jobpost from "./JoblistHomePage";
 import CandidateFollowingEmployer from "./CandidateFollowingEmployer";
 import CandidateAppliedJobPage from "./CandidateAppliedJobPage";
 import DeleteAccount from "./DeleteAccount";
 import ChangeAccountPassword from "./ChangeAccountPassword";
 import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
+
+
+
 
 function Landing() {
   return (
@@ -35,6 +38,9 @@ function Landing() {
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
         <Route path="/change-password" element={<ChangeAccountPassword/>} />
         <Route path="/delete-profile" element={<DeleteAccount/>} />
+    
+   
+        
       </Routes>
     </Router>
   );
