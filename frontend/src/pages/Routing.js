@@ -18,6 +18,9 @@ import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
 import HomeEmployersListPage from "./HomePageEmployerList";
 import HomeCandidateListPage from "./homePageCandidateList";
 
+//Employer pages
+import EmployerProfilePage from "./EmployerProfileAdd";
+
 
 function Landing() {
   return (
@@ -37,6 +40,7 @@ function Landing() {
         <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobPage/>} />
         <Route path="/candidate/following-employers" element={<CandidateFollowingEmployer/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
+        <Route path="/empProfile" element={<EmployerProfilePage/>} />
         <Route path="/change-password" element={<ChangeAccountPassword/>} />
         <Route path="/delete-profile" element={<DeleteAccount/>} />
       </Routes>
