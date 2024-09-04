@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const candidateSchema = new mongoose.Schema({
     name: {
         type: String,
         requried: true,
@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
     },
     mobile: {
         type: Number,
-        requried: true,
         trim: true,
     },
     location: {
@@ -34,11 +33,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: "user",
-    },
-    companyName: {
-        type: String,
-        trim: true,
+        default: "candidate",
     },
     designation: {
         type: String,
@@ -48,20 +43,14 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     DOB:{
-        type:String
-    },
-    gender:{
-        type:String
-    },
-    salaryType: {
-        type:String
+        type:Date
     },
     salary:{
         type:Number
     },
-    categories:[{
+    gender:{
         type:String
-    }],
+    },
     showMyProfile:{
         type: Boolean
     },
@@ -98,16 +87,16 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:null,
     },
+    bookmarkedProfiles: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Employer'
+        }
+    ],
     listedJobs: [
         {
             type: mongoose.Schema.ObjectId,
             ref: 'Job'
-        }
-    ],
-    bookmarkedProfiles: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'User'
         }
     ],
     educationalHistory:[{
@@ -153,9 +142,6 @@ const userSchema = new mongoose.Schema({
     profileImg:{
         type:String,
     },
-    introductionVideo:{
-        type:String,
-    },
     portfolioImgs:[
         {
             type:String
@@ -180,15 +166,20 @@ const userSchema = new mongoose.Schema({
             type:String,
             trim: true,
         },
-        startDate:{
+        dateOfCertification:{
             type:Date
         },
-        endDate:{
-            type:Date
+    }],
+    professionalSkills:[
+        {
+            type: String,
+            trim:true
         }
-    }]
+    ]
+},{
+    timestamps:true
+})
 
-}, { timestamps: true });
+const Candidate = mongoose.model("Candidate",candidateSchema)
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = Candidate
