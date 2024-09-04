@@ -275,7 +275,7 @@ const userProfileController = {
       res.send(employerList)
     
     }),
-    filterCandidate: asyncHandler(async(req,res)=>{
+  filterCandidate: asyncHandler(async(req,res)=>{
       const { tags, location, category,gender,datePosted,experienceLevel,qualification } = req.query
       
       let filter = {};
