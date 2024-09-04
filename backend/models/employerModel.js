@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-
-
 const employerSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -11,12 +9,12 @@ const employerSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        requried: true,
+        required: true,
         trim: true,
     },
     password: {
         type: String,
-        requried: true,
+        required: true,
         trim: true,
     },
     mobile: {
@@ -94,4 +92,4 @@ const employerSchema = new mongoose.Schema({
 
 const Employer = mongoose.model("Employer",employerSchema)
 
-module.exports= employer
+module.exports= Employer
