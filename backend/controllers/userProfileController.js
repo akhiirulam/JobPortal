@@ -2,9 +2,9 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
-const User = require("../models/userModel");
 const Job = require("../models/jobModel");
+const Candidate = require("../models/candidateModel");
+const Employer = require("../models/employerModel");
 
 
 const userProfileController = {
@@ -109,12 +109,17 @@ const userProfileController = {
 
     console.log(newUserData)
 
-    const user = await User.findOne({ email });
+    const user = await Employer.findOne({ email }) || await Candidate.findOne({email});
     if (!user) {
       return res.status(404).send("User not found.");
     }
 
-    await User.updateOne({ email }, { $set: newUserData });
+    if(user.role==="candidate"){
+      await Candidate.updateOne({ email }, { $set: newUserData });
+    }
+    if(user.role==="employer"){
+      await Employer.updateOne({ email }, { $set: newUserData });
+    }
     res.status(200).send("User information registered successfully.");
   }),
 
@@ -181,16 +186,22 @@ const userProfileController = {
     };
 
     // Find the user by email and update their profile
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedUser = await Candidate.findOneAndUpdate(
       { email },
       { $set: updatedUserData },
       { new: true, runValidators: true }
     );
+    if (!updatedUser) {
+      updatedUser = await Employer.findOneAndUpdate(
+        { email },
+        { $set: updatedUserData },
+        { new: true, runValidators: true }
+      );
+    }
 
     if (!updatedUser) {
       return res.status(404).send("User not found.");
     }
-
     res
       .status(200)
       .json({ message: "Profile updated successfully", updatedUser });
@@ -198,7 +209,7 @@ const userProfileController = {
 
   viewPersonProfile: asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const userFound = User.findById(id);
+    const userFound = await Employer.findById(id);
     if (!userFound) {
       throw new Error("User Not Found");
     }
@@ -226,7 +237,7 @@ const userProfileController = {
 
   viewCompanyProfile: asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const companyFound = User.findById(id);
+    const companyFound = Employer.findById(id);
     if (!companyFound) {
       throw new Error("Company Not Found");
     }
@@ -270,7 +281,7 @@ const userProfileController = {
   console.log(filter);
   
 
-      const employerList = await User.find(filter);
+      const employerList = await Employer.find(filter);
     
       res.send(employerList)
     
@@ -304,7 +315,7 @@ const userProfileController = {
           filter.educationalQualification =  qualification  
       }
 
-        const candidateList = await User.find(filter);
+        const candidateList = await Candidate.find(filter);
       
         res.send(candidateList)
       

@@ -20,7 +20,7 @@ const upload = multer({ storage: storage }).fields([
     { name: 'portfolioImgs', maxCount: 5 }
 ]);
 
-router.post('/addProfile',isAuth,upload, userProfile.addProfile);
+router.put('/addProfile',isAuth,upload, userProfile.addProfile);
 
 router.get('/viewProfile',isAuth,userProfile.viewUserProfile);
 router.get('/candidate/:id', isAuth, userProfile.viewPersonProfile)
