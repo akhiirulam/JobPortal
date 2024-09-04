@@ -85,6 +85,10 @@ const employerSchema = new mongoose.Schema({
     showMyProfile:{
         type: Boolean
     },
+    cart:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Cart'
+    }
     
 },{
     timestamps:true
