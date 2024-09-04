@@ -194,12 +194,12 @@ const Jobpost = () => {
   };
 
   return (
-    <div className="">
+    <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
     <EmpSidebar />
 
       {/* Main Content */}
       <div
-        className="flex-1 md:ml-72 mt-[45px] overflow-auto h-full bg-gray-200 p-4 transition-all duration-300 "
+        className="flex-1 md:ml-72 mt-[45px] overflow-y-auto scrollbar-custom ease-in-out h-fit bg-gray-200 p-4 transition-all duration-300 "
       >
         {/* Show Open Sidebar button only on mobile view */}
 

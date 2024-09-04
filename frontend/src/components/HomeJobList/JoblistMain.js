@@ -13,8 +13,6 @@ const JoblistMain = () => {
     setIsOpen(false);
   };
 
-
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       const sidebarElement = document.getElementById("default-sidebar");
