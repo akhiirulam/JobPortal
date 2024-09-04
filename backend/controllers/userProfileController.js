@@ -2,8 +2,10 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const Job = require("../models/jobModel");
+const Candidate = require("../models/candidateModel");
+const Employer = require("../models/employerModel");
 
-const User = require("../models/userModel");
 
 const userProfileController = {
   addProfile: asyncHandler(async (req, res) => {
@@ -107,12 +109,25 @@ const userProfileController = {
 
     console.log(newUserData)
 
+<<<<<<< HEAD
     const user = await User.findOne({ email });
+=======
+    const user = await Employer.findOne({ email }) || await Candidate.findOne({email});
+>>>>>>> origin/doneByBasil
     if (!user) {
       return res.status(404).send("User not found.");
     }
 
+<<<<<<< HEAD
     await User.updateOne({ email }, { $set: newUserData });
+=======
+    if(user.role==="candidate"){
+      await Candidate.updateOne({ email }, { $set: newUserData });
+    }
+    if(user.role==="employer"){
+      await Employer.updateOne({ email }, { $set: newUserData });
+    }
+>>>>>>> origin/doneByBasil
     res.status(200).send("User information registered successfully.");
   }),
 
@@ -179,16 +194,22 @@ const userProfileController = {
     };
 
     // Find the user by email and update their profile
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedUser = await Candidate.findOneAndUpdate(
       { email },
       { $set: updatedUserData },
       { new: true, runValidators: true }
     );
+    if (!updatedUser) {
+      updatedUser = await Employer.findOneAndUpdate(
+        { email },
+        { $set: updatedUserData },
+        { new: true, runValidators: true }
+      );
+    }
 
     if (!updatedUser) {
       return res.status(404).send("User not found.");
     }
-
     res
       .status(200)
       .json({ message: "Profile updated successfully", updatedUser });
@@ -196,7 +217,7 @@ const userProfileController = {
 
   viewPersonProfile: asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const userFound = User.findById(id);
+    const userFound = await Employer.findById(id);
     if (!userFound) {
       throw new Error("User Not Found");
     }
@@ -224,7 +245,7 @@ const userProfileController = {
 
   viewCompanyProfile: asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const companyFound = User.findById(id);
+    const companyFound = Employer.findById(id);
     if (!companyFound) {
       throw new Error("Company Not Found");
     }
@@ -242,6 +263,71 @@ const userProfileController = {
       jobList: companyFound.listedJobs,
     });
   }),
+
+  
+  filterEmployer: asyncHandler(async(req,res)=>{
+    const { tags, location,category,foundDateFrom,foundDateTo} = req.query
+    
+    let filter = {};
+    
+    if (tags) {
+        filter.tags = { $all: tags }; // Match all tags
+    }
+    if (location) {
+        filter.location = location;
+    }
+    if (category) {
+        filter.type = category;
+    }
+    if (foundDateFrom || foundDateTo) {
+      filter.foundDate = {
+        $gte: new Date(foundDateFrom),
+        $lte: new Date(foundDateTo)
+      }
+  }
+
+  console.log(filter);
+  
+
+      const employerList = await Employer.find(filter);
+    
+      res.send(employerList)
+    
+    }),
+  filterCandidate: asyncHandler(async(req,res)=>{
+      const { tags, location, category,gender,datePosted,experienceLevel,qualification } = req.query
+      
+      let filter = {};
+      
+      if (tags) {
+          filter.tags = { $all: tags }; // Match all tags
+      }
+      if (location) {
+          filter.location = location;
+      }
+      if (category) {
+        filter.type = category;
+    }
+      if (gender) {
+          filter.gender = gender;
+      }
+      if (datePosted) {
+          const lastDay = new Date();
+          lastDay.setDate(lastDay.getDate() - datePosted);
+          filter.updatedAt = { $gte: lastDay };
+      }
+      if (experienceLevel) {
+          filter.experienceLevel = experienceLevel 
+      }
+      if (qualification) {
+          filter.educationalQualification =  qualification  
+      }
+
+        const candidateList = await Candidate.find(filter);
+      
+        res.send(candidateList)
+      
+      }),
   
 };
 

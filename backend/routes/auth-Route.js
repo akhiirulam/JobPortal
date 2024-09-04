@@ -7,7 +7,12 @@ const isAuth = require('../middlewares/auth');
 router.post('/login', userController.login);
 router.post('/otpGeneration',userController.otpGeneration)
 router.post('/otpVerification',userController.otpVerification)
+<<<<<<< HEAD
 router.post('/signup',userController.signup )
+=======
+router.post('/candidate/signup',userController.signupCandidate)
+router.post('/employer/signup',userController.signupEmployer)
+>>>>>>> origin/doneByBasil
 router.post('/forgotPassword',isAuth,userController.forgotPassword)
 router.post('/resetPassword',isAuth,userController.resetPassword)
 

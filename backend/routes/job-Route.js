@@ -3,26 +3,37 @@ const router = express.Router();
 const jobController = require('../controllers/jobController');
 const isAuth = require('../middlewares/auth');
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
 
-// Set up multer for file uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Set the upload directory
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: 'uploads',
+      allowed_formats: ['jpg', 'png'],
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Set the filename
-    }
-});
+  });
 
-const upload = multer({ storage });
+  const upload = multer({ storage: storage }).fields([
+    { name: 'featuredImage', maxCount: 1 },
+    { name: 'photos', maxCount: 5 }  // Adjust maxCount as needed
+]);
 
 // Route to add job details
-router.post('/add', upload.single('featuredImage'), jobController.addJobDetails);
+router.post('/add',isAuth, upload, jobController.addJobDetails);
 
 // Route to edit job details
 router.put('/edit/:id', isAuth, jobController.editJobDetails);
 
 // Route to delete job details
 router.delete('/delete/:id', isAuth, jobController.deleteJobDetails);
+
+//list all jobs 
+router.get('/jobs', jobController.listJobs);
+
+//filter Jobs
+router.get('/job-filter',jobController.filterJobs)
+//view a single job by id
+router.get('/:id',isAuth,jobController.viewJob)
 
 module.exports = router;

@@ -54,12 +54,20 @@ const jobSchema = new Schema({
         required: true,
     },
     minSalary: {
+<<<<<<< HEAD
         type: String,
+=======
+        type: Number,
+>>>>>>> origin/doneByBasil
         required: true,
         required: true,
     },
     maxSalary: {
+<<<<<<< HEAD
         type: String,
+=======
+        type: Number,
+>>>>>>> origin/doneByBasil
         required: true,
     },
     experience: {
@@ -103,11 +111,19 @@ const jobSchema = new Schema({
         type: {
             type: String,  // This will always be 'Point'
             enum: ['Point'],
+<<<<<<< HEAD
             
         },
         coordinates: {
             type: [Number],  // Array of numbers: [longitude, latitude]
             
+=======
+            required: true,
+        },
+        coordinates: {
+            type: [Number],  // Array of numbers: [longitude, latitude]
+            required: true,
+>>>>>>> origin/doneByBasil
         },
     },
     preferredSkills: [

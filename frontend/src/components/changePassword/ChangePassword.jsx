@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import Navbar from '../Navbar/Navbar';
 import SideBar from '../sideBar/SideBar';
+=======
+>>>>>>> origin/doneByBasil
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +16,7 @@ const ChangePassword = () => {
     const [toggleNPassword,setToggleNPassword] = useState(false)
     const [toggleCNPassword,setToggleCNPassword] = useState(false)
   return (
+<<<<<<< HEAD
     <>
     <Navbar/>
     <div className='flex'>
@@ -23,6 +27,15 @@ const ChangePassword = () => {
           <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
             <form>
                 <div className='w-[50%] mb-[30px]'>
+=======
+    
+        <div className='w-full px-[15px] h-[calc(-111px_+_100vh)]  bg-[#F5F7FC]'>
+          <div className='md:p-[60px]'>
+          <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Change Password </h3>
+          <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
+            <form>
+                <div className='xl:w-[50%] mb-[30px]'>
+>>>>>>> origin/doneByBasil
                 <div className='mb-2.5'><label  for='old-password'>Old password</label></div>
                 <div className='flex justify-between items-center'>
                 <input
@@ -34,7 +47,11 @@ const ChangePassword = () => {
                 {toggleOPassword?<FontAwesomeIcon icon={faEye}/> : <FontAwesomeIcon icon={faEyeSlash}/>}</div>
                 </div>
                 </div>
+<<<<<<< HEAD
                 <div className='w-[50%] mb-[30px]'>
+=======
+                <div className='xl:w-[50%] mb-[30px]'>
+>>>>>>> origin/doneByBasil
                 <div className='mb-2.5'><label  for='old-password'>New password</label></div>
                 <div className='flex justify-between items-center'>
                 <input
@@ -46,7 +63,11 @@ const ChangePassword = () => {
                     {toggleNPassword?<FontAwesomeIcon icon={faEye}/> : <FontAwesomeIcon icon={faEyeSlash}/>}</div>
                 </div>
                 </div>
+<<<<<<< HEAD
                 <div className='w-[50%] mb-[30px]'>
+=======
+                <div className='xl:w-[50%] mb-[30px]'>
+>>>>>>> origin/doneByBasil
                 <div className='mb-2.5'><label  for='old-password'>Confirm new password</label></div>
                 <div className='flex justify-between items-center'>
                 <input
@@ -64,8 +85,11 @@ const ChangePassword = () => {
           </div>
           </div>
         </div>
+<<<<<<< HEAD
     </div>
     </>
+=======
+>>>>>>> origin/doneByBasil
   );
 }
 

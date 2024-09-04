@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 class Jobpost extends Component {
     render() {
         return (
+<<<<<<< HEAD
             <div>
                 <div className="fixed top-0 w-full bg-white shadow-md z-50">
                     <Navbar />
@@ -13,6 +14,11 @@ class Jobpost extends Component {
                     <JobPost />
                 </div>
             </div>
+=======
+                <div className="pt-16">
+                    <JobPost />
+                </div>
+>>>>>>> origin/doneByBasil
         );
     }
 }

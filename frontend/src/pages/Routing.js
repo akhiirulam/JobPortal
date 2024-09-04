@@ -10,12 +10,20 @@ import ShortListjobs from './ShortListjob';
 import Meeting from "./Meeting";
 import EmpDashBoard from "./EmpDashboard";
 import Jobpost from "./Jobpost";
+<<<<<<< HEAD
 import CandidateAppliedJobs from "../components/candidateAppliedJobs/CandidateAppliedJobs";
 import EmployerCandidateAlert from "../components/employerCandidateAlerts/EmployerCandidateAlert";
 import ChangePassword from "../components/changePassword/ChangePassword";
 import DeleteProfile from "../components/deleteProfile/DeleteProfile";
 import EditProfile from "../components/EmployerDashboard/EditProfile"
 import MyJobs from "../components/EmployerDashboard/Myjobs";
+=======
+import CandidateFollowingEmployer from "./CandidateFollowingEmployer";
+import CandidateAppliedJobPage from "./CandidateAppliedJobPage";
+import DeleteAccount from "./DeleteAccount";
+import ChangeAccountPassword from "./ChangeAccountPassword";
+import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
+>>>>>>> origin/doneByBasil
 
 function Landing() {
   return (
@@ -23,6 +31,7 @@ function Landing() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+<<<<<<< HEAD
         <Route path="/mainJobList" element={<MainJob />} />
         <Route path="/findJobs" element={<FindJobs />} />
         <Route path="/employerList" element={<EmployerList />} />
@@ -37,6 +46,21 @@ function Landing() {
         <Route path="/delete-profile" element={<DeleteProfile />} />
         <Route path="/emp-profile" element={<EditProfile />} />
         <Route path="/myJobs" element={<MyJobs />} />
+=======
+        <Route path="/mainJobList" element={<MainJob/>} />
+        <Route path="/findJobs" element = {<FindJobs/>} />
+        <Route path="/employerList" element = {<EmployerList/>} />
+        <Route path="/dashBoard" element = {<DashBoard/>} />
+        <Route path="/shortlistjobs" element = {<ShortListjobs/>} />
+        <Route path="/meetings" element= {< Meeting/>} />
+        <Route path="/empDashBoard" element={< EmpDashBoard/>} />
+        <Route path="/jobPost" element={< Jobpost/>} />
+        <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobPage/>} />
+        <Route path="/candidate/following-employers" element={<CandidateFollowingEmployer/>} />
+        <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
+        <Route path="/change-password" element={<ChangeAccountPassword/>} />
+        <Route path="/delete-profile" element={<DeleteAccount/>} />
+>>>>>>> origin/doneByBasil
       </Routes>
     </Router>
   );

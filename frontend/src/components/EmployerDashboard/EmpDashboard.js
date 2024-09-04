@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import GraphComponent from "./GraphComponent";
+<<<<<<< HEAD
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAddressBook, faUser, faFile, faBookmark, faComments, faHandshake } from '@fortawesome/free-regular-svg-icons'
 import { faBullhorn, faBoxesPacking, faUserTie, faLock, faUserXmark, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+=======
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faAddressBook,faUser, faFile,faBookmark,faComments,faHandshake} from '@fortawesome/free-regular-svg-icons'
+import {faBullhorn,faBoxesPacking,faUserTie,faLock,faUserXmark,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
+>>>>>>> origin/doneByBasil
 import { NavLink } from 'react-router-dom';
 
 import {
   FaEye,
   FaCheck,
+<<<<<<< HEAD
 
   FaStar,
   FaBriefcase,
@@ -16,6 +23,16 @@ import {
   FaDollarSign,
 } from "react-icons/fa";
 import img1 from "../../public/emplyer.png";
+=======
+  
+  FaStar,
+  FaBriefcase,
+  
+  FaMapMarkerAlt,
+  FaDollarSign,
+} from "react-icons/fa";
+import img1 from "../../public/member1.jpg";
+>>>>>>> origin/doneByBasil
 
 const EmpDashBoard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -27,6 +44,7 @@ const EmpDashBoard = () => {
   ];
 
   const sideBarItems = [
+<<<<<<< HEAD
     { id: 1, icon: faAddressBook, description: "User Dashboard", link: "/user" },
     { id: 2, icon: faUserTie, description: "Profile", link: "/profile" },
     { id: 3, icon: faFile, description: "My Jobs", link: "/myJobs" },
@@ -40,6 +58,21 @@ const EmpDashBoard = () => {
     { id: 11, icon: faLock, description: "Change Password", link: "/change-password" },
     { id: 12, icon: faUserXmark, description: "Delete Profile", link: "/delete-profile" },
     { id: 13, icon: faArrowRightFromBracket, description: "Logout", link: "/" }
+=======
+    {id:1, icon:faAddressBook, description:"User Dashboard",link:"/user"},
+    {id:2, icon:faUserTie, description:"Profile",link:"/profile"},
+    {id:3, icon:faFile, description:"My Jobs",link:"/myJobs"},
+    {id:4, icon:faBullhorn, description:"Submit Job",link:"/applied-jobs"},
+    {id:5, icon:faBookmark, description:"Applicants Jobs",link:"/shortlisted-jobs"},
+    {id:6, icon:faUser, description:"Shortlist Candidates",link:"/following-employee"},
+    {id:7, icon:faBullhorn, description:"Candidate Alerts ",link:"/alert-jobs"},
+    {id:8, icon:faBoxesPacking, description:"Packages",link:"/messages"},
+    {id:9, icon:faComments, description:"Messages",link:"/messages"},
+    {id:10, icon:faHandshake, description:"Meetings",link:"/meetings"},
+    {id:11, icon:faLock, description:"Change Password",link:"/change-password"},
+    {id:12, icon:faUserXmark, description:"Delete Profile",link:"/delete-profile"},
+    {id:13, icon:faArrowRightFromBracket, description:"Logout",link:"/"}
+>>>>>>> origin/doneByBasil
   ]
 
   const notification = [{ icon: FaBriefcase, label: "Job Status" }];
@@ -58,6 +91,7 @@ const EmpDashBoard = () => {
         {/* Sidebar content */}
         <div className="flex items-center space-x-4">
           <img
+<<<<<<< HEAD
             className="w-20 h-20 rounded-lg"
             src={img1}
             alt="avatar"
@@ -65,6 +99,15 @@ const EmpDashBoard = () => {
           <div className="flex flex-col p-2 gap-1">
             <span className="text-xl font-bold">Employer</span>
             <span className="text-sm">New York</span>
+=======
+            className="w-20 h-20 rounded-full"
+            src={img1}
+            alt="Rounded avatar"
+          />
+          <div className="flex flex-col p-2 gap-1">
+            <span className="text-xl font-bold">Name</span>
+            <span className="text-sm">Place</span>
+>>>>>>> origin/doneByBasil
             <button className="text-sm text-white w-24 h-6 rounded-md bg-blue-600">
               View Profile
             </button>
@@ -72,6 +115,7 @@ const EmpDashBoard = () => {
         </div>
         {/* User Dashboard */}
         <div className="flex flex-col space-y-2 p-4 mb-16">
+<<<<<<< HEAD
           <ul className=''>
             {sideBarItems.map((item) => (
               <NavLink to={item.link} activeClassName="active" ><li key={item.id} className='mb-0.5 px-5 py-[13px] flex hover:text-[#1967D2] hover:bg-[#E8F0FA] text-[#696696] rounded-lg cursor-pointer'>
@@ -81,13 +125,30 @@ const EmpDashBoard = () => {
               </NavLink>
             ))}
           </ul>
+=======
+        <ul className=''>
+                    {sideBarItems.map((item)=>(
+                    <NavLink to={item.link} activeClassName="active" ><li  key={item.id} className='mb-0.5 px-5 py-[13px] flex hover:text-[#1967D2] hover:bg-[#E8F0FA] text-[#696696] rounded-lg cursor-pointer'>
+                        <div className='mr-[15px] '><FontAwesomeIcon icon={item.icon} size="xl" /></div>
+                        <div>{item.description}</div>
+                    </li>
+                    </NavLink>
+                    ))}
+                </ul>
+>>>>>>> origin/doneByBasil
         </div>
       </div>
 
       {/* Main Content */}
       <div
+<<<<<<< HEAD
         className={`flex-1 p-4 mt-[50px] ml-0 md:ml-96 overflow-y-auto transition-all duration-300 ease-in-out ${isSidebarOpen ? "ml-64" : "ml-0"
           }`}
+=======
+        className={`flex-1 p-4 mt-[50px] ml-0 md:ml-96 overflow-y-auto transition-all duration-300 ease-in-out ${
+          isSidebarOpen ? "ml-64" : "ml-0"
+        }`}
+>>>>>>> origin/doneByBasil
       >
         <div className="p-4">
           <button
@@ -168,9 +229,15 @@ const EmpDashBoard = () => {
                   </div>
                 </div>
                 <div className="flex items-center mt-2">
+<<<<<<< HEAD
                   <button className="bg-blue-200 rounded-3xl ml-4 w-24 p-1 "> Full Time </button>
                   <button className="bg-orange-200 rounded-3xl ml-4 w-24 p-1 "> Urgent </button>
                 </div>
+=======
+                    <button className="bg-blue-200 rounded-3xl ml-4 w-24 p-1 "> Full Time </button>
+                    <button className="bg-orange-200 rounded-3xl ml-4 w-24 p-1 "> Urgent </button>
+                  </div>
+>>>>>>> origin/doneByBasil
               </div>
             </div>
           </div>

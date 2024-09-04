@@ -1,44 +1,46 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const candidateSchema = new mongoose.Schema({
     name: {
         type: String,
-        requried: true,
+        required: true,
         trim: true,
     },
     email: {
         type: String,
-        requried: true,
+        required: true,
         trim: true,
     },
     password: {
         type: String,
-        requried: true,
+        required: true,
         trim: true,
     },
     mobile: {
         type: Number,
-        requried: true,
         trim: true,
     },
     location: {
         type: {
             type: String,  // This will always be 'Point'
             enum: ['Point'],
+<<<<<<< HEAD:backend/models/userModel.js
             required: true,
         },
         coordinates: {
             type: [Number],  // Array of numbers: [longitude, latitude]
             required: true,
+=======
+        },
+        coordinates: {
+            type: [Number],  // Array of numbers: [longitude, latitude]
+
+>>>>>>> origin/doneByBasil:backend/models/candidateModel.js
         },
     },
     role: {
         type: String,
-        default: "user",
-    },
-    companyName: {
-        type: String,
-        trim: true,
+        default: "candidate",
     },
     designation: {
         type: String,
@@ -48,11 +50,15 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     DOB:{
-        type:String
+        type:Date
+    },
+    salary:{
+        type:Number
     },
     gender:{
         type:String
     },
+<<<<<<< HEAD:backend/models/userModel.js
     salaryType: {
         type:String
     },
@@ -62,6 +68,8 @@ const userSchema = new mongoose.Schema({
     categories:[{
         type:String
     }],
+=======
+>>>>>>> origin/doneByBasil:backend/models/candidateModel.js
     showMyProfile:{
         type: Boolean
     },
@@ -98,16 +106,19 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:null,
     },
+<<<<<<< HEAD:backend/models/userModel.js
+=======
+    bookmarkedProfiles: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Employer'
+        }
+    ],
+>>>>>>> origin/doneByBasil:backend/models/candidateModel.js
     listedJobs: [
         {
             type: mongoose.Schema.ObjectId,
             ref: 'Job'
-        }
-    ],
-    bookmarkedProfiles: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'User'
         }
     ],
     educationalHistory:[{
@@ -180,15 +191,20 @@ const userSchema = new mongoose.Schema({
             type:String,
             trim: true,
         },
-        startDate:{
+        dateOfCertification:{
             type:Date
         },
-        endDate:{
-            type:Date
+    }],
+    professionalSkills:[
+        {
+            type: String,
+            trim:true
         }
-    }]
+    ]
+},{
+    timestamps:true
+})
 
-}, { timestamps: true });
+const Candidate = mongoose.model("Candidate",candidateSchema)
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = Candidate

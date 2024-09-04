@@ -101,12 +101,28 @@ const Jobpost = () => {
     console.log(`Option selected:`, option);
   };
 
+<<<<<<< HEAD
   const handleFileChange = (event, type) => {
     const files = event.target.files;
     if (type === "featuredImage") {
       setFeaturedImage(files[0]);
     } else if (type === "photos") {
       setPhotos(Array.from(files));
+=======
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setStatus("uploading");
+      
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          setStatus("uploaded");
+        } else {
+          setStatus("error");
+        }
+      }, 2000);
+>>>>>>> origin/doneByBasil
     }
     setStatus("uploading");
     setTimeout(() => {
@@ -168,7 +184,11 @@ const Jobpost = () => {
     } catch (error) {
       setLoading(false);
       console.error("Error submitting form:", error);
+<<<<<<< HEAD
       toast.error("Error submitting form");
+=======
+      
+>>>>>>> origin/doneByBasil
     }
   };
 

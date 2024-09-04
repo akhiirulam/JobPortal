@@ -60,6 +60,7 @@ const EmployerList = () => {
 
       <div className="flex flex-1">
         {/* Sidebar */}
+<<<<<<< HEAD
      
         <div
         
@@ -75,6 +76,14 @@ const EmployerList = () => {
       
     </button>
           <div className="p-4 space-y-4 mt-6">
+=======
+        <div
+          className={`transition-transform mt-12 mb-12 duration-300 ease-in-out bg-gray-200 text-black ${
+            isOpen || isLargeScreen ? "ml-0 w-72" : "-ml-72 w-0"
+          } md:ml-16 md:w-72 sm:w-72 overflow-hidden z-0`} // Added z-index to ensure correct stacking
+        >
+          <div className="p-4 space-y-4">
+>>>>>>> origin/doneByBasil
             {/* Search Input */}
             <div className="flex items-center bg-white border border-gray-300 rounded-md p-2">
               <FaSearch className="text-gray-500 mr-2" />
@@ -190,10 +199,17 @@ const EmployerList = () => {
           <div className="p-4">
             {/* Toggle Button for Mobile View */}
             <button
+<<<<<<< HEAD
               className="fixed top-[310px] left-0 p-2 w-36 text-black rounded-md md:hidden z-20" 
               onClick={toggleSidebar}
             >
               {isOpen ? "" : "Open Sidebar"}
+=======
+              className="fixed top-52 left-4 p-2 w-36 text-white bg-blue-500 rounded-md md:hidden z-20" // Fixed position and higher z-index
+              onClick={toggleSidebar}
+            >
+              {isOpen ? "Close Sidebar" : "Open Sidebar"}
+>>>>>>> origin/doneByBasil
             </button>
 
             <div className="flex justify-between mt-4 p-4">
