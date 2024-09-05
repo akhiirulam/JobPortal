@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const GooglePlacesAutocomplete = ({ onPlaceSelected }) => {
-  const [autocomplete, setAutocomplete] = useState(null);
+  const [ setAutocomplete] = useState(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const GooglePlacesAutocomplete = ({ onPlaceSelected }) => {
       });
       setAutocomplete(autocomplete);
     }
-  }, []);
+  });
 
   return (
     <input
