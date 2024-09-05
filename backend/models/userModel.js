@@ -22,15 +22,8 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     location: {
-        type: {
-            type: String,  // This will always be 'Point'
-            enum: ['Point'],
-            required: true,
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-            required: true,
-        },
+        type: String,
+        trim: true,
     },
     role: {
         type: String,
@@ -44,26 +37,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    description:{
-        type: String,
-    },
     DOB:{
         type:String
     },
     gender:{
         type:String
-    },
-    salaryType: {
-        type:String
-    },
-    salary:{
-        type:Number
-    },
-    categories:[{
-        type:String
-    }],
-    showMyProfile:{
-        type: Boolean
     },
     educationalQualification:{
         type:String
@@ -73,6 +51,20 @@ const userSchema = new mongoose.Schema({
     }],
     experience:{
         type:String
+    },
+    bio: {
+        type: String,
+    },
+    foundYear:{
+        type:String,
+    },
+    companySize:{
+        type:Number
+    },
+    facebook:{
+        type:String,
+        default:null,
+        trim: true,
     },
     facebook:{
         type:String,
@@ -93,10 +85,6 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:null,
         trim: true,
-    },
-    friendlyAddress:{
-        type:String,
-        default:null,
     },
     listedJobs: [
         {
@@ -119,7 +107,7 @@ const userSchema = new mongoose.Schema({
             type:String,
             trim:true
         },
-        educationDescription:{
+        shortSummery:{
             type:String,
             trim: true,
         },
@@ -131,29 +119,26 @@ const userSchema = new mongoose.Schema({
         }
     }],
     previousWorkHistory:[{
-        previousDesignation:{
+        designation:{
             type:String,
             trim: true,
         },
-        previousCompanyName:{
+        salary:{
+            type:Number
+        },
+        companyName:{
             type:String,
             trim: true,
         },
-        reasonForQuit:{
+        reasonFotQuit:{
             type:String,
             trim: true,
         },
-        previousStartingDate:{
-            type:Date,
-        },
-        previousEndDate:{
+        lastWorkingDate:{
             type:Date
         }
     }],
     profileImg:{
-        type:String,
-    },
-    introductionVideo:{
         type:String,
     },
     portfolioImgs:[

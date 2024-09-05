@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-
 const jobSchema = new Schema({
     featuredImage: {
-        type: String,
+        filename: String,
+        contentType: String,
+        length: Number,
+        chunkSize: Number,
+        uploadDate: Date,
+        aliases: [String],
+        metadata: Schema.Types.Mixed,
+        md5: String,
     },
     company: {
         type: String,
@@ -12,11 +18,9 @@ const jobSchema = new Schema({
     title: {
         type: String,
         required: true,
-        required: true,
     },
     description: {
         type: String,
-        required: true,
         required: true,
     },
     category: {
@@ -39,7 +43,6 @@ const jobSchema = new Schema({
     jobApplyType: {
         type: String,
         required: true,
-        required: true,
     },
     externalURLforApply: {
         type: String,
@@ -47,19 +50,17 @@ const jobSchema = new Schema({
     jobApplyEmail: {
         type: String,
         required: true,
-        required: true,
     },
     salaryType: {
         type: String,
         required: true,
     },
     minSalary: {
-        type: String,
-        required: true,
+        type: Number,
         required: true,
     },
     maxSalary: {
-        type: String,
+        type: Number,
         required: true,
     },
     experience: {
@@ -77,11 +78,16 @@ const jobSchema = new Schema({
     introVideoURL: {
         type: String,
     },
-    photos: [
-        {
-            type: String,
-        },
-    ],
+    photos: {
+        filename: String,
+        contentType: String,
+        length: Number,
+        chunkSize: Number,
+        uploadDate: Date,
+        aliases: [String],
+        metadata: Schema.Types.Mixed,
+        md5: String,
+    },
     applicationDeadlineDate: {
         type: Date,  // Changed to Date type for better handling of dates
     },
@@ -99,19 +105,7 @@ const jobSchema = new Schema({
             required: true,
         },
     },
-    location: {
-        type: {
-            type: String,  // This will always be 'Point'
-            enum: ['Point'],
-            required: true,
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-            required: true,
-        },
-    },
     preferredSkills: [
-    
         {
             type: String,
         },
@@ -122,11 +116,8 @@ const jobSchema = new Schema({
             ref: 'User',
         },
     ],
-        }, 
-        
-        { timestamps: true });
+}, { timestamps: true });
 
 const Job = mongoose.model('Job', jobSchema);
 
 module.exports = Job;
-

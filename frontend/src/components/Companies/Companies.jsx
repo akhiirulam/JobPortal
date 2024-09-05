@@ -66,24 +66,20 @@ const Companies = () => {
             },
             { threshold: 0.1 } // Trigger when 10% of the component is visible
         );
-    
-        // Copy ref values to local variables
-        const desktopRef = containerRefDesktop.current;
-        const mobileRef = containerRefMobile.current;
-    
-        if (desktopRef) {
-            observer.observe(desktopRef);
+
+        if (containerRefDesktop.current) {
+            observer.observe(containerRefDesktop.current);
         }
-        if (mobileRef) {
-            observer.observe(mobileRef);
+        if (containerRefMobile.current) {
+            observer.observe(containerRefMobile.current);
         }
-    
+
         return () => {
-            if (desktopRef) {
-                observer.unobserve(desktopRef);
+            if (containerRefDesktop.current) {
+                observer.unobserve(containerRefDesktop.current);
             }
-            if (mobileRef) {
-                observer.unobserve(mobileRef);
+            if (containerRefMobile.current) {
+                observer.unobserve(containerRefMobile.current);
             }
         };
     }, []);

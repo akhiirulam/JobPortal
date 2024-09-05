@@ -107,7 +107,8 @@ const Jobpost = () => {
     if (selectedFile) {
       setFile(selectedFile);
       setStatus("uploading");
-      
+
+      // Simulate file upload process
       setTimeout(() => {
         if (Math.random() > 0.5) {
           setStatus("uploaded");
@@ -157,7 +158,7 @@ const Jobpost = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      
+      // Handle network error
     }
   };
 
@@ -269,7 +270,7 @@ const Jobpost = () => {
             htmlFor="job-title"
             className="block text-sm font-medium text-gray-700"
           >
-            Conpany Name*
+            Company Name*
           </label>
           <input
             id="job-title"
@@ -364,7 +365,7 @@ const Jobpost = () => {
               </label>
               <input
                 id="min-salary"
-                type="text"
+                type="number"
                 className="bg-gray-100 h-10 p-4 mt-1 block w-full"
                 value={minSalary}
                 onChange={(e) => setMinSalary(e.target.value)}
@@ -494,7 +495,7 @@ const Jobpost = () => {
               </label>
               <input
                 id="max-salary"
-                type="text"
+                type="number"
                 className="bg-gray-100 h-10 p-4 mt-1 block w-full"
                 value={maxSalary}
                 onChange={(e) => setMaxSalary(e.target.value)}

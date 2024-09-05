@@ -11,7 +11,7 @@ const CandidateAppliedJobs = () => {
         <Navbar/>
         <div className='flex'>
         <SideBar/>
-        <div className='w-full px-[15px] h-screen bg-[#F5F7FC]'>
+        <div className='w-fill px-[15px] h-screen bg-[#F5F7FC]'>
           <div className='p-[60px]'>
             <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Applied Jobs</h3>
             <div className='bg-white border p-[30px] mb-[30px] rounded '>

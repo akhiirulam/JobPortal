@@ -117,9 +117,9 @@ const NewsArticles = () => {
                                         <span className='ml-2'>{article.comments}</span>
                                     </li>
                                 </ul>
-                                <a href='/' className="font-medium text-lg hover:text-link transition duration-300">{article.title}</a>
+                                <a href='#' className="font-medium text-lg hover:text-link transition duration-300">{article.title}</a>
                                 <p className='text-secondary text-sm leading-6'>{article.desc}</p>
-                                <a href='/' className='read-more-link link'><span className='text-sm'> Read More </span> <MdKeyboardArrowRight className='icon' size={24} /></a>
+                                <a href='#' className='read-more-link link'><span className='text-sm'> Read More </span> <MdKeyboardArrowRight className='icon' size={24} /></a>
                             </div>
                         </article>
                     ))}
@@ -154,9 +154,9 @@ const NewsArticles = () => {
                                     <span className='ml-1'>{article.comments}</span>
                                 </li>
                             </ul>
-                            <a href='/' className="font-medium text-lg hover:text-link transition duration-300">{article.title}</a>
+                            <a href='#' className="font-medium text-lg hover:text-link transition duration-300">{article.title}</a>
                             <p className='text-secondary text-sm leading-6'>{article.desc}</p>
-                            <a href='/'
+                            <a href='#'
                                 className='read-more-link link flex gap-1 items-center'
                             >
                                 <span className='text-sm'>
