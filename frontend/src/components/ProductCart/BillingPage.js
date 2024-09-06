@@ -33,7 +33,7 @@ const BillingPage = () => {
     try {
      console.log("hello")
       const orderResponse = await axios.post("http://localhost:5000/api/v1/payment/order", {
-        amount: 500, // Amount in INR (multiply by 100 in backend for paisa)
+        amount: 500, 
         currency: "INR",
         receipt: "receipt#1",
       });
