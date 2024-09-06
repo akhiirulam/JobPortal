@@ -23,6 +23,9 @@ import LoginSuccess from '../components/Login/LoginSuccess';
 import EmployerProfilePage from "./EmployerProfileAdd";
 import CandidateResumeAddPage from "./CandidateResume";
 import EmployerSubmitJobPage from "./EmployerSubmitJobPage";
+import ProductCart from "./ProductCart";
+import Billing from "./BillingPage";
+
 
 function Landing() {
   return (
@@ -44,6 +47,9 @@ function Landing() {
         <Route path="/candidate/meetings" element= {< Meeting/>} />
         <Route path="/candidate/change-password" element={<ChangeAccountPassword/>} />
         <Route path="/candidate/delete-profile" element={<DeleteAccount/>} />
+        
+        <Route path="/product/cartPage" element={<ProductCart/>} />
+        <Route path="/product/billing" element={<Billing/>} />
         
        
         <Route path="/employer/empDashBoard" element={< EmpDashBoard/>} />
