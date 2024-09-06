@@ -5,7 +5,7 @@ const session = require('express-session');
 const passport = require('passport');
 require('./utilis/passport');
 const cookieParser = require('cookie-parser');
-const asyncHandler = require('express-async-handler');
+
 const http = require('http');
 
 const cloudinary = require('cloudinary').v2;
