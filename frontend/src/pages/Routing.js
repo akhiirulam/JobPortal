@@ -18,11 +18,11 @@ import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
 import HomeEmployersListPage from "./HomePageEmployerList";
 import HomeCandidateListPage from "./homePageCandidateList";
 import CandidateProfilePage from "./CandidateProfilePage";
-
+import LoginSuccess from '../components/Login/LoginSuccess';
 //Employer pages
 import EmployerProfilePage from "./EmployerProfileAdd";
 import CandidateResumeAddPage from "./CandidateResume";
-
+import EmployerSubmitJobPage from "./EmployerSubmitJobPage";
 
 function Landing() {
   return (
@@ -34,7 +34,7 @@ function Landing() {
         <Route path="/employerList" element={<HomeEmployersListPage/>} />
         <Route path="/candidateList" element={<HomeCandidateListPage/>} />
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
-       
+        <Route path="/loginSuccess" element={<LoginSuccess />} />
         <Route path="/candidate/dashBoard" element = {<DashBoard/>} />
         <Route path="/candidate/candProfile" element = {<CandidateProfilePage/>} />
         <Route path="/candidate/ResumeAdd" element = {<CandidateResumeAddPage/>} />
@@ -44,9 +44,11 @@ function Landing() {
         <Route path="/candidate/meetings" element= {< Meeting/>} />
         <Route path="/candidate/change-password" element={<ChangeAccountPassword/>} />
         <Route path="/candidate/delete-profile" element={<DeleteAccount/>} />
-
+        
+       
         <Route path="/employer/empDashBoard" element={< EmpDashBoard/>} />
         <Route path="/employer/empProfile" element={<EmployerProfilePage/>} />
+        <Route path="/employer/submitJob" element={<EmployerSubmitJobPage/>} />
         <Route path="/employer/jobPost" element={< Jobpost/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
         <Route path="/employer/meetings" element= {< Meeting/>} />

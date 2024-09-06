@@ -7,13 +7,10 @@ const User = require("../models/userModel");
 
 const userProfileController = {
   addProfile: asyncHandler(async (req, res) => {
-    // const { email } = req.cookies;
-    // if (!email) {
-    //   return res.status(400).send("Email not found in cookies.");
-    // }
-
-    const email = "test1@example.com"
-
+    const { email } = req.cookies;
+    if (!email) {
+      return res.status(400).send("Email not found in cookies.");
+    }
 
     const {
       fullName,

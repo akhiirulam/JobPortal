@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema({
         type: {
             type: String,  // This will always be 'Point'
             enum: ['Point'],
-            required: true,
+            
         },
         coordinates: {
             type: [Number],  // Array of numbers: [longitude, latitude]
-            required: true,
+           
         },
     },
     role: {
