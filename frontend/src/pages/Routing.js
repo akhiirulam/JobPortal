@@ -25,7 +25,9 @@ import CandidateResumeAddPage from "./CandidateResume";
 import EmployerSubmitJobPage from "./EmployerSubmitJobPage";
 import ProductCart from "./ProductCart";
 import Billing from "./BillingPage";
-
+import EmployerMessagePage from "./EmployerMessagePage";
+import JobDetails from "./JobDetailsPage";
+import EmployerDetails from "./EmployerDetailsPage";
 
 function Landing() {
   return (
@@ -36,6 +38,9 @@ function Landing() {
         <Route path="/mainJobList" element={<MainJob/>} />
         <Route path="/employerList" element={<HomeEmployersListPage/>} />
         <Route path="/candidateList" element={<HomeCandidateListPage/>} />
+        <Route path="/jobDetails" element={<JobDetails/>} />
+        <Route path="/employerDetails" element={<EmployerDetails/>} />
+ 
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
         <Route path="/loginSuccess" element={<LoginSuccess />} />
         <Route path="/candidate/dashBoard" element = {<DashBoard/>} />
@@ -57,7 +62,9 @@ function Landing() {
         <Route path="/employer/submitJob" element={<EmployerSubmitJobPage/>} />
         <Route path="/employer/jobPost" element={< Jobpost/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
+        <Route path="/employer/message" element= {< EmployerMessagePage/>} />
         <Route path="/employer/meetings" element= {< Meeting/>} />
+
         <Route path="/employer/change-password" element={<ChangeAccountPassword/>} />
         <Route path="/employer/delete-profile" element={<DeleteAccount/>} />
       </Routes>
