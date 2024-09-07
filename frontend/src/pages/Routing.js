@@ -28,6 +28,8 @@ import Billing from "./BillingPage";
 import EmployerMessagePage from "./EmployerMessagePage";
 import JobDetails from "./JobDetailsPage";
 import EmployerDetails from "./EmployerDetailsPage";
+import EmployerJobApplicant from "./EmployerJobApplicant";
+
 
 function Landing() {
   return (
@@ -60,6 +62,7 @@ function Landing() {
         <Route path="/employer/empDashBoard" element={< EmpDashBoard/>} />
         <Route path="/employer/empProfile" element={<EmployerProfilePage/>} />
         <Route path="/employer/submitJob" element={<EmployerSubmitJobPage/>} />
+        <Route path="/employer/jobApplicant" element={<EmployerJobApplicant/>} />
         <Route path="/employer/jobPost" element={< Jobpost/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
         <Route path="/employer/message" element= {< EmployerMessagePage/>} />
