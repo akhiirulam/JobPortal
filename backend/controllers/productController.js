@@ -29,6 +29,14 @@ const productController = {
         console.log(createdProduct);
         res.send("Product Created Successfully")
     }),
+    viewProduct:asyncHandler(async(req,res)=>{
+        const {id} = req.params
+        const productFound = await Product.findById(id)
+        if(!productFound){
+            throw new Error("Product Not Found")
+        }
+        res.send(productFound)
+    }),
     editProduct:asyncHandler(async(req,res)=>{
         const id = req.body
         const userFound = await Admin.findById(id)
