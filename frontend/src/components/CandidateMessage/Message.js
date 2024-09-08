@@ -1,19 +1,18 @@
-import React, { useState,useEffect } from "react";
-import EmpSidebar from "../EmpSidebar/EmpSidebar";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import CandidateSidebar from "../CandidateSidebar/CandidateSidebar";
 
-
-const MessagePage = () => {
-    const [selectedSender, setSelectedSender] = useState(null);
-    const [filter, setFilter] = useState('all');
-    const [chatMessages, setChatMessages] = useState([]);
-    const [showFilters, setShowFilters] = useState(false);
-    const [messages, setMessages] = useState([]); 
+const CandidateMessagePage = () => {
+  const [selectedSender, setSelectedSender] = useState(null);
+  const [filter, setFilter] = useState("all");
+  const [chatMessages, setChatMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [showFilters, setShowFilters] = useState(false); // New state to toggle filters
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get("/api/messages"); // Adjust the URL as per your backend route
+        const response = await axios.get("/api/messages");
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);
@@ -25,7 +24,7 @@ const MessagePage = () => {
   const handleSenderClick = async (sender) => {
     setSelectedSender(sender);
     try {
-      const response = await axios.get(`/api/messages/${sender.id}`); // Fetch chat history for the sender
+      const response = await axios.get(`/api/messages/${sender.id}`);
       setChatMessages(response.data);
     } catch (error) {
       console.error("Error fetching chat messages:", error);
@@ -42,8 +41,6 @@ const MessagePage = () => {
           senderId: selectedSender.id,
           message: newMessage,
         });
-
-        // Update local chat state with the new message
         setChatMessages([...chatMessages, { text: newMessage, sender: true }]);
         e.target.reset();
       } catch (error) {
@@ -60,21 +57,23 @@ const MessagePage = () => {
   return (
     <div className="flex flex-col mt-[50px] md:flex-row h-screen">
       {/* Sidebar */}
-      <EmpSidebar />
+      <CandidateSidebar className="md:w-1/4 w-full" />
 
       {/* Filters Sidebar */}
       <div className="md:w-1/4 w-full bg-gray-100 p-4 border-r md:ml-72">
         {/* Toggle Button for mobile view */}
-        <button
-          className="md:hidden block bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          {showFilters ? "Hide Filters" : "Show Filters"}
-        </button>
+        <div className="md:hidden mb-4">
+          <button
+            className="block w-full text-left p-2 rounded-md bg-blue-500 text-white"
+            onClick={() => setShowFilters(!showFilters)} // Toggle filters visibility
+          >
+            Filter Messages
+          </button>
+        </div>
 
-        {/* Filters - Hidden on mobile and toggled by the button */}
-        {showFilters || (
-          <div className="hidden md:block mb-4 space-y-2">
+        {/* Filters - Conditionally render on mobile based on toggle state */}
+        {showFilters && (
+          <div className="md:hidden mb-4 space-y-2">
             <button
               className="block w-full text-left p-2 rounded-md bg-blue-500 text-white"
               onClick={() => setFilter("all")}
@@ -96,10 +95,31 @@ const MessagePage = () => {
           </div>
         )}
 
+        {/* Filters - Shown on desktop */}
+        <div className="hidden md:block mb-4 space-y-2">
+          <button
+            className="block w-full text-left p-2 rounded-md bg-blue-500 text-white"
+            onClick={() => setFilter("all")}
+          >
+            All
+          </button>
+          <button
+            className="block w-full text-left p-2 rounded-md bg-green-500 text-white"
+            onClick={() => setFilter("read")}
+          >
+            Read
+          </button>
+          <button
+            className="block w-full text-left p-2 rounded-md bg-red-500 text-white"
+            onClick={() => setFilter("unread")}
+          >
+            Unread
+          </button>
+        </div>
+
         {/* Message List */}
         <h3 className="text-lg font-semibold mb-4">Messages</h3>
         <ul className="space-y-2 overflow-y-auto h-96">
-          {/* Render filtered messages */}
           {filteredMessages.map((msg) => (
             <li
               key={msg.id}
@@ -163,4 +183,4 @@ const MessagePage = () => {
   );
 };
 
-export default MessagePage;
+export default CandidateMessagePage;

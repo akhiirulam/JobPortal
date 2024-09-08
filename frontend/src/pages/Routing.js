@@ -29,6 +29,10 @@ import EmployerMessagePage from "./EmployerMessagePage";
 import JobDetails from "./JobDetailsPage";
 import EmployerDetails from "./EmployerDetailsPage";
 import EmployerJobApplicant from "./EmployerJobApplicant";
+import CandidateMessage from "./CandidateMessagePage";
+import CandiateAlertJobs from "./CandiateAlertJobsPage";
+import EmployerMyJobs from "./EmployerMyJobs";
+import EmployerShortlistCandidate from "./EmployerShortlistCandidate";
 
 
 function Landing() {
@@ -48,9 +52,11 @@ function Landing() {
         <Route path="/candidate/dashBoard" element = {<DashBoard/>} />
         <Route path="/candidate/candProfile" element = {<CandidateProfilePage/>} />
         <Route path="/candidate/ResumeAdd" element = {<CandidateResumeAddPage/>} />
-        <Route path="/candidate/shortlistjobs" element = {<ShortListjobs/>} />
         <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobPage/>} />
+        <Route path="/candidate/shortlistjobs" element = {<ShortListjobs/>} />
         <Route path="/candidate/following-employers" element={<CandidateFollowingEmployer/>} />
+        <Route path="/candidate/alertJobs" element = {<CandiateAlertJobs/>} />
+        <Route path="/candidate/message" element= {< CandidateMessage/>} />
         <Route path="/candidate/meetings" element= {< Meeting/>} />
         <Route path="/candidate/change-password" element={<ChangeAccountPassword/>} />
         <Route path="/candidate/delete-profile" element={<DeleteAccount/>} />
@@ -61,9 +67,11 @@ function Landing() {
        
         <Route path="/employer/empDashBoard" element={< EmpDashBoard/>} />
         <Route path="/employer/empProfile" element={<EmployerProfilePage/>} />
+        <Route path="/employer/myJobs" element={<EmployerMyJobs/>} />
         <Route path="/employer/submitJob" element={<EmployerSubmitJobPage/>} />
-        <Route path="/employer/jobApplicant" element={<EmployerJobApplicant/>} />
         <Route path="/employer/jobPost" element={< Jobpost/>} />
+        <Route path="/employer/jobApplicant" element={<EmployerJobApplicant/>} />
+        <Route path="/employer/shortlistCandidate" element={<EmployerShortlistCandidate/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
         <Route path="/employer/message" element= {< EmployerMessagePage/>} />
         <Route path="/employer/meetings" element= {< Meeting/>} />
