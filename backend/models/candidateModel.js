@@ -174,7 +174,11 @@ const candidateSchema = new mongoose.Schema({
             type: String,
             trim:true
         }
-    ]
+    ],
+    cart:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Cart'
+    }
 },{
     timestamps:true
 })

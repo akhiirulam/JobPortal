@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
     features:[{
         type:String
     }],
-    picture:{
+    SKU:{
         type:String
     }
 })
