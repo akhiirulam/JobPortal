@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Job = require('../models/jobModel');
-const {uploadImage} = require('../Middlewares/imageUpload');
+const JobAlert = require('../models/jobAlertModel'); // Import the JobAlert model
+const { uploadImage } = require('../Middlewares/imageUpload');
 
 const jobController = {
     // Add Job Details
@@ -30,13 +31,12 @@ const jobController = {
             featuredImage,
             photos
         } = req.body;
-        
+
         try {
             // Validate required fields
             if (!title || !description || !location || !salaryType || !minSalary || !maxSalary) {
                 return res.status(400).json({ error: "Missing required fields" });
             }
-
 
             // Create a new job object
             const newJob = new Job({
@@ -67,6 +67,19 @@ const jobController = {
 
             // Save the new job to the database
             const job = await newJob.save();
+
+
+            //  job alert for the new job
+
+            const newJobAlert = new JobAlert({
+                jobId: job._id,
+                title: job.title,
+                description: job.description,
+                expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000) // 15 days from now
+            });
+
+            // Save the job alert to the database
+            await newJobAlert.save();
 
             // Respond with the created job
             res.status(201).json({ message: "Job created successfully", job });
@@ -112,7 +125,7 @@ const jobController = {
         });
     }),
 
-    //list jobs
+    // List Jobs
     listJobs: asyncHandler(async (req, res) => {
         const jobs = await Job.find();
         if (!jobs) {
@@ -122,48 +135,42 @@ const jobController = {
         res.json(jobs);
     }),
 
-    //filtering jobs
+    // Filtering Jobs
+    filterJobs: asyncHandler(async(req, res) => {
+        const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query;
 
-    filterJobs: asyncHandler(async(req,res)=>{
-        
+        let filter = {};
 
-    const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query
+        if (tags) {
+            filter.tags = { $all: tags }; // Match all tags
+        }
+        if (location) {
+            filter.location = location;
+        }
+        if (jobType) {
+            filter.type = jobType;
+        }
+        if (datePosted) {
+            const lastDay = new Date();
+            lastDay.setDate(lastDay.getDate() - datePosted);
+            filter.updatedAt = { $gte: lastDay };
+        }
+        if (experienceLevel) {
+            filter.experienceLevel = { $in: experienceLevel };
+        }
+        if (careerLevel) {
+            filter.careerLevel = { $in: careerLevel };
+        }
+        if (salaryRange) {
+            const [minSalary, maxSalary] = salaryRange.split('-');
+            filter.minSalary = { $gte: parseInt(minSalary) };
+            filter.maxSalary = { $lte: parseInt(maxSalary) };
+        }
+        console.log(filter);
 
-    let filter = {};
+        const jobs = await Job.find(filter);
 
-    if (tags) {
-        filter.tags = { $all: tags }; // Match all tags
-    }
-    if (location) {
-        filter.location = location;
-    }
-    if (jobType) {
-        filter.type = jobType;
-    }
-    if (datePosted) {
-        const lastDay = new Date();
-        lastDay.setDate(lastDay.getDate() - datePosted);
-        filter.updatedAt = { $gte: lastDay };
-    }
-    if (experienceLevel) {
-        filter.experienceLevel = { $in: experienceLevel }
-    }
-    if (careerLevel) {
-        filter.careerLevel =  { $in: careerLevel } 
-    }
-    if (salaryRange) {
-         const [minSalary, maxSalary] = salaryRange.split('-');
-         filter.minSalary = { $gte: parseInt(minSalary)};
-         filter.maxSalary = { $lte: parseInt(maxSalary)};
-      } 
-      console.log(filter);
-      
-         
-
-      const jobs = await Job.find(filter);
-
-      res.send(jobs)
-
+        res.send(jobs);
     })
 };
 
