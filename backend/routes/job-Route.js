@@ -20,7 +20,7 @@ const storage = new CloudinaryStorage({
 ]);
 
 // Route to add job details
-router.post('/add', upload, jobController.addJobDetails);
+router.post('/add',isAuth, upload, jobController.addJobDetails);
 
 // Route to edit job details
 router.put('/edit/:id', isAuth, jobController.editJobDetails);
@@ -30,5 +30,10 @@ router.delete('/delete/:id', isAuth, jobController.deleteJobDetails);
 
 //list all jobs 
 router.get('/jobs', jobController.listJobs);
+
+//filter Jobs
+router.get('/job-filter',jobController.filterJobs)
+//view a single job by id
+router.get('/:id',isAuth,jobController.viewJob)
 
 module.exports = router;

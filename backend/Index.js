@@ -5,29 +5,29 @@ const session = require('express-session');
 const passport = require('passport');
 require('./utilis/passport');
 const cookieParser = require('cookie-parser');
-
-const http = require('http');
-
 const cloudinary = require('cloudinary').v2;
-
+const http = require('http');
 const port = process.env.PORT || 5000;
-const apiRouter = require('./Routes');
+const apiRouter = require('./routes');
+const errorHandler = require('./middlewares/errorHandler');
 
 require('dotenv').config();
 require('./Db/DbConnection'); 
 
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  credentials: true,
+};
+
 app.use(session({
-  secret: 'your_secret_key',
+  secret: 'Su04936Ch238868Aru9746752591',
   resave: false,
   saveUninitialized: true
 }));
 
 
+
 app.use(cookieParser()); 
-const corsOptions = {
-  origin: 'http://localhost:3000', 
-  credentials: true,
-};
 app.use(cors(corsOptions)); 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false })); 
@@ -40,9 +40,12 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
+require('dotenv').config();
+require('./Db/DbConnection'); 
 
 
 app.use('/api/v1', apiRouter);
+app.use(errorHandler)
 
 
 app.listen(port, () => {

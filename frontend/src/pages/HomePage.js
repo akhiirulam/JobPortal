@@ -10,6 +10,7 @@ import AppDownload from "../components/AppDownload/AppDownload";
 import RecruitingBanner from "../components/RecruitingBanner/RecruitingBanner"
 import BottomFooter from "../components/Footer/BottomFooter"
 import Footer from "../components/Footer/Footer"
+import Jobpost from "./Jobpost";
 
 
 const HomePage = () => {
@@ -20,7 +21,6 @@ const HomePage = () => {
         <Banner />
         <div className="container mx-auto md:w-[1320px]">
         <Joblist />
-        {/* <Listjobs /> */}
         <Companies />
         </div>
         <hr className='w-screen' />

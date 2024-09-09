@@ -18,7 +18,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:5000/api/v1/user/login",
+        "http://localhost:5000/api/v1/profile/login",
         {
           email,
           password,
@@ -44,7 +44,7 @@ const Login = () => {
   const handleGoogleLogin = async(event) =>
     {
       console.log("Hello");
-      window.location.href = 'http://localhost:5000/api/v1/user/google';
+      window.location.href = 'http://localhost:5000/api/v1/profile/google';
     }
 
   return (

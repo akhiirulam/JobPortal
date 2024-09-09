@@ -1,13 +1,13 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/userModel'); // Adjust path as necessary
+const User = require('../models/candidateModel'); // Adjust path as necessary
 require('dotenv').config();
 
 // Configure Passport to use Google OAuth
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/api/v1/user/google/callback',
+  callbackURL: '/api/v1/profile/google/callback',
 },
 async (accessToken, refreshToken, profile, done) => {
   try {

@@ -8,9 +8,9 @@ require('dotenv').config();
 
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
-const User = require("../models/userModel");
 const OTP = require("../models/otpModel");
+const Employer = require("../models/employerModel");
+const Candidate = require("../models/candidateModel");
 
 const userController = {
 
@@ -18,7 +18,10 @@ const userController = {
     const { email, password } = req.body;
     
   try {
-    const user = await User.findOne({ email });
+    const user = await Employer.findOne({ email });
+    if (!user) {
+      const user = await Candidate.findOne({ email });
+    }
     if (!user) {
       return res.status(404).json({ error: "No user record found" });
     }
@@ -45,11 +48,11 @@ const userController = {
   }
   }),
 
-  signup: asyncHandler(async (req, res) => {
+  signupEmployer: asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
 
     // Check if the user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await Employer.findOne({ email }) || await Candidate.findOne({ email });
     if (existingUser) {
       res.status(400);
       throw new Error("User already exists");
@@ -59,7 +62,7 @@ const userController = {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create and save the new user
-    const newUser = new User({
+    const newUser = new Employer({
       name: username,
       email,
       password: hashedPassword,
@@ -69,8 +72,31 @@ const userController = {
 
     // Respond with success
     res.status(201).json({ message: "User registered successfully" });
+  }),
+  signupCandidate: asyncHandler(async (req, res) => {
+    const { username, email, password } = req.body;
 
-    console.log(username, email, password);
+    // Check if the user already exists
+    const existingUser = await Employer.findOne({ email }) || await Candidate.findOne({ email });
+    if (existingUser) {
+      res.status(400);
+      throw new Error("User already exists");
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create and save the new user
+    const newUser = new Candidate({
+      name: username,
+      email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    // Respond with success
+    res.status(201).json({ message: "User registered successfully" });
   }),
 
   otpGeneration: asyncHandler(async (req, res) => {

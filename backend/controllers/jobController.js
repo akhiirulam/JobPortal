@@ -152,52 +152,52 @@ const jobController = {
         throw new Error('No jobs found');
     }
     res.json(jobs);
-}),
-
-//filtering jobs
-
-filterJobs: asyncHandler(async(req,res)=>{
+  }),
+  //filter Jobs
+  filterJobs: asyncHandler(async(req,res)=>{
+    const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query
     
-
-const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query
-
-let filter = {};
-
-if (tags) {
-    filter.tags = { $all: tags }; // Match all tags
-}
-if (location) {
-    filter.location = location;
-}
-if (jobType) {
-    filter.type = jobType;
-}
-if (datePosted) {
-    const lastDay = new Date();
-    lastDay.setDate(lastDay.getDate() - datePosted);
-    filter.updatedAt = { $gte: lastDay };
-}
-if (experienceLevel) {
-    filter.experienceLevel = { $in: experienceLevel }
-}
-if (careerLevel) {
-    filter.careerLevel =  { $in: careerLevel } 
-}
-if (salaryRange) {
-     const [minSalary, maxSalary] = salaryRange.split('-');
-     filter.minSalary = { $gte: parseInt(minSalary)};
-     filter.maxSalary = { $lte: parseInt(maxSalary)};
-  } 
-  console.log(filter);
-  
-     
-
-  const jobs = await Job.find(filter);
-
-  res.send(jobs)
-
-})
+    let filter = {};
+    
+    if (tags) {
+        filter.tags = { $all: tags }; // Match all tags
+    }
+    if (location) {
+        filter.location = location;
+    }
+    if (jobType) {
+        filter.type = {$in:jobType};
+    }
+    if (datePosted) {
+        const lastDay = new Date();
+        lastDay.setDate(lastDay.getDate() - datePosted);
+        filter.updatedAt = { $gte: lastDay };
+    }
+    if (experienceLevel) {
+        filter.experienceLevel =  experienceLevel 
+    }
+    if (careerLevel) {
+        filter.careerLevel =   careerLevel 
+    }
+    if (salaryRange) {
+         const [minSalary, maxSalary] = salaryRange.split('-');
+         filter.minSalary = { $gte: parseInt(minSalary)};
+         filter.maxSalary = { $lte: parseInt(maxSalary)};
+      } 
+      console.log(filter);
+      
+         
+    
+      const jobs = await Job.find(filter);
+    
+      res.send(jobs)
+    
+    }),
+    viewJob: asyncHandler(async(req,res)=>{
+      const {id} = req.params;
+      const job = await Job.findById(id)
+      res.send(job)
+    })
 };
-
 
 module.exports = jobController;
