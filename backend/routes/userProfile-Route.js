@@ -5,6 +5,7 @@ const userProfile = require('../controllers/userProfileController')
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 const isAuth = require('../middlewares/auth');
+const noneUpload = multer();
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
@@ -20,8 +21,20 @@ const upload = multer({ storage: storage }).fields([
     { name: 'portfolioImgs', maxCount: 5 }
 ]);
 
-router.put('/addProfile',isAuth,upload, userProfile.addProfile);
+const empUpload = multer({ storage: storage }).fields([
+  { name: 'logoImage', maxCount: 1 },
+  { name: 'coverImage', maxCount: 1 },
+  { name: 'images[]', maxCount: 5 },
+  { name: 'members.profileImage', maxCount: 1 },
+]);
 
+const candUpload = multer({ storage: storage }).fields([
+  { name: 'profileImage', maxCount: 1 },
+]);
+
+
+router.post('/addCandidate',candUpload,userProfile.addProfile);
+router.post('/addEmployer',empUpload,userProfile.addEmployer);
 router.get('/viewProfile',isAuth,userProfile.viewUserProfile);
 router.get('/candidate/:id', isAuth, userProfile.viewPersonProfile)
 router.get('/employer/:id', isAuth, userProfile.viewCompanyProfile)

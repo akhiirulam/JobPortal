@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Login from "../components/Login/Login";
+
 // import FindJobs from "./JoblistHomePage";
 import MainJob from "./MainJobList";
 // import EmployerList from "./EmployerList";
@@ -33,6 +34,7 @@ import CandidateMessage from "./CandidateMessagePage";
 import CandiateAlertJobs from "./CandiateAlertJobsPage";
 import EmployerMyJobs from "./EmployerMyJobs";
 import EmployerShortlistCandidate from "./EmployerShortlistCandidate";
+import Signup from "../components/SignupPage/SignUp";
 
 
 function Landing() {
@@ -41,6 +43,7 @@ function Landing() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/mainJobList" element={<MainJob/>} />
         <Route path="/employerList" element={<HomeEmployersListPage/>} />
         <Route path="/candidateList" element={<HomeCandidateListPage/>} />

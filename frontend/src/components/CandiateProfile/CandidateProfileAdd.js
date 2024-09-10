@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from "react";
-
-
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
 import { FaTimes, FaChevronDown } from "react-icons/fa";
 import SocialMediaFormList from "./SocialMediaFormList";
 import CandidateSidebar from "../CandidateSidebar/CandidateSidebar";
+import Cookies from 'js-cookie';
 
 const EmployerProfileAdd = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
-
   const [profileImage, setProfileImage] = useState(null);
+  const [fullName,setFullName] = useState("");
+  const [DOB, setDOB] = useState("");
+  const [phoneNumber,setPhoneNumber] = useState("");
+  const [email, setEmail] = useState('');
+  const [categories,setCategory] = useState('');
+  const [jobTitle,setJobTitle] = useState('');
+  const [friendlyAddress,setFriendlyAddress] = useState('')
+  const [location,setLocation] = useState('');
+  const profileInputRef = useRef(null)
 
   const handleProfileImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+    
+        setProfileImage(URL.createObjectURL(file));
     }
   };
 
-  const handleProfileRemoveImage = () => {
-    setProfileImage(null);
+  const triggerProfileUpload = () => {
+    profileInputRef.current.click();
   };
 
   const [genderOption, setGenderOption] = useState("");
@@ -103,18 +108,18 @@ const EmployerProfileAdd = () => {
     "Design",
   ];
 
-  // Handle job category selection
+
   const handleJobCategorySelect = (event) => {
     const value = event.target.value;
     if (value && !selectedCategories.includes(value)) {
-      setSelectedCategories((prev) => [...prev, value]); // Add new category to array
+      setSelectedCategories((prev) => [...prev, value]); 
     }
-    event.target.value = ""; // Reset dropdown value after selection
+    event.target.value = ""; 
   };
 
-  // Handle removing a job category
+ 
   const removeJobCategory = (category) => {
-    setSelectedCategories(selectedCategories.filter((cat) => cat !== category)); // Remove selected category
+    setSelectedCategories(selectedCategories.filter((cat) => cat !== category)); 
   };
 
   const [experiensOption, setExperienceOption] = useState("");
@@ -126,14 +131,14 @@ const EmployerProfileAdd = () => {
     setExperienceOption("");
   };
 
-  const [profileOption, setProfileOption] = useState(""); // State to manage profile visibility option
+  const [profileOption, setProfileOption] = useState(""); 
 
-  // Handle profile visibility selection
+ 
   const handleProfileVisibility = (event) => {
     setProfileOption(event.target.value);
   };
 
-  // Clear profile visibility selection
+  
   const clearProfileVisibility = () => {
     setProfileOption("");
   };
@@ -158,6 +163,59 @@ const EmployerProfileAdd = () => {
       )
     );
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    try {
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("DOB",DOB);
+      formData.append("gender", genderOption);
+      formData.append("age",ageOption);
+      formData.append("email", Cookies.get(email));
+      formData.append("qualification", qualificationOption);
+      formData.append("experiens",experiensOption);
+      formData.append("language",selectLanguage);
+      formData.append("salary",salaryOption);
+      formData.append("category",categories);
+      formData.append("subCategories", selectedCategories)
+      formData.append("profile", profileOption);
+      formData.append("jobTitle", jobTitle)
+      formData.append("jobDescription", jobDescription)
+      formData.append('socialMediaEntries', JSON.stringify(socialMediaEntries));
+      formData.append('location',location)
+      formData.append('friendlyAddress',friendlyAddress);
+
+
+    
+      if (profileInputRef.current && profileInputRef.current.files[0]) {
+        formData.append("profileImage", profileInputRef.current.files[0]);
+      }
+     
+
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+      // Axios POST request
+      const response = await axios.post("http://localhost:5000/api/v1/user/addCandidate", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log('Success:', response.data);
+  
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+    }
+  };
+
+
+
+
+
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -190,7 +248,7 @@ const EmployerProfileAdd = () => {
 
             <label className="text-md font-bold">Profile Image</label>
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-              {profileImage ? (
+             
                 <div className="relative w-48 h-48">
                   <img
                     src={profileImage}
@@ -198,23 +256,22 @@ const EmployerProfileAdd = () => {
                     className="w-48 h-48 object-cover rounded-lg"
                   />
                   <button
-                    onClick={handleProfileRemoveImage}
+                    onClick={triggerProfileUpload}
                     className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
                   >
-                    <FaTimes size={16} />
+                   Browse
                   </button>
                 </div>
-              ) : (
-                <label className="flex flex-col items-center justify-center w-36 h-36 bg-gray-200 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100">
-                  <span className="text-gray-500">Click to upload image</span>
+
                   <input
+                  ref={profileInputRef}
                     type="file"
                     accept="image/*"
                     className="hidden"
+                    style={{ display: "none" }}
                     onChange={handleProfileImageChange}
                   />
-                </label>
-              )}
+
             </div>
             {/* Cover Image */}
 
@@ -225,7 +282,9 @@ const EmployerProfileAdd = () => {
                   <input
                     type="text"
                     placeholder="FullName"
+                    value={fullName}
                     className="p-4 bg-slate-100 w-full rounded-md"
+                    onChange={(e) => {setFullName(e.target.value)}}
                     required
                   />
                 </div>
@@ -233,6 +292,8 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Date of Birth</label>
                   <input
                     type="date"
+                    value={DOB}
+                    onChange={(e)=>{setDOB(e.target.value)}}
                     placeholder="Date of Birth"
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
@@ -254,8 +315,9 @@ const EmployerProfileAdd = () => {
                     <option value="" disabled>
                       Show my profile
                     </option>
-                    <option value="Show">Show</option>
-                    <option value="Hide">Hide</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="LGBTQ+">LGBTQ+</option>
                   </select>
 
                   {/* Clear button */}
@@ -308,7 +370,9 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Phone Number</label>
                   <input
                     type="Number"
-                    placeholder="FullName"
+                    value={phoneNumber}
+                    onChange={(e) => {setPhoneNumber(e.target.value)}}
+                    placeholder="Phone Number"
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
@@ -317,6 +381,7 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Email</label>
                   <input
                     type="text"
+                    value={Cookies.get(email)}
                     placeholder="Email"
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
@@ -470,7 +535,9 @@ const EmployerProfileAdd = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="Employer"
+                    value={categories}
+                    onChange={(e)=> {setCategory(e.target.value)}}
+                    placeholder="Categories"
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
@@ -549,6 +616,8 @@ const EmployerProfileAdd = () => {
                   </label>
                   <input
                     type="text"
+                    value={jobTitle}
+                    onChange={(e)=> {setJobTitle(e.target.value)}}
                     placeholder="Employer"
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
@@ -616,6 +685,8 @@ const EmployerProfileAdd = () => {
               <input
                 type="text"
                 placeholder="Friendly Address"
+                value={friendlyAddress}
+                onChange={(e)=>{setFriendlyAddress(e.target.value)}}
                 className="p-4 bg-slate-100 w-full rounded-md"
                 required
               />
@@ -624,10 +695,21 @@ const EmployerProfileAdd = () => {
               <label className="font-bold">Location</label>
               <input
                 type="text"
+                value={location}
+                onChange={(e)=> {setLocation(e.target.value)}}
                 placeholder="Location"
                 className="p-4 bg-slate-100 w-full rounded-md"
                 required
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-[50px] bg-[#F5F7FC] h-fit">
+          <div className="flex flex-col bg-blue-100 p-4 mt-4 mb-4 rounded h-full">
+            <div className="flex flex-col items-center gap-1 w-full">
+            <button className="bg-blue-600 w-48 h-12 rounded text-white font-semibold" type="submit" onClick={handleSubmit}>Submit</button>
+              
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import img1 from "../../public/member1.jpg";
 import MemberFormList from "./MemberForm";
 import EmpSidebar from "../EmpSidebar/EmpSidebar";
@@ -6,11 +6,20 @@ import { Editor } from "@tinymce/tinymce-react";
 import { FaTimes, FaChevronDown } from "react-icons/fa";
 import SocialMediaFormList from "./SocialMediaFormList";
 import GooglePlacesAutocomplete from "./GooglePlacesAutocomplete";
+import Select from "react-select";
+import axios from "axios";
+
 
 const EmployerProfileAdd = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
   const [showProfileOption, setShowProfileOption] = useState("");
+  const [employerName, setEmployerName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [website, setWebsite] = useState("");
+  const [foundedDate, setFoundedDate] = useState("");
+  const [companySize, setCompanySize] = useState("");
+  const [introVideo, setIntroVideo] = useState("");
 
   const handleShowProfileSelect = (event) => {
     setShowProfileOption(event.target.value);
@@ -152,6 +161,53 @@ const EmployerProfileAdd = () => {
     setLocation(placeName);
   };
 
+  const [logoImage, setLogoImage] = useState(img1);
+  const [coverImage, setCoverImage] = useState(null);
+
+  const logoInputRef = useRef(null);
+  const coverInputRef = useRef(null);
+
+  const handleLogoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setLogoImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleCoverUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setCoverImage(URL.createObjectURL(file));
+    }
+  };
+
+  const triggerLogoUpload = () => {
+    logoInputRef.current.click();
+  };
+
+  const triggerCoverUpload = () => {
+    coverInputRef.current.click();
+  };
+
+  const categoriesOptions = [
+    { value: "category1", label: "Category 1" },
+    { value: "category2", label: "Category 2" },
+    { value: "category3", label: "Category 3" },
+    // Add more options as needed
+  ];
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleChange = (selectedOptions) => {
+    setSelectedCategories(selectedOptions);
+  };
+
+  const handleRemoveCategory = (categoryToRemove) => {
+    setSelectedCategories((prevCategories) =>
+      prevCategories.filter((category) => category !== categoryToRemove)
+    );
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       const sidebarElement = document.getElementById("default-sidebar");
@@ -171,18 +227,76 @@ const EmployerProfileAdd = () => {
     };
   }, [isOpen]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("showProfileOption", showProfileOption);
+    formData.append("employerName", employerName);
+    formData.append("email", localStorage.getItem("email"));
+    formData.append("mobileNumber", mobileNumber);
+    formData.append("website", website);
+    formData.append("foundedDate", foundedDate);
+    formData.append("companySize", companySize);
+    formData.append('selectedCategories', JSON.stringify(selectedCategories));
+    formData.append("tempUrl", tempUrl);
+    formData.append("jobDescription", jobDescription);
+  
+    if (logoInputRef.current && logoInputRef.current.files[0]) {
+      formData.append("logoImage", logoInputRef.current.files[0]);
+    }
+    if (coverInputRef.current && coverInputRef.current.files[0]) {
+      formData.append("coverImage", coverInputRef.current.files[0]);
+    }
+    images.forEach((image) => {
+      formData.append("images[]", image);
+    });
+
+    formData.append('members', JSON.stringify(members));
+    formData.append('socialMediaEntries', JSON.stringify(socialMediaEntries));
+  
+    console.log('Members:', members[0].profileImage);
+    console.log('Social Media Entries:', socialMediaEntries);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/user/addEmployer', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    
+    
+      console.log('Success:', response.data);
+    
+    } catch (error) {
+     
+      if (error.response) {
+     
+        console.error('Error Response:', error.response.data);
+        console.error('Status:', error.response.status);
+        console.error('Headers:', error.response.headers);
+      } else if (error.request) {
+      
+        console.error('No response received:', error.request);
+      } else {
+       
+        console.error('Error Message:', error.message);
+      }
+    }
+    
+  };
+
   return (
     <div className="mt-[50px] bg-[#F5F7FC] h-fit">
       <EmpSidebar />
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
         <h3 className="py-4 text-base md:text-2xl">Edit Profile</h3>
-
         <div className="flex flex-col bg-white p-4 md:p-[30px] rounded">
           <div className="flex flex-col gap-6">
             {/* Dropdown Section */}
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <div className="relative w-full max-w-xs">
                 <select
+                  id="showProfileOption"
                   value={showProfileOption}
                   onChange={handleShowProfileSelect}
                   className="appearance-none w-full p-3 md:p-4 bg-white border rounded-md focus:outline-none text-gray-700"
@@ -214,23 +328,52 @@ const EmployerProfileAdd = () => {
             <label className="text-md font-bold">Logo Image</label>
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
               <img
-                src={img1}
+                src={logoImage}
                 alt="logo"
                 className="w-24 h-24 sm:w-32 sm:h-32 object-cover"
               />
-              <button className="button bg-custom-dark px-6 py-3 md:px-8 md:py-4 rounded-md font-medium text-primary">
+              <button
+                className="button bg-custom-dark px-6 py-3 md:px-8 md:py-4 rounded-md font-medium text-primary"
+                onClick={triggerLogoUpload}
+              >
                 Browse
               </button>
+              <input
+                ref={logoInputRef}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleLogoUpload}
+              />
             </div>
 
             {/* Cover Image */}
 
             <label className="text-md font-bold">Cover Image</label>
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-              <button className="button bg-custom-dark px-6 py-3 md:px-8 md:py-4 rounded-md font-medium text-primary">
+              <button
+                className="button bg-custom-dark px-6 py-3 md:px-8 md:py-4 rounded-md font-medium text-primary"
+                onClick={triggerCoverUpload}
+              >
                 Browse
               </button>
+              <input
+                ref={coverInputRef}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleCoverUpload}
+              />
             </div>
+
+            {/* Display uploaded cover image (if any) */}
+            {coverImage && (
+              <img
+                src={coverImage}
+                alt="Cover"
+                className="w-full h-40 object-cover mt-4"
+              />
+            )}
             {/* Cover Image */}
 
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
@@ -239,8 +382,10 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Employer Name</label>
                   <input
                     type="text"
+                    value={employerName}
                     placeholder="Employer"
                     className="p-4 bg-slate-100 w-full rounded-md"
+                    onChange={(e) => setEmployerName(e.target.value)}
                     required
                   />
                 </div>
@@ -248,8 +393,9 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Email</label>
                   <input
                     type="email"
-                    placeholder="employer@gmail.com"
+                    placeholder={localStorage.email}
                     className="p-4 bg-slate-100 w-full rounded-md"
+                    disabled
                     required
                   />
                 </div>
@@ -263,7 +409,9 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Phone Number</label>
                   <input
                     type="number"
+                    value={mobileNumber}
                     placeholder="123 444 555"
+                    onChange={(e) => setMobileNumber(e.target.value)}
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
@@ -272,7 +420,9 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Website</label>
                   <input
                     type="text"
+                    value={website}
                     placeholder="themeforest.net"
+                    onChange={(e) => setWebsite(e.target.value)}
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
@@ -288,7 +438,9 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Founded Date</label>
                   <input
                     type="number"
+                    value={foundedDate}
                     placeholder="2005"
+                    onChange={(e) => setFoundedDate(e.target.value)}
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
@@ -297,7 +449,9 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">Company Size</label>
                   <input
                     type="text"
+                    value={companySize}
                     placeholder="50-100"
+                    onChange={(e) => setCompanySize(e.target.value)}
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
@@ -313,19 +467,24 @@ const EmployerProfileAdd = () => {
                   <label className="font-bold">
                     Categories <span className="text-red-500 text-base">*</span>
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Employer"
-                    className="p-4 bg-slate-100 w-full rounded-md"
-                    required
+                  <Select
+                    isMulti
+                    options={categoriesOptions}
+                    value={selectedCategories}
+                    onChange={handleChange}
+                    className="basic-single"
+                    classNamePrefix="select"
+                    placeholder="Select categories..."
                   />
                 </div>
                 <div className="flex flex-col gap-1 w-full">
                   <label className="font-bold">Introduction Video URL</label>
                   <input
                     type="text"
+                    vlaue={introVideo}
                     placeholder="https://www.youtube.com/watch?v=nrJtHemSPW4"
                     className="p-4 bg-slate-100 w-full rounded-md"
+                    onChange={(e) => setIntroVideo(e.target.value)}
                     required
                   />
                 </div>
@@ -508,33 +667,6 @@ const EmployerProfileAdd = () => {
         <div className="mt-[50px] bg-[#F5F7FC] h-fit">
           <div className="flex flex-col bg-blue-100 p-4 mt-4 mb-4 md:p-[30px] rounded h-full">
             <div className="flex flex-col gap-6">
-              <div className="p-4">
-                {socialMediaEntries.map((entry, index) => (
-                  <SocialMediaFormList
-                    key={index}
-                    index={index}
-                    socialMediaEntry={entry}
-                    handleSocialMediaChange={handleSocialMediaInputChange}
-                    handleRemoveSocialMedia={() =>
-                      removeSocialMediaEntry(index)
-                    }
-                  />
-                ))}
-                <button
-                  type="button"
-                  onClick={addSocialMediaEntry}
-                  className="mt-4 px-4 py-2 bg-green-500 text-white rounded-md"
-                >
-                  Add Another Social Media
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-[50px] bg-[#F5F7FC] h-fit">
-          <div className="flex flex-col bg-blue-100 p-4 mt-4 mb-4 md:p-[30px] rounded h-full">
-            <div className="flex flex-col gap-6">
               <div className="form-group">
                 <label htmlFor="location">Location</label>
                 <GooglePlacesAutocomplete
@@ -548,6 +680,13 @@ const EmployerProfileAdd = () => {
                   className="p-2 border rounded-md mt-2"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-[50px] bg-[#F5F7FC] h-fit">
+          <div className="flex flex-col bg-blue-100 p-4 mt-4 mb-4 md:p-[30px] rounded h-full">
+            <div className="flex flex-col gap-6 items-center">
+            <button className="bg-blue-600 w-48 h-12 rounded text-white font-semibold" type="submit" onClick={handleSubmit}>Submit</button>
             </div>
           </div>
         </div>

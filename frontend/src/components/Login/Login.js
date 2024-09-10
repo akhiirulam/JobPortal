@@ -30,13 +30,22 @@ const Login = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         toast.success("Login successful");
-        navigate("/candidate/dashBoard");
+        if(response.data.userType === 'Candidate')
+        {
+          navigate("/candidate/dashBoard");
+        }
+        else if(response.data.userType === 'Employer')
+        {
+          navigate("/employer/empDashBoard");
+        }
+        
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {
         setError("An error occurred. Please try again.");
+        navigate("/login");
       }
     }
   };
@@ -106,7 +115,7 @@ const Login = () => {
           </button>
           <div className="mt-4 flex items-center w-full text-center">
             <a
-              href="/"
+              href="/signup"
               className="text-xs text-gray-500 capitalize text-center w-full"
             >
               Don&apos;t have any account yet?

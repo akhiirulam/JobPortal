@@ -3,18 +3,17 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const isAuth = require('../middlewares/auth');
 const passport = require('passport');
-const generateToken = require('../utilis/generateToken');
-const User = require('../models/candidateModel');
 
 const jwt = require('jsonwebtoken');
 
 router.post('/login', userController.login);
-router.post('/otpGeneration',userController.otpGeneration)
-router.post('/otpVerification',userController.otpVerification)
-router.post('/candidate/signup',userController.signupCandidate)
-router.post('/employer/signup',userController.signupEmployer)
-router.post('/forgotPassword',isAuth,userController.forgotPassword)
-router.post('/resetPassword',isAuth,userController.resetPassword)
+// router.post('/signup',userController.signup);
+router.post('/otpGeneration',userController.otpGeneration);
+router.post('/otpVerification',userController.otpVerification);
+router.post('/candidate/signup',userController.signupCandidate);
+router.post('/employer/signup',userController.signupEmployer);
+router.post('/forgotPassword',isAuth,userController.forgotPassword);
+router.post('/resetPassword',isAuth,userController.resetPassword);
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
