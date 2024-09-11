@@ -8,7 +8,15 @@ const AwardFormList = ({ index, award, handleAwardsInputChange, handleAwardsRemo
         name="title"
         value={award.title}
         onChange={handleAwardsInputChange}
-        placeholder="Title"
+        placeholder="Organization Name"
+        className="block w-full p-2 mb-2 border rounded"
+      />
+      <input
+        type="text"
+        name="name"
+        value={award.name}
+        onChange={handleAwardsInputChange}
+        placeholder="Award Name"
         className="block w-full p-2 mb-2 border rounded"
       />
       <input

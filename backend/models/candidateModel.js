@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 
 const candidateSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      
-      trim: true,
-    },
+   
     email: {
       type: String,
       required: true,
@@ -17,18 +13,54 @@ const candidateSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    name: {
+      type: String,
+      trim: true,
+    },
+    profileImg: {
+      type: String,
+    },
     mobile: {
       type: Number,
       trim: true,
     },
-    location: {
-      type: {
-        type: String, // This will always be 'Point'
-        enum: ["Point"],
+    DOB: {
+      type: Date,
+    },
+    gender: {
+      type: String,
+    },
+    age: {
+      type: String,
+    },
+    qualification: {
+      type: String,
+    },
+    experience: {
+      type: String,
+    },
+    languages: [
+      {
+        type: String,
       },
-      coordinates: {
-        type: [Number], // Array of numbers: [longitude, latitude]
-      },
+    ],
+    salary: {
+      type: Number,
+    },
+    category: {
+      type: String,
+    },
+    subCategory: {
+      type: String,
+    },
+    showMyProfile: {
+      type: Boolean,
+    },
+    jobTitle: {
+      type: String,
+    },
+    jobDescription: {
+      type: String,
     },
     role: {
       type: String,
@@ -42,29 +74,7 @@ const candidateSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    DOB: {
-      type: Date,
-    },
-    salary: {
-      type: Number,
-    },
-    gender: {
-      type: String,
-    },
-    showMyProfile: {
-      type: Boolean,
-    },
-    educationalQualification: {
-      type: String,
-    },
-    languages: [
-      {
-        type: String,
-      },
-    ],
-    experience: {
-      type: String,
-    },
+   
     facebook: {
       type: String,
       default: null,
@@ -80,14 +90,21 @@ const candidateSchema = new mongoose.Schema(
       default: null,
       trim: true,
     },
+    location: {
+      type: String,
+      trim: true,
+    },
+    friendlyAddress: {
+      type: String,
+      trim: true,
+    },
     personalWebsite: {
       type: String,
       default: null,
       trim: true,
     },
-    friendlyAddress: {
+    profileVideo: {
       type: String,
-      default: null,
     },
     bookmarkedProfiles: [
       {
@@ -145,17 +162,13 @@ const candidateSchema = new mongoose.Schema(
         },
       },
     ],
-    profileImg: {
-      type: String,
-    },
+    
     portfolioImgs: [
       {
         type: String,
       },
     ],
-    profileVideo: {
-      type: String,
-    },
+   
     resume: [
       {
         type: String,

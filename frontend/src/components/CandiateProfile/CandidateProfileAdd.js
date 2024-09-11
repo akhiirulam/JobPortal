@@ -18,6 +18,9 @@ const EmployerProfileAdd = () => {
   const [jobTitle,setJobTitle] = useState('');
   const [friendlyAddress,setFriendlyAddress] = useState('')
   const [location,setLocation] = useState('');
+  const [introductionVideo,setIntroductionVideo] = useState('');
+  const [salary,setSalary] = useState("");
+  const role = "candidate";
   const profileInputRef = useRef(null)
 
   const handleProfileImageChange = (event) => {
@@ -87,7 +90,7 @@ const EmployerProfileAdd = () => {
     setSelectLanguage(selectLanguage.filter((language) => language !== lang)); // Remove selected language
   };
 
-  const [salaryOption, setSalaryOption] = useState("");
+  const [salaryTypeOption, setSalaryOption] = useState("");
 
   const handleSalary = (event) => {
     setSalaryOption(event.target.value);
@@ -173,21 +176,23 @@ const EmployerProfileAdd = () => {
       formData.append("DOB",DOB);
       formData.append("gender", genderOption);
       formData.append("age",ageOption);
-      formData.append("email", Cookies.get(email));
+      formData.append("email", email);
       formData.append("qualification", qualificationOption);
-      formData.append("experiens",experiensOption);
+      formData.append("experience",experiensOption);
       formData.append("language",selectLanguage);
-      formData.append("salary",salaryOption);
+      formData.append("salaryType",salaryTypeOption);
+      formData.append("role",role)
+      formData.append("salary",salary)
       formData.append("category",categories);
-      formData.append("subCategories", selectedCategories)
+      formData.append("subCategories", selectedCategories);
       formData.append("profile", profileOption);
-      formData.append("jobTitle", jobTitle)
-      formData.append("jobDescription", jobDescription)
+      formData.append("jobTitle", jobTitle);
+      formData.append("jobDescription", jobDescription);
       formData.append('socialMediaEntries', JSON.stringify(socialMediaEntries));
-      formData.append('location',location)
+      formData.append('location',location);
       formData.append('friendlyAddress',friendlyAddress);
-
-
+      formData.append('introductionVideo',introductionVideo);
+      formData.append('mobile',phoneNumber);
     
       if (profileInputRef.current && profileInputRef.current.files[0]) {
         formData.append("profileImage", profileInputRef.current.files[0]);
@@ -210,12 +215,6 @@ const EmployerProfileAdd = () => {
       console.error('Error:', error.response ? error.response.data : error.message);
     }
   };
-
-
-
-
-
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -497,7 +496,7 @@ const EmployerProfileAdd = () => {
                 <div className="relative flex flex-col gap-1 w-full">
                   <label className="font-bold">SalaryType</label>
                   <select
-                    value={salaryOption}
+                    value={salaryTypeOption}
                     onChange={handleSalary}
                     className="appearance-none w-full p-3 md:p-4 bg-slate-100 border rounded-md focus:outline-none text-gray-700"
                   >
@@ -512,7 +511,7 @@ const EmployerProfileAdd = () => {
                   </select>
 
                   {/* Clear button */}
-                  {salaryOption && (
+                  {salaryTypeOption && (
                     <button
                       className="absolute right-12 mt-12 transform -translate-y-1/2 text-gray-500"
                       onClick={clearSalary}
@@ -525,10 +524,24 @@ const EmployerProfileAdd = () => {
               </div>
             </div>
 
-            {/* Cover Image */}
-
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-              <div className="w-full flex flex-col sm:flex-row gap-4">
+              <div className="w-full flex flex-col sm:flex-row gap-4"> 
+              <div className="flex flex-col gap-1 w-full">                
+                <div className="relative flex flex-col gap-1 w-full">
+                  <label className="font-bold">
+                    Salary{" "}
+                    <span className="text-red-500 text-base mr-1">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    value={salary}
+                    onChange={(e)=> {setSalary(e.target.value)}}
+                    placeholder="Current or Previous Salary"
+                    className="p-4 bg-slate-100 w-full rounded-md"
+                    required
+                  />
+                </div>
+                </div>
                 <div className="flex flex-col gap-1 w-full">
                   <label className="font-bold">
                     Categories <span className="text-red-500 text-base">*</span>
@@ -541,6 +554,41 @@ const EmployerProfileAdd = () => {
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
+                </div>
+              </div>
+            </div>
+
+
+            {/* Cover Image */}
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+              <div className="w-full flex flex-col sm:flex-row gap-4">
+              <div className="relative flex flex-col gap-1 w-full">
+                  <label className="font-bold">Show My Profile</label>
+                  <select
+                    value={profileOption}
+                    onChange={handleProfileVisibility}
+                    className="appearance-none w-full p-3 md:p-4 bg-slate-100 border rounded-md focus:outline-none text-gray-700"
+                  >
+                    <option value="" disabled>
+                      Select Visibility
+                    </option>
+                    <option value="Show">Show</option>
+                    <option value="Hide">Hide</option>
+                  </select>
+
+                  {/* Clear button */}
+                  {profileOption && (
+                    <button
+                      className="absolute right-12 mt-12 transform -translate-y-1/2 text-gray-500"
+                      onClick={clearProfileVisibility}
+                    >
+                      <FaTimes />
+                    </button>
+                  )}
+
+                  {/* Chevron icon */}
+                  <FaChevronDown className="absolute right-4 mt-12 transform -translate-y-1/2 text-gray-500" />
                 </div>
                 <div className="relative flex flex-col gap-1 w-full">
                   <label className="font-bold">Select Job Category</label>
@@ -583,34 +631,7 @@ const EmployerProfileAdd = () => {
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
               <div className="w-full flex flex-col sm:flex-row gap-4">
                 <div className="relative flex flex-col gap-1 w-full">
-                  <label className="font-bold">Show My Profile</label>
-                  <select
-                    value={profileOption}
-                    onChange={handleProfileVisibility}
-                    className="appearance-none w-full p-3 md:p-4 bg-slate-100 border rounded-md focus:outline-none text-gray-700"
-                  >
-                    <option value="" disabled>
-                      Select Visibility
-                    </option>
-                    <option value="Show">Show</option>
-                    <option value="Hide">Hide</option>
-                  </select>
-
-                  {/* Clear button */}
-                  {profileOption && (
-                    <button
-                      className="absolute right-12 mt-12 transform -translate-y-1/2 text-gray-500"
-                      onClick={clearProfileVisibility}
-                    >
-                      <FaTimes />
-                    </button>
-                  )}
-
-                  {/* Chevron icon */}
-                  <FaChevronDown className="absolute right-4 mt-12 transform -translate-y-1/2 text-gray-500" />
-                </div>
-                <div className="relative flex flex-col gap-1 w-full">
-                  <label className="font-bold">
+                <label className="font-bold">
                     Job Title{" "}
                     <span className="text-red-500 text-base mr-1">*</span>
                   </label>
@@ -622,6 +643,9 @@ const EmployerProfileAdd = () => {
                     className="p-4 bg-slate-100 w-full rounded-md"
                     required
                   />
+                </div>
+                <div className="relative flex flex-col gap-1 w-full">
+                  
                 </div>
               </div>
             </div>
@@ -698,6 +722,17 @@ const EmployerProfileAdd = () => {
                 value={location}
                 onChange={(e)=> {setLocation(e.target.value)}}
                 placeholder="Location"
+                className="p-4 bg-slate-100 w-full rounded-md"
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1 w-full">
+              <label className="font-bold">Introduction Video</label>
+              <input
+                type="text"
+                value={introductionVideo}
+                onChange={(e)=> {setIntroductionVideo(e.target.value)}}
+                placeholder="https://www.youtube.com/watch?v=nrJtHemSPW4"
                 className="p-4 bg-slate-100 w-full rounded-md"
                 required
               />

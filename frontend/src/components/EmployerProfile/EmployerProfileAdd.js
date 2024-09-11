@@ -247,6 +247,7 @@ const EmployerProfileAdd = () => {
     if (coverInputRef.current && coverInputRef.current.files[0]) {
       formData.append("coverImage", coverInputRef.current.files[0]);
     }
+    
     images.forEach((image) => {
       formData.append("images[]", image);
     });

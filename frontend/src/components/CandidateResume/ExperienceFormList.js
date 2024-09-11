@@ -22,17 +22,25 @@ const ExperienceFormList = ({ index, experience, handleExperienceInputChange, ha
       />
       <input
         type="text"
-        name="year"
-        value={experience.year}
+        name="startYear"
+        value={experience.startYear}
         onChange={handleExperienceInputChange}
-        placeholder="Year"
+        placeholder="Starting Year"
+        className="block w-full p-2 mb-2 border rounded"
+      />
+      <input
+        type="text"
+        name="endYear"
+        value={experience.endYear}
+        onChange={handleExperienceInputChange}
+        placeholder="Ending Year"
         className="block w-full p-2 mb-2 border rounded"
       />
       <textarea
         name="description"
         value={experience.description}
         onChange={handleExperienceInputChange}
-        placeholder="Description"
+        placeholder="Reason for leaving"
         className="block w-full p-2 mb-2 border rounded"
       />
       <button

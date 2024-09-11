@@ -1,32 +1,30 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
 import { FaTimes, FaChevronDown } from "react-icons/fa";
 import EducationFormList from "./EducationFormList";
 
 import CandidateSidebar from "../CandidateSidebar/CandidateSidebar";
 import ExperienceFormList from "./ExperienceFormList";
 import AwardFormList from "./AwardFormList";
+import axios from "axios";
 
 const CandidateResumeAdd = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Define the state to hold uploaded files
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const resumeInputRef = useRef(null);
 
-  // Handle file uploads (append new files to the existing list)
-  const handleFileUpload = (e) => {
-    const newFiles = Array.from(e.target.files); // Convert FileList to array
-    setUploadedFiles((prevFiles) => [...prevFiles, ...newFiles]); // Append new files
-
-    // Reset the file input field after upload
-    e.target.value = "";
+  const handleResumeUpload = (event) => {
+    const files = Array.from(event.target.files); // Get the files as an array
+    setUploadedFiles((prevFiles) => [...prevFiles, ...files]); // Append new files to the existing list
   };
 
-  // Handle removing a specific file
+  const triggerResumeUpload = () => {
+    resumeInputRef.current.click();
+  };
+
   const handleFileRemove = (index) => {
     setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
-
 
   const [education, setEducation] = useState([
     { title: "", academy: "", year: "", description: "" },
@@ -101,10 +99,11 @@ const CandidateResumeAdd = () => {
 
   const [images, setImages] = useState([]);
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setImages((prevImages) => [...prevImages, ...files]);
+  const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files); 
+    setImages((prevImages) => [...prevImages, ...files]); 
   };
+  
 
   const handleRemoveImage = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
@@ -138,6 +137,37 @@ const CandidateResumeAdd = () => {
     setVisibleAwards((prev) => [...prev, false]);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+      const formData = new FormData();
+      formData.append("education", JSON.stringify(education));
+      formData.append("experience", JSON.stringify(experience));
+      formData.append("awards", JSON.stringify(awards));
+
+      uploadedFiles.forEach((file, index) => {
+        formData.append(`uploadedFile[]`, file);
+      });
+      images.forEach((image, index) => {
+        formData.append(`images[]`, image);
+      });
+
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+        try {
+          const response = await axios.post('http://localhost:5000/api/v1/user/addResume', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+    
+          console.log('Success:', response.data);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -164,7 +194,7 @@ const CandidateResumeAdd = () => {
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
         <h3 className="py-4 text-base md:text-2xl">Edit Profile</h3>
 
-        <div className="flex flex-col bg-white p-4 md:p-[30px] rounded">
+        <div className="flex flex-col  p-4 md:p-[30px] rounded">
           <div className="flex flex-col gap-6">
             {/* Logo Image and Browse Button Section */}
 
@@ -196,12 +226,18 @@ const CandidateResumeAdd = () => {
 
               {/* File upload input */}
               <label className="flex flex-col items-center justify-center w-full h-12 bg-gray-200 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100">
-                <span className="text-black">Click to upload file</span>
+                <button
+                  className="button bg-custom-dark px-6 py-3 md:px-8 md:py-4 rounded-md font-medium text-primary"
+                  onClick={triggerResumeUpload}
+                >
+                  Browse
+                </button>
                 <input
+                  ref={resumeInputRef}
                   type="file"
-                  accept=".pdf,.doc,.docx"
-                  className="hidden"
-                  onChange={handleFileUpload}
+                  accept=".pdf" // Updated to accept PDF files
+                  style={{ display: "none" }}
+                  onChange={handleResumeUpload}
                 />
               </label>
             </div>
@@ -382,6 +418,17 @@ const CandidateResumeAdd = () => {
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="mt-[50px] bg-[#F5F7FC] h-fit">
+              <div className="flex flex-col bg-blue-100 p-4 mt-4 mb-4 md:p-[30px] rounded h-full items-center">
+                <button
+                  className="bg-blue-600 w-48 h-12 rounded text-white font-semibold"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>

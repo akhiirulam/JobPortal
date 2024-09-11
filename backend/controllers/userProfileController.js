@@ -8,148 +8,178 @@ const Employer = require("../models/employerModel");
 
 const userProfileController = {
   addProfile: asyncHandler(async (req, res) => {
-    // // const { email } = req.cookies;
+    // const { email } = req.cookies;
     // if (!email) {
     //   return res.status(400).send("Email not found in cookies.");
     // }
+    const email = "test5@gmail.com";
 
     const {
       fullName,
       DOB,
       gender,
+      mobile,
       age,
       qualification,
-      experiens,
+      experience,
       language,
+      salaryType,
       salary,
+      role,
       category,
       subCategories,
       profile,
       jobTitle,
       jobDescription,
-      socialMediaEntries,
-      location,
+      // location,
       friendlyAddress,
+      introductionVideo,
     } = req.body;
-
+console.log("Data from frontend:", fullName,
+  DOB,
+  gender,
+  mobile,
+  age,
+  qualification,
+  experience,
+  language,
+  salaryType,
+  salary,
+  role,
+  category,
+  subCategories,
+  profile,
+  jobTitle,
+  jobDescription,
+  // location,
+  friendlyAddress,
+  introductionVideo,)
+  
+      
     const profileImage = req.files["profileImage"]
-    ? req.files["profileImage"][0].path
-    : null;
+      ? req.files["profileImage"][0].path
+      : null;
 
+      const socialMediaEntries = JSON.parse(req.body.socialMediaEntries || '{}');
+     
+    const newUserData = {
+      profileImg: profileImage || undefined,
+      name: fullName || undefined,
+      DOB,
+      gender,
+      mobile,
+      email: email,
+      age,
+      qualification,
+      experience,
+      languages: language ? [language] : undefined,
+      salaryType,
+      salary,
+      category,
+      showMyProfile: profile === 'Show' ? true : false,
+      subCategory: subCategories || undefined,
+      jobTitle,
+      description: jobDescription,
+      facebook: socialMediaEntries.facebook || null,
+      twitter: socialMediaEntries.twitter || null,      
+      instagram: socialMediaEntries.instagram || null,
+      role,
+      friendlyAddress,
+      // location: {
+      //   type: 'Point',
+      //   coordinates
+      // },
+     
+      profileVideo: introductionVideo,
+    
+    };
 
-    console.log(fullName, DOB, gender, age,qualification,experiens,language,salary,category,subCategories,profile,jobTitle,jobDescription,socialMediaEntries,location,friendlyAddress,profileImage);
-   
-   
+    console.log("hello",newUserData);
 
-    // Continue with the logic to store or process fullName
-    // Example response
-    res.status(200).json({ message: "Profile added successfully", fullName });
+    const user = await Candidate.findOne({ email });
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+    console.log(user);
 
-    // const {
-    //   fullName,
-    //   DOB,
-    //   gender,
-    //   mobile,
-    //   educationalQualification,
-    //   yearsOfExperience,
-    //   languages,
-    //   salaryType,
-    //   salary,
-    //   categories,
-    //   showMyProfile,
-    //   jobTitle,
-    //   description,
-    //   socialNetwork,
-    //   role,
-    //   companyName,
-    //   designation,
-    //   friendlyAddress,
-    //   location,
-    //   introductionVideo,
-    //   educationalHistory,
-    //   collegeName,
-    //   degreeName,
-    //   educationDescription,
-    //   startDate,
-    //   endDate,
-    //   previousDesignation,
-    //   previousStartingDate,
-    //   previousEndDate,
-    //   previousCompanyName,
-    //   reasonForQuit,
-    //   portfolio,
-    //   award
-    // } = req.body;
+    const response = await Candidate.updateOne(
+      { email },
+      { $set: newUserData }
+    );
 
-    // const profileImage = req.files?.profileImage ? req.files.profileImage[0].path : null;
-    // const resumePdf = req.files?.resumePdf ? req.files.resumePdf[0].path : null;
-    // const portfolioImgs = req.files?.portfolioImgs ? req.files.portfolioImgs.map(file => file.path) : [];
-
-    // const coordinates = Array.isArray(location?.coordinates)
-    //     ? location.coordinates.map(coord => parseFloat(coord))
-    //     : [0, 0];
-
-    // const newUserData = {
-    //   profileImg: profileImage,
-    //   name: fullName,
-    //   DOB,
-    //   gender,
-    //   mobile,
-    //   email :'test1@example.com',
-    //   educationalQualification,
-    //   experience: yearsOfExperience,
-    //   languages,
-    //   salaryType,
-    //   salary,
-    //   categories,
-    //   showMyProfile,
-    //   jobTitle,
-    //   description,
-    //   socialNetwork,
-    //   role,
-    //   companyName,
-    //   designation,
-    //   friendlyAddress,
-    //   location: {
-    //     type: 'Point',
-    //     coordinates
-    //   },
-    //   introductionVideo,
-    //   resume: resumePdf ? [resumePdf] : [],
-    //   educationalHistory: [{
-    //     collegeName,
-    //     degreeName,
-    //     educationDescription,
-    //     startDate,
-    //     endDate
-    //   }],
-    //   previousWorkHistory: [{
-    //     previousDesignation,
-    //     previousCompanyName,
-    //     reasonForQuit,
-    //     previousStartingDate,
-    //     previousEndDate
-    //   }],
-    //   portfolioImgs,
-    //   profileVideo: introductionVideo,
-    //   awards: award ? [award] : []
-    // };
-
-    // console.log(newUserData)
-
-    // const user = await Employer.findOne({ email }) || await Candidate.findOne({email});
-    // if (!user) {
-    //   return res.status(404).send("User not found.");
-    // }
-
-    // if(user.role==="candidate"){
-    //   await Candidate.updateOne({ email }, { $set: newUserData });
-    // }
-    // if(user.role==="employer"){
-    //   await Employer.updateOne({ email }, { $set: newUserData });
-    // }
-    // res.status(200).send("User information registered successfully.");
+    if (response) {
+      res.status(200).send("User information registered successfully.");
+    } else {
+      res.status(500).send("Failed to update user information.");
+    }
   }),
+
+  addResume: asyncHandler(async (req,res) => {
+      // const { email } = req.cookies;
+    // if (!email) {
+    //   return res.status(400).send("Email not found in cookies.");
+    // }
+    const email = "test5@gmail.com";
+
+    const education = JSON.parse(req.body.education || '[]');
+    const previousExperience = JSON.parse(req.body.experience || '[]');
+    const awards = JSON.parse(req.body.awards || '[]')
+
+    const resumes = req.files["uploadedFile[]"]
+    ? req.files["uploadedFile[]"].map((file) => file.path)
+    : [];
+
+    const images = req.files["images[]"]
+    ? req.files["images[]"].map((file) => file.path)
+    : [];
+
+    console.log(education,previousExperience,awards)
+    const educationalHistory = education.map((degree, index) => ({
+      collegeName: degree.title,
+      degreeName: degree.academy,
+      educationDescription: degree.description, 
+      year: degree.year,
+    }));
+
+   const previousWorkHistory = previousExperience.map((workHistory,index) => ({
+    previousDesignation : workHistory.title,
+    previousCompanyName : workHistory.company, 
+    previousStartingDate : workHistory.startYear,
+    previousEndDate : workHistory.endYear
+   }))
+    
+   const candidateAwards = awards.map((award,index) => ({
+    occasionName: award.title,
+    awardName: award.name,
+    shortSummery: award.description,
+    dateOfCertification: award.year
+   }))
+
+   const newUserData = {
+   resume: Array.isArray(resumes) ? resumes : resumes ? [resumes] : [],
+   educationalHistory: educationalHistory.length ? educationalHistory : [], 
+   previousWorkHistory: previousWorkHistory.length ? previousWorkHistory : [], 
+   portfolioImgs :Array.isArray(images) ? images : images ? [images] : [],
+   awards: candidateAwards.length ? candidateAwards : [], 
+   }
+
+   const user = await Candidate.findOne({ email });
+   if (!user) {
+     return res.status(404).send("User not found.");
+   }
+   console.log(user);
+
+   const response = await Candidate.updateOne(
+     { email },
+     { $set: newUserData }
+   );
+   if (response) {
+     res.status(200).send("User information registered successfully.");
+   } else {
+     res.status(500).send("Failed to update user information.");
+   }
+  }),
+
 
   addEmployer: asyncHandler(async (req, res) => {
     try {
