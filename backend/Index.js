@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const asyncHandler = require('express-async-handler');
 const http = require('http');
 const passport = require('./utilis/passport');
-const authRoutes = require('./routes/auth-Route'); // Correct import
+const authRoutes = require('./routes/auth-Route'); 
+const conversationRoutes = require('./routes/conversationRoute');
+const messageRoutes = require('./routes/messageRoute');
 
 const port = process.env.PORT || 5000;
 const apiRouter = require('./routes');
@@ -15,6 +17,7 @@ require('dotenv').config();
 require('./Db/DbConnection'); 
 
 
+// Middleware
 app.use(cookieParser()); 
 const corsOptions = {
   origin: 'http://localhost:3000', 
@@ -25,10 +28,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 passport(app);
 
-app.use("/auth", authRoutes); // Use the correct variable name here
 
+app.use("/auth", authRoutes); 
 app.use('/api/v1', apiRouter);
 
+
+app.use('/api/conversations', conversationRoutes);
+app.use('/api/messages', messageRoutes);
+
+// Server listen logic
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
