@@ -5,16 +5,35 @@ import SideBar from '../sideBar/SideBar';
 =======
 >>>>>>> origin/doneByBasil
 
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-
-
+import EmpSidebar from "../EmpSidebar/EmpSidebar";
 
 const ChangePassword = () => {
-    const [toggleOPassword,setToggleOPassword] = useState(false)
-    const [toggleNPassword,setToggleNPassword] = useState(false)
-    const [toggleCNPassword,setToggleCNPassword] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [toggleOPassword, setToggleOPassword] = useState(false);
+  const [toggleNPassword, setToggleNPassword] = useState(false);
+  const [toggleCNPassword, setToggleCNPassword] = useState(false);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const sidebarElement = document.getElementById("default-sidebar");
+      if (sidebarElement && !sidebarElement.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
 <<<<<<< HEAD
     <>
@@ -78,9 +97,13 @@ const ChangePassword = () => {
                 <div onClick={()=>setToggleCNPassword(!toggleCNPassword)} className='ml-[-3rem] mr-[2rem] hover:text-[#1967D2] w-[2rem] p-[1px] z-10 hover:cursor-pointer'>
                 {toggleCNPassword?<FontAwesomeIcon icon={faEye}/> : <FontAwesomeIcon icon={faEyeSlash}/>}</div>
                 </div>
-                </div>
-                <button type='submit' className='px-[30px] h-[50px] py-[9px] rounded-md bg-[#1967D2] hover:bg-[#1451A4] border border-sky-500 text-white text-[15px] font-normal'>Change Password</button>
-                
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 rounded-md bg-[#1967D2] hover:bg-[#1451A4] text-white font-medium"
+              >
+                Change Password
+              </button>
             </form>
           </div>
           </div>
@@ -91,6 +114,6 @@ const ChangePassword = () => {
 =======
 >>>>>>> origin/doneByBasil
   );
-}
+};
 
 export default ChangePassword;

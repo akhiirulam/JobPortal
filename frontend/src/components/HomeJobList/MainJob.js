@@ -1,4 +1,7 @@
+<<<<<<< HEAD:frontend/src/components/JobListMain/MainJob.js
 <<<<<<< HEAD
+=======
+>>>>>>> origin/akhilChandran:frontend/src/components/HomeJobList/MainJob.js
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaMapMarkerAlt, FaTimes } from "react-icons/fa";
 import SearchableDropdown from "./SearchableDropdown";
@@ -256,6 +259,7 @@ const EmployerList = () => {
             {/* Company Image and Name */}
             <JobList />
           </div>
+<<<<<<< HEAD:frontend/src/components/JobListMain/MainJob.js
 =======
 import React from "react";
 import SideBar from "./SideBar";
@@ -300,14 +304,20 @@ const Mainjob = () => {
             </div>
           </section>
 >>>>>>> origin/doneByBasil
+=======
+>>>>>>> origin/akhilChandran:frontend/src/components/HomeJobList/MainJob.js
         </div>
       </div>
     </div>
   );
 };
 
+<<<<<<< HEAD:frontend/src/components/JobListMain/MainJob.js
 <<<<<<< HEAD
 export default EmployerList;
 =======
 export default Mainjob;
 >>>>>>> origin/doneByBasil
+=======
+export default EmployerList;
+>>>>>>> origin/akhilChandran:frontend/src/components/HomeJobList/MainJob.js

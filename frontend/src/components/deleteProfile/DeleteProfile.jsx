@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
-import Navbar from '../Navbar/Navbar';
-import SideBar from '../sideBar/SideBar';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import EmpSidebar from "../EmpSidebar/EmpSidebar";
 
+const Exm = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [togglePassword, setTogglePassword] = useState(false);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const sidebarElement = document.getElementById("default-sidebar");
+      if (sidebarElement && !sidebarElement.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
 
-const DeleteProfile = () => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
 
-    const [togglePassword,setTogglePassword] = useState(false)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
 <<<<<<< HEAD
@@ -54,6 +70,6 @@ const DeleteProfile = () => {
 =======
 >>>>>>> origin/doneByBasil
   );
-}
+};
 
-export default DeleteProfile;
+export default Exm;

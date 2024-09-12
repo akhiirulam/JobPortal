@@ -57,9 +57,9 @@ const userProfileController = {
     const resumePdf = req.files?.resumePdf ? req.files.resumePdf[0].path : null;
     const portfolioImgs = req.files?.portfolioImgs ? req.files.portfolioImgs.map(file => file.path) : [];
 
-    const coordinates = Array.isArray(location?.coordinates) 
-        ? location.coordinates.map(coord => parseFloat(coord))
-        : [0, 0];
+    const coordinates = Array.isArray(location?.coordinates)
+      ? location.coordinates.map(coord => parseFloat(coord))
+      : [0, 0];
 
     const newUserData = {
       profileImg: profileImage,
@@ -67,7 +67,7 @@ const userProfileController = {
       DOB,
       gender,
       mobile,
-      email :'test1@example.com',
+      email: 'test1@example.com',
       educationalQualification,
       experience: yearsOfExperience,
       languages,
@@ -109,25 +109,17 @@ const userProfileController = {
 
     console.log(newUserData)
 
-<<<<<<< HEAD
-    const user = await User.findOne({ email });
-=======
-    const user = await Employer.findOne({ email }) || await Candidate.findOne({email});
->>>>>>> origin/doneByBasil
+    const user = await Employer.findOne({ email }) || await Candidate.findOne({ email });
     if (!user) {
       return res.status(404).send("User not found.");
     }
 
-<<<<<<< HEAD
-    await User.updateOne({ email }, { $set: newUserData });
-=======
-    if(user.role==="candidate"){
+    if (user.role === "candidate") {
       await Candidate.updateOne({ email }, { $set: newUserData });
     }
-    if(user.role==="employer"){
+    if (user.role === "employer") {
       await Employer.updateOne({ email }, { $set: newUserData });
     }
->>>>>>> origin/doneByBasil
     res.status(200).send("User information registered successfully.");
   }),
 
@@ -264,71 +256,159 @@ const userProfileController = {
     });
   }),
 
-  
-  filterEmployer: asyncHandler(async(req,res)=>{
-    const { tags, location,category,foundDateFrom,foundDateTo} = req.query
-    
+
+  filterEmployer: asyncHandler(async (req, res) => {
+    const { tags, location, category, foundDateFrom, foundDateTo } = req.query
+
     let filter = {};
-    
+
     if (tags) {
-        filter.tags = { $all: tags }; // Match all tags
+      filter.tags = { $all: tags }; // Match all tags
     }
     if (location) {
-        filter.location = location;
+      filter.location = location;
     }
     if (category) {
-        filter.type = category;
+      filter.type = category;
     }
     if (foundDateFrom || foundDateTo) {
       filter.foundDate = {
         $gte: new Date(foundDateFrom),
         $lte: new Date(foundDateTo)
       }
-  }
-
-  console.log(filter);
-  
-
-      const employerList = await Employer.find(filter);
-    
-      res.send(employerList)
-    
-    }),
-  filterCandidate: asyncHandler(async(req,res)=>{
-      const { tags, location, category,gender,datePosted,experienceLevel,qualification } = req.query
-      
-      let filter = {};
-      
-      if (tags) {
-          filter.tags = { $all: tags }; // Match all tags
-      }
-      if (location) {
-          filter.location = location;
-      }
-      if (category) {
-        filter.type = category;
     }
-      if (gender) {
-          filter.gender = gender;
-      }
-      if (datePosted) {
-          const lastDay = new Date();
-          lastDay.setDate(lastDay.getDate() - datePosted);
-          filter.updatedAt = { $gte: lastDay };
-      }
-      if (experienceLevel) {
-          filter.experienceLevel = experienceLevel 
-      }
-      if (qualification) {
-          filter.educationalQualification =  qualification  
-      }
 
-        const candidateList = await Candidate.find(filter);
-      
-        res.send(candidateList)
-      
-      }),
-  
+    console.log(filter);
+
+
+    const employerList = await Employer.find(filter);
+
+    res.send(employerList)
+
+  }),
+  filterCandidate: asyncHandler(async (req, res) => {
+    const { tags, location, category, gender, datePosted, experienceLevel, qualification } = req.query
+
+    let filter = {};
+
+    if (tags) {
+      filter.tags = { $all: tags }; // Match all tags
+    }
+    if (location) {
+      filter.location = location;
+    }
+    if (category) {
+      filter.type = category;
+    }
+    if (gender) {
+      filter.gender = gender;
+    }
+    if (datePosted) {
+      const lastDay = new Date();
+      lastDay.setDate(lastDay.getDate() - datePosted);
+      filter.updatedAt = { $gte: lastDay };
+    }
+    if (experienceLevel) {
+      filter.experienceLevel = experienceLevel
+    }
+    if (qualification) {
+      filter.educationalQualification = qualification
+    }
+
+    const candidateList = await Candidate.find(filter);
+
+    res.send(candidateList)
+
+  }),
+
+  //view applied jobs
+  viewAppliedJobs: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+
+    const candidate = await Candidate.findById(candidateId).populate('listedJobs');
+
+
+    if (!candidate) {
+      res.status(404);
+      throw new Error('Candidate not found');
+    }
+
+    res.status(200).json({
+      message: "Applied jobs",
+      appliedJobs: candidate.listedJobs,
+    })
+  }),
+
+  //shortlist jobs
+  shortlistJob: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+
+    const { jobId } = req.body;
+
+    if (!jobId) {
+      res.status(400);
+      throw new Error("Job ID is required");
+    }
+
+    const candidate = await Candidate.findById(candidateId);
+    if (!candidate) {
+      return res.status(404).send("Candidate not found.");
+    }
+
+    //check if the job is already shortlisted
+    if (candidate.shortlistedJobs.includes(jobId)) {
+      res.status(400);
+      throw new Error("Job already shortlisted");
+    }
+
+    candidate.shortlistedJobs.push(jobId);
+
+    await candidate.save();
+    res.status(200).send("Job shortlisted successfully");
+  }),
+
+  //follow employer
+  followEmployer: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+    const { employerId } = req.params;
+
+    const candidate = await Candidate.findById(candidateId,
+      { $addToSet: { followingEmployers: employerId } },
+      { new: true }
+    );
+
+    if (!candidate) {
+      res.status(404);
+      throw new Error("Candidate not found");
+    }
+
+    res.status(200).json({
+      message: "Employer followed successfully",
+      followingEmployers: candidate.followingEmployers,
+    });
+  }),
+
+  // unfollow employer
+  unfollowEmployer: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+    const { employerId } = req.params;
+
+    const candidate = await Candidate.findByIdAndUpdate(
+      candidateId,
+      { $pull: { followingEmployers: employerId } },
+      { new: true }
+    );
+
+    if (!candidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+
+    res.status(200).json({
+      message: 'Employer unfollowed successfully',
+      followingEmployers: candidate.followingEmployers,
+    });
+  }),
+
 };
 
 module.exports = userProfileController;

@@ -1,7 +1,7 @@
-import React from 'react';
-import CandidateAppliedJobs from '../components/candidateAppliedJobs/CandidateAppliedJobs';
-import SideBar from '../components/sideBar/SideBar';
-import Navbar from '../components/Navbar/Navbar';
+import React from "react";
+import CandidateAppliedJobs from "../components/candidateAppliedJobs/CandidateAppliedJobs";
+
+import Navbar from "../components/Navbar/Navbar";
 
 const CandidateAppliedJobPage = () => {
   return (
@@ -14,6 +14,6 @@ const CandidateAppliedJobPage = () => {
     </div>
     </div>
   );
-}
+};
 
 export default CandidateAppliedJobPage;

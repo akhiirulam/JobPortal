@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
 import axios from "axios";
 import toast from "react-hot-toast";
+
+
+import EmpSidebar from "../EmpSidebar/EmpSidebar";
+
 
 const Jobpost = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +15,7 @@ const Jobpost = () => {
   const [featuredImage, setFeaturedImage] = useState(null);
   const [photos, setPhotos] = useState([]);
   // const [selectedOption, setSelectedOption] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [jobTitle, setJobTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -33,7 +37,8 @@ const Jobpost = () => {
   const [salaryType, setSalaryType] = useState(null);
   const [CareerType, setCareerType] = useState(null);
   const [videoURL, setVideoURL] = useState(null);
-
+  
+  
   const categoryOptionsArray = [
     { value: "Accounting/Finance", label: "Accounting/Finance" },
     { value: "Automotive", label: "Automotive" },
@@ -92,10 +97,7 @@ const Jobpost = () => {
     { value: "Others", label: "Others" },
   ];
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
+ 
   const handleSelectChange = (setter) => (option) => {
     setter(option);
     console.log(`Option selected:`, option);
@@ -129,6 +131,25 @@ const Jobpost = () => {
       setStatus(null);
     }, 1000);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const sidebarElement = document.getElementById("default-sidebar");
+      if (sidebarElement && !sidebarElement.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleSaveAndPreview = async (event) => {
     event.preventDefault();
@@ -193,58 +214,16 @@ const Jobpost = () => {
   };
 
   return (
-    <div className="flex mt-12  fixed w-full  flex-col md:flex-row h-full">
-      {/* Sidebar */}
-
-      <div
-        className={`fixed  md:mb-32 left-0 h-full border bg-blue-200 p-4 transition-transform transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } overflow-auto h-screen md:w-72 md:relative md:translate-x-0`}
-        style={{ zIndex: 1000 }}
-      >
-        <button
-          className="md:hidden p-2 text-white bg-blue-500 rounded mb-4"
-          onClick={toggleSidebar}
-        >
-          {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
-        </button>
-        <div className="flex flex-col">
-          {/* Your sidebar content here */}
-          <label
-            htmlFor="job-title"
-            className="block text-sm font-medium text-black mt-4"
-          >
-            Test1*
-          </label>
-          <input
-            id="Test1"
-            type="text"
-            className="bg-gray-100 h-8 p-4 mt-1 block w-full"
-          />
-
-          {/* Add more content if needed */}
-        </div>
-      </div>
+    <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
+    <EmpSidebar />
 
       {/* Main Content */}
       <div
-        className={`flex-1 border overflow-auto h-full mb-12 bg-gray-200 p-4 transition-all duration-300 ${
-          isSidebarOpen ? "ml-24 md:ml-48" : "ml-0"
-        }`}
+        className="flex-1 md:ml-72 mt-[45px] overflow-y-auto scrollbar-custom ease-in-out h-fit bg-gray-200 p-4 transition-all duration-300 "
       >
         {/* Show Open Sidebar button only on mobile view */}
-        {!isSidebarOpen && (
-          <button
-            className="md:hidden p-2 text-white bg-blue-500 rounded mb-4"
-            onClick={toggleSidebar}
-          >
-            Open Sidebar
-          </button>
-        )}
-        <div>
-          <h1 className="text-lg font-bold">veendum hello</h1>
-        </div>
-        <div className="flex flex-col bg-white mt-4 mb-24 p-4 gap-y-4">
+
+        <div className="flex flex-col bg-white mt-4 mb-4 p-4 gap-y-4">
           <span className="text-sm text-gray-600">
             Add Job Details. * items are mandatory
           </span>
@@ -598,7 +577,7 @@ const Jobpost = () => {
           />
           <button
             disabled={loading}
-            className="bg-button-clr w-36 mb-8 text-white text-sm h-8 p-2 rounded hover:bg-white hover:text-blue-600 hover:border flex justify-center items-center"
+            className="bg-button-clr w-36 text-white text-sm h-8 p-2 rounded hover:bg-white hover:text-blue-600 hover:border flex justify-center items-center"
             onClick={handleSaveAndPreview}
           >
             {loading ? "loading..." : "Save and Preview"}

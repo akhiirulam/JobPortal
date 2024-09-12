@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const employerSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        require:true,
-        minlength:3,
-        trim:true
+    name: {
+        type: String,
+        require: true,
+        minlength: 3,
+        trim: true
     },
     email: {
         type: String,
@@ -25,50 +25,50 @@ const employerSchema = new mongoose.Schema({
         type: {
             type: String,  // This will always be 'Point'
             enum: ['Point'],
-       
+
         },
         coordinates: {
             type: [Number],  // Array of numbers: [longitude, latitude]
-          
+
         },
     },
     role: {
         type: String,
         default: "employer",
     },
-    description:{
+    description: {
         type: String,
     },
-    facebook:{
-        type:String,
-        default:null,
+    facebook: {
+        type: String,
+        default: null,
         trim: true,
     },
-    twitter:{
-        type:String,
-        default:null,
+    twitter: {
+        type: String,
+        default: null,
         trim: true,
     },
-    instagram:{
-        type:String,
-        default:null,
+    instagram: {
+        type: String,
+        default: null,
         trim: true,
     },
-    personalWebsite:{
-        type:String,
-        default:null,
+    personalWebsite: {
+        type: String,
+        default: null,
         trim: true,
     },
-    profileImg:{
-        type:String,
+    profileImg: {
+        type: String,
     },
-    portfolioImgs:[
+    portfolioImgs: [
         {
-            type:String
+            type: String
         }
     ],
-    profileVideo:{
-        type:String
+    profileVideo: {
+        type: String
     },
     bookmarkedProfiles: [
         {
@@ -76,20 +76,26 @@ const employerSchema = new mongoose.Schema({
             ref: 'Candidate'
         }
     ],
-    companySize:{
-        type:String
+    companySize: {
+        type: String
     },
-    foundYear:{
-        type:Number
+    foundYear: {
+        type: Number
     },
-    showMyProfile:{
+    showMyProfile: {
         type: Boolean
     },
-    
-},{
-    timestamps:true
+    postedJobs: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Job'
+        }
+    ]
+
+}, {
+    timestamps: true
 })
 
-const Employer = mongoose.model("Employer",employerSchema)
+const Employer = mongoose.model("Employer", employerSchema)
 
-module.exports= Employer
+module.exports = Employer

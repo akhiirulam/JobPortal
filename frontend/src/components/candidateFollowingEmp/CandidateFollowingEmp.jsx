@@ -1,9 +1,13 @@
-import React from 'react';
-import Navbar from '../Navbar/Navbar';
-import SideBar from '../sideBar/SideBar';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faSuitcase,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
+import EmpSidebar from "../EmpSidebar/EmpSidebar";
 
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faMagnifyingGlass,faSuitcase, faLocationDot} from '@fortawesome/free-solid-svg-icons'
+import img1 from "../../public/airbnb.jpg";
 
 const CandidateFollowingEmp = () => {
   return (
@@ -68,12 +72,11 @@ const CandidateFollowingEmp = () => {
             
                 </div>
               </div>
-              </div>
-              </div>
-              </div>
-              
-
+            </div>
+          </div>
+        </div>
+      </div>
   );
-}
+};
 
 export default CandidateFollowingEmp;

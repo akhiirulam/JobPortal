@@ -1,20 +1,23 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
+const isAuth = (req, res, next) => {
+    const token = req.cookies.token;
 
-const isAuth = ((req,res,next)=>{
-    const token = req.cookies.token
-
-    if(!token){
-        throw new Error("Token not found")
-    }else{
-        const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY)
-        if(!decoded){
-            throw new Error("Token not verified")
-        }else{
-            req.user = decoded
-            next()
-        }
+    if (!token) {
+        return res.status(401).json({ message: "Token not found" });
     }
-})
 
-module.exports = isAuth
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        if (!decoded) {
+            return res.status(401).json({ message: "Token verification failed" });
+        }
+
+        req.user = decoded; 
+        next();
+    } catch (error) {
+        res.status(401).json({ message: "Invalid token" });
+    }
+};
+
+module.exports = isAuth;

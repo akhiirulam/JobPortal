@@ -10,6 +10,27 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
 const EmployerCandidateAlert = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const sidebarElement = document.getElementById("default-sidebar");
+      if (sidebarElement && !sidebarElement.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
 <<<<<<< HEAD
     <>

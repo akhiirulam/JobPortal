@@ -168,6 +168,6 @@ const CandidateAppliedJobs = () => {
         </div>
 >>>>>>> origin/doneByBasil
   );
-}
+};
 
 export default CandidateAppliedJobs;

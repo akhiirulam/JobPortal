@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import img1 from "../../public/member1.jpg";
 import GraphComponent from "./GraphComponent";
 <<<<<<< HEAD
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,8 +35,8 @@ import img1 from "../../public/emplyer.png";
 import img1 from "../../public/member1.jpg";
 >>>>>>> origin/doneByBasil
 
-const EmpDashBoard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+const EmpDashboard = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const stats = [
     { icon: FaBriefcase, label: "Applied Jobs", value: 5 },
     { icon: FaStar, label: "Review", value: 2 },
@@ -176,57 +177,53 @@ const EmpDashBoard = () => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 ml-4 md:ml-4">
-            <div className="w-full md:w-7/12 lg:w-9/12">
+
+          <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-4 mb-4">
+            <div className="flex items-center justify-center h-80 rounded bg-gray-50 dark:bg-gray-800">
               <GraphComponent />
             </div>
-            <div className="w-full md:w-5/12 lg:w-1/2 bg-white p-4 md:p-8">
-              <span className="text-lg md:text-xl font-bold">
-                Notifications
-              </span>
-              <div className="mt-4">
-                {notification.map((noti, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center p-4 bg-gray-100 rounded-md text-black"
-                  >
-                    <noti.icon className="text-blue-500 text-xl md:text-2xl" />
-                    <span className="ml-2 md:ml-4 text-sm md:text-base">
-                      {noti.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col items-center justify-center h-fit rounded bg-gray-50 dark:bg-gray-800">
+              {notification.map((noti, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center p-4 text-black md:flex-row md:items-center md:space-x-4"
+                >
+                  <noti.icon className="text-blue-500 text-4xl mb-2 md:text-6xl md:mb-0 " />
+                  <span className="text-center md:text-left text-sm md:text-base">
+                    {noti.label}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
-
-          <div className="flex flex-col space-y-4 bg-white mt-4 ml-4 border rounded-lg p-4 max-w-full">
-            <div>
-              <h1 className="text-base md:text-lg lg:text-xl">
-                Jobs Applied Recently
-              </h1>
+          <div className="grid grid-cols-1 gap-4 mb-4"></div>
+          <div>
+            <h1 className="text-base sm:text-lg">Recent Applicants</h1>
+          </div>
+          <div className="flex flex-col sm:flex-row border rounded-sm p-4">
+            <div className="flex justify-center sm:justify-start mb-4 sm:mb-0 sm:mr-8">
+              <img
+                src={img1}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full"
+                alt="job1"
+              />
             </div>
-            <div className="flex border rounded-sm p-4">
-              <div className="mr-8">
-                <img src={img1} className="w-20 h-20 rounded-full" alt="job1" />
+            <div className="flex flex-col sm:flex-col ">
+              <div>
+                <span className="text-sm sm:text-base">
+                  Junior Graphic Designer (Web)
+                </span>
               </div>
-              <div className="flex flex-col">
-                <div>
-                  <span className="text-xl">Junior Graphic Designer (Web)</span>
+              <div className="flex flex-col sm:flex-row sm:space-x-4 mt-2">
+                <div className="flex items-center mb-2 sm:mb-0">
+                  <FaBriefcase className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
+                  <span className="text-xs sm:text-sm">
+                    Design, Development
+                  </span>
                 </div>
-                <div className="flex flex-row space-x-4 mt-2">
-                  <div className="flex items-center mr-2">
-                    <FaBriefcase className="h-5 w-5 text-gray-500 mr-2" />
-                    <span className="text-sm">Design, Development</span>
-                  </div>
-                  <div className="flex items-center mr-2">
-                    <FaMapMarkerAlt className="h-5 w-5 text-gray-500 mr-2" />
-                    <span className="text-sm">New York</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaDollarSign className="h-5 w-5 text-gray-500 mr-2" />
-                    <span className="text-sm">$150 - $180 / week</span>
-                  </div>
+                <div className="flex items-center mb-2 sm:mb-0">
+                  <FaMapMarkerAlt className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
+                  <span className="text-xs sm:text-sm">New York</span>
                 </div>
                 <div className="flex items-center mt-2">
 <<<<<<< HEAD
@@ -247,4 +244,4 @@ const EmpDashBoard = () => {
   );
 };
 
-export default EmpDashBoard;
+export default EmpDashboard;

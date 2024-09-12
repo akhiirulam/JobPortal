@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import CandidateFollowingEmp from '../components/candidateFollowingEmp/CandidateFollowingEmp';
-import Navbar from "../components/Navbar/Navbar";
 
-class CandidateFollowingEmployer extends Component {
+import Navbar from "../components/Navbar/Navbar";
+import PostJob from "../components/EmployerJobPost/Jobpost"
+
+class JoblistHomePage extends Component {
     render() {
         return (
             <div>
@@ -10,13 +11,11 @@ class CandidateFollowingEmployer extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <CandidateFollowingEmp />
+                    <PostJob />
                 </div>
             </div>
         );
     }
 }
 
-export default CandidateFollowingEmployer;
-
-
+export default JoblistHomePage;

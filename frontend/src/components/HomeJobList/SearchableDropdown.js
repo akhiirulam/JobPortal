@@ -41,13 +41,14 @@ const SearchableDropdown = ({
   };
 
   return (
-    <div className="dropdown">
+    <div className="dropdown ">
       <div className="control">
         <div className="selected-value">
           <input
             ref={inputRef}
             type="text"
             value={getDisplayValue()}
+            placeholder="Choose a Category"
             name="searchTerm"
             onChange={(e) => {
               setQuery(e.target.value);
@@ -56,7 +57,7 @@ const SearchableDropdown = ({
             onClick={toggle}
           />
         </div>
-        <div className={`arrow ${isOpen ? "open" : ""}`}></div>
+        <div className={`arrow ${isOpen ? "open" : ""} mr-4`}></div>
       </div>
 
       <div className={`options ${isOpen ? "open" : ""}`}>

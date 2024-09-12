@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import JobPost from '../components/employerJobPost/Jobpost';
+import JobpostPage from "../components/EmployerJobPost/Jobpost"
 import Navbar from "../components/Navbar/Navbar";
 
 class Jobpost extends Component {
@@ -11,7 +11,7 @@ class Jobpost extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <JobPost />
+                    <JobpostPage/>
                 </div>
             </div>
 =======

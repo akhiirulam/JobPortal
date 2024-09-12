@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from "../components/Navbar/Navbar";
-import EmpDashBoard from '../components/EmployerDashboard/EmpDashboard';
+import EmpDashboard from '../components/EmployerDashboard/EmpDashboard';
+
 
 
 class Meetings extends Component {
@@ -11,7 +12,7 @@ class Meetings extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <EmpDashBoard />
+                    <EmpDashboard />
                 </div>
             </div>
         );

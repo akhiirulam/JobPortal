@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainJob from '../components/JobListMain/MainJob';
+import MainJob from '../components/HomeJobList/JoblistMain';
 import Navbar from "../components/Navbar/Navbar";
 
 class Mainjob extends Component {

@@ -12,11 +12,9 @@ const jobSchema = new Schema({
     title: {
         type: String,
         required: true,
-        required: true,
     },
     description: {
         type: String,
-        required: true,
         required: true,
     },
     category: {
@@ -39,7 +37,6 @@ const jobSchema = new Schema({
     jobApplyType: {
         type: String,
         required: true,
-        required: true,
     },
     externalURLforApply: {
         type: String,
@@ -47,27 +44,17 @@ const jobSchema = new Schema({
     jobApplyEmail: {
         type: String,
         required: true,
-        required: true,
     },
     salaryType: {
         type: String,
         required: true,
     },
     minSalary: {
-<<<<<<< HEAD
-        type: String,
-=======
         type: Number,
->>>>>>> origin/doneByBasil
-        required: true,
         required: true,
     },
     maxSalary: {
-<<<<<<< HEAD
-        type: String,
-=======
         type: Number,
->>>>>>> origin/doneByBasil
         required: true,
     },
     experience: {
@@ -91,11 +78,13 @@ const jobSchema = new Schema({
         },
     ],
     applicationDeadlineDate: {
-        type: Date,  // Changed to Date type for better handling of dates
+        type: Date,  
     },
     address: {
         type: String,
     },
+
+
     location: {
         type: {
             type: String,  // This will always be 'Point'
@@ -105,29 +94,10 @@ const jobSchema = new Schema({
         coordinates: {
             type: [Number],  // Array of numbers: [longitude, latitude]
             required: true,
-        },
-    },
-    location: {
-        type: {
-            type: String,  // This will always be 'Point'
-            enum: ['Point'],
-<<<<<<< HEAD
-            
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-            
-=======
-            required: true,
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-            required: true,
->>>>>>> origin/doneByBasil
         },
     },
     preferredSkills: [
-    
+
         {
             type: String,
         },
@@ -138,9 +108,14 @@ const jobSchema = new Schema({
             ref: 'User',
         },
     ],
-        }, 
-        
-        { timestamps: true });
+    employer: {
+        type: Schema.ObjectId,
+        ref: 'Employer',
+        required: true,
+    }
+},
+
+    { timestamps: true });
 
 const Job = mongoose.model('Job', jobSchema);
 

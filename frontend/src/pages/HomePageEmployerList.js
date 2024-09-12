@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import CandidateFollowingEmp from '../components/candidateFollowingEmp/CandidateFollowingEmp';
-import Navbar from "../components/Navbar/Navbar";
 
-class CandidateFollowingEmployer extends Component {
+import Navbar from "../components/Navbar/Navbar";
+import HomeEmployersPage from '../components/HomeEmployerList/HomeEmployersListPage';
+
+class HomeEmployersListPage extends Component {
     render() {
         return (
             <div>
@@ -10,13 +11,11 @@ class CandidateFollowingEmployer extends Component {
                     <Navbar />
                 </div>
                 <div className="pt-16">
-                    <CandidateFollowingEmp />
+                    <HomeEmployersPage />
                 </div>
             </div>
         );
     }
 }
 
-export default CandidateFollowingEmployer;
-
-
+export default HomeEmployersListPage;

@@ -70,7 +70,7 @@ class Navbar extends Component {
             <Link to='/'><span>Home</span></Link>
             <Link to='/mainJobList'><span>Find Jobs</span></Link>
             <Link to='/employerList'><span>Employers</span></Link>
-            <Link to=''><span>Candidates</span></Link>
+            <Link to='/candidateList'><span>Candidates</span></Link>
             <Link to=''><span>Blog</span></Link>
             <Link to=''><span>Pages</span></Link>
           </div>
