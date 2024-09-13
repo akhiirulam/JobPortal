@@ -154,13 +154,6 @@ const jobController = {
     res.json(jobs);
   }),
 
-  //get a single job by id
-  viewJob: asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const job = await Job.findById(id)
-    res.send(job)
-  }),
-
   //filter Jobs
   filterJobs: asyncHandler(async (req, res) => {
     const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query
@@ -201,7 +194,11 @@ const jobController = {
     res.send(jobs)
 
   }),
-
+  viewJob: asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const job = await Job.findById(id)
+    res.send(job)
+  }),
 
   //my jobs
   myJobs: asyncHandler(async (req, res) => {
@@ -249,6 +246,5 @@ const jobController = {
     })
   })
 };
-
 
 module.exports = jobController;

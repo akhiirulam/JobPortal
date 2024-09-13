@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Login from "../components/Login/Login";
+
 // import FindJobs from "./JoblistHomePage";
 import MainJob from "./MainJobList";
 // import EmployerList from "./EmployerList";
@@ -15,6 +16,29 @@ import CandidateAppliedJobPage from "./CandidateAppliedJobPage";
 import DeleteAccount from "./DeleteAccount";
 import ChangeAccountPassword from "./ChangeAccountPassword";
 import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
+<<<<<<< HEAD
+=======
+import HomeEmployersListPage from "./HomePageEmployerList";
+import HomeCandidateListPage from "./homePageCandidateList";
+import CandidateProfilePage from "./CandidateProfilePage";
+import LoginSuccess from '../components/Login/LoginSuccess';
+//Employer pages
+import EmployerProfilePage from "./EmployerProfileAdd";
+import CandidateResumeAddPage from "./CandidateResume";
+import EmployerSubmitJobPage from "./EmployerSubmitJobPage";
+import ProductCart from "./ProductCart";
+import Billing from "./BillingPage";
+import EmployerMessagePage from "./EmployerMessagePage";
+import JobDetails from "./JobDetailsPage";
+import EmployerDetails from "./EmployerDetailsPage";
+import EmployerJobApplicant from "./EmployerJobApplicant";
+import CandidateMessage from "./CandidateMessagePage";
+import CandiateAlertJobs from "./CandiateAlertJobsPage";
+import EmployerMyJobs from "./EmployerMyJobs";
+import EmployerShortlistCandidate from "./EmployerShortlistCandidate";
+import Signup from "../components/SignupPage/SignUp";
+
+>>>>>>> origin/akhilChandran
 
 function Landing() {
   return (
@@ -22,7 +46,9 @@ function Landing() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/mainJobList" element={<MainJob/>} />
+<<<<<<< HEAD
         <Route path="/findJobs" element = {<FindJobs/>} />
         <Route path="/employerList" element = {<EmployerList/>} />
         <Route path="/dashBoard" element = {<DashBoard/>} />
@@ -30,11 +56,44 @@ function Landing() {
         <Route path="/meetings" element= {< Meeting/>} />
         <Route path="/empDashBoard" element={< EmpDashBoard/>} />
         <Route path="/jobPost" element={< Jobpost/>} />
+=======
+        <Route path="/employerList" element={<HomeEmployersListPage/>} />
+        <Route path="/candidateList" element={<HomeCandidateListPage/>} />
+        <Route path="/jobDetails" element={<JobDetails/>} />
+        <Route path="/employerDetails" element={<EmployerDetails/>} />
+ 
+        {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
+        <Route path="/loginSuccess" element={<LoginSuccess />} />
+        <Route path="/candidate/dashBoard" element = {<DashBoard/>} />
+        <Route path="/candidate/candProfile" element = {<CandidateProfilePage/>} />
+        <Route path="/candidate/ResumeAdd" element = {<CandidateResumeAddPage/>} />
+>>>>>>> origin/akhilChandran
         <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobPage/>} />
+        <Route path="/candidate/shortlistjobs" element = {<ShortListjobs/>} />
         <Route path="/candidate/following-employers" element={<CandidateFollowingEmployer/>} />
+        <Route path="/candidate/alertJobs" element = {<CandiateAlertJobs/>} />
+        <Route path="/candidate/message" element= {< CandidateMessage/>} />
+        <Route path="/candidate/meetings" element= {< Meeting/>} />
+        <Route path="/candidate/change-password" element={<ChangeAccountPassword/>} />
+        <Route path="/candidate/delete-profile" element={<DeleteAccount/>} />
+        
+        <Route path="/product/cartPage" element={<ProductCart/>} />
+        <Route path="/product/billing" element={<Billing/>} />
+        
+       
+        <Route path="/employer/empDashBoard" element={< EmpDashBoard/>} />
+        <Route path="/employer/empProfile" element={<EmployerProfilePage/>} />
+        <Route path="/employer/myJobs" element={<EmployerMyJobs/>} />
+        <Route path="/employer/submitJob" element={<EmployerSubmitJobPage/>} />
+        <Route path="/employer/jobPost" element={< Jobpost/>} />
+        <Route path="/employer/jobApplicant" element={<EmployerJobApplicant/>} />
+        <Route path="/employer/shortlistCandidate" element={<EmployerShortlistCandidate/>} />
         <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
-        <Route path="/change-password" element={<ChangeAccountPassword/>} />
-        <Route path="/delete-profile" element={<DeleteAccount/>} />
+        <Route path="/employer/message" element= {< EmployerMessagePage/>} />
+        <Route path="/employer/meetings" element= {< Meeting/>} />
+
+        <Route path="/employer/change-password" element={<ChangeAccountPassword/>} />
+        <Route path="/employer/delete-profile" element={<DeleteAccount/>} />
       </Routes>
     </Router>
   );

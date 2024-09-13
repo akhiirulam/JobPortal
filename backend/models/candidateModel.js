@@ -1,199 +1,226 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const candidateSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-    },
+const candidateSchema = new mongoose.Schema(
+  {
+
     email: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true,
     },
     password: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+    },
+    profileImg: {
+      type: String,
     },
     mobile: {
-        type: Number,
-        trim: true,
-    },
-    location: {
-        type: {
-            type: String,  // This will always be 'Point'
-            enum: ['Point'],
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-
-        },
-    },
-    role: {
-        type: String,
-        default: "candidate",
-    },
-    designation: {
-        type: String,
-        trim: true,
-    },
-    description: {
-        type: String,
+      type: Number,
+      trim: true,
     },
     DOB: {
-        type: Date
-    },
-    salary: {
-        type: Number
+      type: Date,
     },
     gender: {
-        type: String
+      type: String,
+    },
+    age: {
+      type: String,
+    },
+    qualification: {
+      type: String,
+    },
+    experience: {
+      type: String,
+    },
+    languages: [
+      {
+        type: String,
+      },
+    ],
+    salary: {
+      type: Number,
+    },
+    category: {
+      type: String,
+    },
+    subCategory: {
+      type: String,
     },
     showMyProfile: {
-        type: Boolean
+      type: Boolean,
     },
-    educationalQualification: {
-        type: String
+    jobTitle: {
+      type: String,
     },
-    languages: [{
-        type: String
-    }],
-    experience: {
-        type: String
+    jobDescription: {
+      type: String,
     },
+    role: {
+      type: String,
+      required: true,
+      enum: ["Candidate"],
+    },
+    designation: {
+      type: String,
+      trim: true,
+    },
+    description: {
+      type: String,
+    },
+
     facebook: {
-        type: String,
-        default: null,
-        trim: true,
+      type: String,
+      default: null,
+      trim: true,
     },
     twitter: {
-        type: String,
-        default: null,
-        trim: true,
+      type: String,
+      default: null,
+      trim: true,
     },
     instagram: {
-        type: String,
-        default: null,
-        trim: true,
+      type: String,
+      default: null,
+      trim: true,
     },
-    personalWebsite: {
-        type: String,
-        default: null,
-        trim: true,
+    location: {
+      type: String,
+      trim: true,
     },
     friendlyAddress: {
-        type: String,
-        default: null,
+      type: String,
+      trim: true,
+    },
+    personalWebsite: {
+      type: String,
+      default: null,
+      trim: true,
+    },
+    profileVideo: {
+      type: String,
     },
     bookmarkedProfiles: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Employer'
-        }
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Employer",
+      },
     ],
     listedJobs: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Job'
-        }
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Job",
+      },
     ],
     shortlistedJobs: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Job'
-        }
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Job'
+      }
     ],
     followingEmployers: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Employer'
-        }
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Employer'
+      }
     ],
-    educationalHistory: [{
+    educationalHistory: [
+      {
         collegeName: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         degreeName: {
-            type: String,
-            trim: true
+          type: String,
+          trim: true,
         },
         educationDescription: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         startDate: {
-            type: Date
+          type: Date,
         },
         endDate: {
-            type: Date
-        }
-    }],
-    previousWorkHistory: [{
+          type: Date,
+        },
+      },
+    ],
+    previousWorkHistory: [
+      {
         previousDesignation: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         previousCompanyName: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         reasonForQuit: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         previousStartingDate: {
-            type: Date,
+          type: Date,
         },
         previousEndDate: {
-            type: Date
-        }
-    }],
-    profileImg: {
-        type: String,
-    },
-    introductionVideo: {
-        type: String,
-    },
-    portfolioImgs: [
-        {
-            type: String
-        }
+          type: Date,
+        },
+      },
     ],
-    profileVideo: {
-        type: String
-    },
-    resume: [{
-        type: String
-    }],
-    awards: [{
+
+    portfolioImgs: [
+      {
+        type: String,
+      },
+    ],
+
+    resume: [
+      {
+        type: String,
+      },
+    ],
+    awards: [
+      {
         occasionName: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         awardName: {
-            type: String,
-            trim: true
+          type: String,
+          trim: true,
         },
         shortSummery: {
-            type: String,
-            trim: true,
+          type: String,
+          trim: true,
         },
         dateOfCertification: {
-            type: Date
+          type: Date,
         },
-    }],
+      },
+    ],
     professionalSkills: [
-        {
-            type: String,
-            trim: true
-        }
-    ]
-}, {
-    timestamps: true
-})
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    cart: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Cart",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const Candidate = mongoose.model("Candidate", candidateSchema)
+const Candidate = mongoose.model("Candidate", candidateSchema);
 
-module.exports = Candidate
+module.exports = Candidate;

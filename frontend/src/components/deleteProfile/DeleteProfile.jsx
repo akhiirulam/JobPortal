@@ -29,6 +29,7 @@ const Exm = () => {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <>
     <Navbar/>
     <div className='flex'>
@@ -60,6 +61,20 @@ const Exm = () => {
                     <button className='h-[48px] py-[9px] px-[30px] bg-[#E44343] rounded-md text-white hover:bg-[#D51F1F]' type='submit'>Delete Profile</button>
                 </div>
                 </form>
+=======
+    <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)] ">
+      <EmpSidebar />
+      <div className="lg:ml-72 md:ml-0 px-4 md:px-8 ">
+        <h3 className="py-4 text-base md:text-2xl">Candidate Alert</h3>
+        <div className="bg-white p-4 md:p-[30px] rounded">
+        <div className="text-lg font-medium">
+            Are you sure! You want to delete your profile.
+          </div>
+          <div className="mb-[15px]">This can't be undone!</div>
+          <div className="font-normal text-[#77838F] text-[15px]">
+            <div className="mb-[15px]">
+              Please enter your login Password to confirm:
+>>>>>>> origin/akhilChandran
             </div>
           </div>
           </div>

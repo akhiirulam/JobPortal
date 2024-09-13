@@ -33,6 +33,7 @@ const EmployerCandidateAlert = () => {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <>
     <Navbar/>
     <div className='flex'>
@@ -72,6 +73,34 @@ const EmployerCandidateAlert = () => {
                   </div>
                   
                 </div>
+=======
+    <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
+      <EmpSidebar />
+      <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
+        <h3 className="py-4 text-base md:text-2xl">Candidate Alert</h3>
+        <div className="bg-white p-4 md:p-[30px] rounded">
+          <div className="w-full mb-6 flex flex-wrap justify-between items-center">
+            <div className="w-full md:w-auto mb-4 md:mb-0">
+              <form className="bg-gray-100 w-full md:w-[210px] flex rounded-lg">
+                <button type="submit" className="py-2 px-4">
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </button>
+                <input
+                  className="bg-transparent outline-none h-10 p-2 w-full md:w-[134px] text-gray-500"
+                  type="text"
+                  placeholder="Search..."
+                />
+              </form>
+            </div>
+            <div className="flex items-center">
+              <span className="font-normal mr-2">Sort By:</span>
+              <div className="w-auto md:w-[148px] bg-gray-100  flex rounded-lg">
+                <select className="outline-blue-400 bg-transparent w-full mr-2 h-10 px-4">
+                  <option>Default</option>
+                  <option>Newest</option>
+                  <option>Oldest</option>
+                </select>
+>>>>>>> origin/akhilChandran
               </div>
               <span className='text-[#54595F] leading-7 font-normal font-[15px]'>No candidate alert found</span>
             </div>
