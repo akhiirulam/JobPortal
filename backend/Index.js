@@ -9,13 +9,13 @@ const passport = require('./utilis/passport');
 const authRoutes = require('./routes/auth-Route'); 
 const conversationRoutes = require('./routes/conversationRoute');
 const messageRoutes = require('./routes/messageRoute');
+const employerRoutes = require('./routes/employerRoute'); 
 
 const port = process.env.PORT || 5000;
 const apiRouter = require('./routes');
 
 require('dotenv').config();
 require('./Db/DbConnection'); 
-
 
 // Middleware
 app.use(cookieParser()); 
@@ -28,13 +28,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 passport(app);
 
-
+// Use routes
 app.use("/auth", authRoutes); 
 app.use('/api/v1', apiRouter);
-
-
 app.use('/api/conversations', conversationRoutes);
 app.use('/api/messages', messageRoutes);
+
+app.use('/api/employers', employerRoutes); 
 
 // Server listen logic
 app.listen(port, () => {
