@@ -1,67 +1,100 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-
-
+import axios from 'axios'; // Ensure you have axios installed
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Package 1", price: 100, quantity: 1, image: "https://via.placeholder.com/100" },
-    { id: 2, name: "Package 2", price: 200, quantity: 2, image: "https://via.placeholder.com/100" },
-  ]);
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [cartItem, setCartItem] = useState(null); // Changed to a single item
   const [coupon, setCoupon] = useState("");
 
-  const handleQuantityChange = (id, newQuantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  useEffect(() => {
+    if (location.state) {
+      console.log(location.state);
+
+      const { Id, label, Price } = location.state;
+      const newItem = {
+        id: Id,
+        name: label,
+        price: parseFloat(Price.replace("$", "")),
+        quantity: 1,
+        image: "https://via.placeholder.com/100",
+      };
+      setCartItem(newItem); // Set single item
+    }
+  }, [location.state]);
+
+  const handleQuantityChange = (newQuantity) => {
+    if (cartItem) {
+      setCartItem((prevItem) => ({
+        ...prevItem,
+        quantity: newQuantity,
+      }));
+    }
   };
 
-  const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  const handleRemoveItem = () => {
+    setCartItem(null); // Remove item
   };
 
   const handleCouponApply = () => {
     console.log("Coupon applied:", coupon);
-    // Handle coupon logic here
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    if (cartItem) {
+      return cartItem.price * cartItem.quantity;
+    }
+    return 0;
+  };
+
+  const handleCheckout = async () => {
+    try {
+      if (cartItem) {
+        const response = await axios.post('http://localhost:5000/api/v1/payment/checkout', { cartItems: [cartItem], totalPrice: getTotalPrice(), coupon });
+        
+        if (response.status === 200) {
+          navigate('/product/billing');
+        }
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
   };
 
   return (
     <div className="flex flex-col mt-[115px] md:flex-row lg:flex-row justify-between p-4 mt-6 space-y-6 md:space-y-0">
-      {/* Cart Items Section */}
+      {/* Cart Item Section */}
       <div className="w-full lg:w-1/2 lg:ml-16 mb-4 lg:mb-0">
         <h2 className="text-xl font-bold mb-4">Your Cart</h2>
-        {cartItems.map((item) => (
-          <div key={item.id} className="flex flex-col sm:flex-row items-center justify-between border-b py-4">
+        {cartItem ? (
+          <div className="flex flex-col sm:flex-row items-center justify-between border-b py-4">
             <div className="flex items-center space-x-4">
-              <img src={item.image} alt={item.name} className="w-20 h-20" />
+              <img src={cartItem.image} alt={cartItem.name} className="w-20 h-20" />
               <div className="text-center sm:text-left">
-                <p className="font-semibold">{item.name}</p>
-                <p className="text-gray-500">${item.price}</p>
+                <p className="font-semibold">{cartItem.name}</p>
+                <p className="text-gray-500">${cartItem.price}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2 mt-2 sm:mt-0">
               <input
                 type="number"
-                value={item.quantity}
+                value={cartItem.quantity}
                 min="1"
-                onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
+                onChange={(e) => handleQuantityChange(Number(e.target.value))}
                 className="w-16 border text-center"
               />
-              <p className="font-semibold">${item.price * item.quantity}</p>
-              {/* Remove Button */}
-              <FaTimes  onClick={() => handleRemoveItem(item.id)}
-                className="bg-red-500 w-6 h-6 rounded"/>
-              
+              <p className="font-semibold">${cartItem.price * cartItem.quantity}</p>
+              <FaTimes
+                onClick={handleRemoveItem}
+                className="bg-red-500 w-6 h-6 rounded cursor-pointer"
+              />
             </div>
           </div>
-        ))}
+        ) : (
+          <p>Your cart is empty</p>
+        )}
 
         {/* Coupon Section */}
         <div className="mt-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
@@ -88,7 +121,10 @@ const CartPage = () => {
           <p className="font-semibold">Subtotal</p>
           <p className="font-semibold">${getTotalPrice()}</p>
         </div>
-        <button className="bg-green-500 text-white w-full py-2 font-semibold">
+        <button
+          onClick={handleCheckout}
+          className="bg-green-500 text-white w-full py-2 font-semibold"
+        >
           Proceed to Checkout
         </button>
       </div>

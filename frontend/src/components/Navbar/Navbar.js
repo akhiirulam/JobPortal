@@ -118,7 +118,7 @@ const Navbar = () => {
           <Link to="">
             <span>Blog</span>
           </Link>
-          <Link to="">
+          <Link to="/Products">
             <span>Pages</span>
           </Link>
         </div>

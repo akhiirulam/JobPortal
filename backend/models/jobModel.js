@@ -3,10 +3,6 @@ const { Schema } = mongoose;
 
 const jobSchema = new Schema(
   {
-    // employerId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: Employer
-    // },
     featuredImage: {
       type: String,
     },

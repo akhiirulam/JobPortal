@@ -6,8 +6,8 @@ import Login from "../components/Login/Login";
 // import FindJobs from "./JoblistHomePage";
 import MainJob from "./MainJobList";
 // import EmployerList from "./EmployerList";
-import DashBoard from './UserDashBoard';
-import ShortListjobs from './ShortListjob';
+import DashBoard from "./UserDashBoard";
+import ShortListjobs from "./ShortListjob";
 import Meeting from "./Meeting";
 import EmpDashBoard from "./EmpDashboard";
 import Jobpost from "./JoblistHomePage";
@@ -19,7 +19,7 @@ import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
 import HomeEmployersListPage from "./HomePageEmployerList";
 import HomeCandidateListPage from "./homePageCandidateList";
 import CandidateProfilePage from "./CandidateProfilePage";
-import LoginSuccess from '../components/Login/LoginSuccess';
+import LoginSuccess from "../components/Login/LoginSuccess";
 //Employer pages
 import EmployerProfilePage from "./EmployerProfileAdd";
 import CandidateResumeAddPage from "./CandidateResume";
@@ -36,6 +36,10 @@ import EmployerMyJobs from "./EmployerMyJobs";
 import EmployerShortlistCandidate from "./EmployerShortlistCandidate";
 import Signup from "../components/SignupPage/SignUp";
 
+//
+import ProtectedRoute from "./ProtectedRoute";
+import HomeProductPage from "./HomeProductPage";
+
 
 function Landing() {
   return (
@@ -44,43 +48,214 @@ function Landing() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/mainJobList" element={<MainJob/>} />
-        <Route path="/employerList" element={<HomeEmployersListPage/>} />
-        <Route path="/candidateList" element={<HomeCandidateListPage/>} />
-        <Route path="/jobDetails" element={<JobDetails/>} />
-        <Route path="/employerDetails" element={<EmployerDetails/>} />
- 
-        {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
+        <Route path="/mainJobList" element={<MainJob />} />
+        <Route path="/employerList" element={<HomeEmployersListPage />} />
+        <Route path="/candidateList" element={<HomeCandidateListPage />} />
+        <Route path="/jobDetails" element={<JobDetails />} />
+        <Route path="/employerDetails" element={<EmployerDetails />} />
         <Route path="/loginSuccess" element={<LoginSuccess />} />
-        <Route path="/candidate/dashBoard" element = {<DashBoard/>} />
-        <Route path="/candidate/candProfile" element = {<CandidateProfilePage/>} />
-        <Route path="/candidate/ResumeAdd" element = {<CandidateResumeAddPage/>} />
-        <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobPage/>} />
-        <Route path="/candidate/shortlistjobs" element = {<ShortListjobs/>} />
-        <Route path="/candidate/following-employers" element={<CandidateFollowingEmployer/>} />
-        <Route path="/candidate/alertJobs" element = {<CandiateAlertJobs/>} />
-        <Route path="/candidate/message" element= {< CandidateMessage/>} />
-        <Route path="/candidate/meetings" element= {< Meeting/>} />
-        <Route path="/candidate/change-password" element={<ChangeAccountPassword/>} />
-        <Route path="/candidate/delete-profile" element={<DeleteAccount/>} />
-        
-        <Route path="/product/cartPage" element={<ProductCart/>} />
-        <Route path="/product/billing" element={<Billing/>} />
-        
-       
-        <Route path="/employer/empDashBoard" element={< EmpDashBoard/>} />
-        <Route path="/employer/empProfile" element={<EmployerProfilePage/>} />
-        <Route path="/employer/myJobs" element={<EmployerMyJobs/>} />
-        <Route path="/employer/submitJob" element={<EmployerSubmitJobPage/>} />
-        <Route path="/employer/jobPost" element={< Jobpost/>} />
-        <Route path="/employer/jobApplicant" element={<EmployerJobApplicant/>} />
-        <Route path="/employer/shortlistCandidate" element={<EmployerShortlistCandidate/>} />
-        <Route path="/employer/candidate-alerts" element={<EmployerCandidateAlertPage/>} />
-        <Route path="/employer/message" element= {< EmployerMessagePage/>} />
-        <Route path="/employer/meetings" element= {< Meeting/>} />
+        <Route path="/Products" element={<HomeProductPage/>}></Route>
+        {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
 
-        <Route path="/employer/change-password" element={<ChangeAccountPassword/>} />
-        <Route path="/employer/delete-profile" element={<DeleteAccount/>} />
+        <Route
+          path="/candidate/dashBoard"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <DashBoard />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/candProfile"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CandidateProfilePage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/ResumeAdd"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CandidateResumeAddPage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/applied-jobs"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CandidateAppliedJobPage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/shortlistjobs"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <ShortListjobs />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/following-employers"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CandidateFollowingEmployer />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/alertJobs"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CandiateAlertJobs />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/message"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CandidateMessage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/meetings"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Meeting />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/change-password"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <ChangeAccountPassword />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/delete-profile"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <DeleteAccount />{" "}
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/product/cartPage" element={<ProductCart />} />
+        <Route path="/product/billing" element={<Billing />} />
+
+        <Route
+          path="/employer/empDashBoard"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmpDashBoard />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/empProfile"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerProfilePage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/myJobs"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerMyJobs />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/submitJob"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerSubmitJobPage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/jobPost"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Jobpost />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/jobApplicant"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerJobApplicant />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/shortlistCandidate"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerShortlistCandidate />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/candidate-alerts"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerCandidateAlertPage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/message"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerMessagePage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/meetings"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Meeting />{" "}
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/employer/change-password"
+          element={<ChangeAccountPassword />}
+        />
+        <Route path="/employer/delete-profile" element={<DeleteAccount />} />
       </Routes>
     </Router>
   );

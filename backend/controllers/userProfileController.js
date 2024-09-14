@@ -8,12 +8,10 @@ const Employer = require("../models/employerModel");
 
 const userProfileController = {
   addProfile: asyncHandler(async (req, res) => {
-    // const { email } = req.cookies;
-    // if (!email) {
-    //   return res.status(400).send("Email not found in cookies.");
-    // }
-    const email = "test5@gmail.com";
-
+    const { email } = req.cookies;
+    if (!email) {
+      return res.status(400).send("Email not found in cookies.");
+    }
     const {
       fullName,
       DOB,
@@ -35,25 +33,25 @@ const userProfileController = {
       friendlyAddress,
       introductionVideo,
     } = req.body;
-console.log("Data from frontend:", fullName,
-  DOB,
-  gender,
-  mobile,
-  age,
-  qualification,
-  experience,
-  language,
-  salaryType,
-  salary,
-  role,
-  category,
-  subCategories,
-  profile,
-  jobTitle,
-  jobDescription,
-  // location,
-  friendlyAddress,
-  introductionVideo,)
+// console.log("Data from frontend:", fullName,
+//   DOB,
+//   gender,
+//   mobile,
+//   age,
+//   qualification,
+//   experience,
+//   language,
+//   salaryType,
+//   salary,
+//   role,
+//   category,
+//   subCategories,
+//   profile,
+//   jobTitle,
+//   jobDescription,
+//   // location,
+//   friendlyAddress,
+//   introductionVideo,)
   
       
     const profileImage = req.files["profileImage"]

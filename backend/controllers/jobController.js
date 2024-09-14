@@ -5,9 +5,10 @@ const Employer = require("../models/employerModel");
 const jobController = {
   // Add Job Details
   addJobDetails: asyncHandler(async (req, res) => {
-    const {employerId} = employerId.cookies;
+   const {userId} = req.cookies
+   console.log(userId);
+   
     const {
-      
       jobTitle: title,
       jobDescription: description,
       location,
@@ -31,6 +32,8 @@ const jobController = {
       address,
     } = req.body;
 
+    
+    
     try {
       // Validate required fields
       if (
@@ -68,7 +71,7 @@ const jobController = {
 
       // Create a new job object
       const newJob = new Job({
-        employerId,
+        userId,
         title,
         description,
         location: {
@@ -97,9 +100,6 @@ const jobController = {
         photos,
       });
 
-      console.log("hello");
-
-      // Save the new job to the database
       const job = await newJob.save();
 
       // Respond with the created job
@@ -115,17 +115,17 @@ const jobController = {
   addJobPage:asyncHandler(async(req,res)=>{
 
     try {
-      const employerId = req.cookies.employerId;
+      const employerId = req.cookies.userId;
       console.log(employerId);
   
-      const validEmployee = await Employer.findById({employerId });
+      const validEmployee = await Employer.findById(employerId);
       console.log(validEmployee);
       
       if (validEmployee) {
-        // If valid employee, send a response indicating success
+       
         res.json({ success: true, message: 'Access granted' });
       } else {
-        // If not a valid employee, send a response indicating failure
+       
         res.status(403).json({ success: false, message: 'Access denied' });
       }
     } catch (error) {
@@ -156,7 +156,7 @@ const jobController = {
 
   //Job Applied Candidates
   appliedCandidates: asyncHandler(async(req,res) => {
-    const employerId = req.cookies.employerId;
+    const employerId = req.cookies.userId;
 
     const candidateDetails = await Job.find().populate('appliedCandidates', '_id name jobTitle').exec();
 
