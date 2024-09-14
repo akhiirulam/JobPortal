@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const OTP = require("../models/otpModel");
 const Employer = require("../models/employerModel");
 const Candidate = require("../models/candidateModel");
@@ -18,16 +18,21 @@ const userController = {
     try {
       let user;
       let userType;
+      let userId
+      let empUser;
+      let candUser;
 
-      const empUser = await Employer.findOne({ email });
+      empUser = await Employer.findOne({ email });
       if (empUser) {
         user = empUser;
         userType = 'Employer';
+        userId = empUser._id 
       } else {
-        const candUser = await Candidate.findOne({ email });
+         candUser = await Candidate.findOne({ email });
         if (candUser) {
           user = candUser;
           userType = 'Candidate';
+          userId = candUser._id
         } else {
           return res.status(404).json({ error: "No user record found" });
         }
@@ -38,18 +43,37 @@ const userController = {
         return res.status(401).json({ error: "Invalid password" });
       }
 
-      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
         expiresIn: "1h",
       });
 
+      if(empUser){
+          res.cookie('userId', empUser._id, {
+          maxAge:3600000,
+          httpOnly: true, 
+          secure: process.env.NODE_ENV === 'development', 
+      });
+      }
+      else if( candUser)
+      {
+        res.cookie('userId', candUser._id, {
+          maxAge:3600000,
+          httpOnly: true, 
+          secure: process.env.NODE_ENV === 'development', 
+      });
+      }
+  
+    
       res.cookie("token", token, {
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === "development",
         sameSite: "Strict",
         maxAge: 3600000,
       });
+
+
       res.cookie("email", email, { httpOnly: true, maxAge: 3600000 });
-      res.json({ message: "Login successful", token,userType });
+      res.json({ message: "Login successful", token,userType, userId });
     } catch (error) {
       console.error("Error details:", error);
       res.status(500).json({ error: "An error occurred while logging in" });
@@ -220,6 +244,23 @@ const userController = {
       res.status(404).send({ message: "User not found" });
     }
   }),
+  logout:asyncHandler(async(req,res) => 
+  {
+    console.log("logout page");
+    
+    const cookies = req.cookies;
+    try {
+      for (const cookieName in cookies) {
+        if (cookies.hasOwnProperty(cookieName)) {
+          res.clearCookie(cookieName); // Clear the cookie
+        }
+      }
+      res.json({ message: "Signout successful" });
+    } catch (error) {
+      console.error('Error during signout:', error);
+      res.status(500).json({ error: "An error occurred during signout" });
+    }
+  })
 };
 
 module.exports = userController;

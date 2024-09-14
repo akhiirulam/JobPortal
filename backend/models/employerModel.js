@@ -90,6 +90,7 @@ const employerSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.ObjectId,
         ref: "Candidate",
+        
       },
     ],
 
@@ -102,6 +103,7 @@ const employerSchema = new mongoose.Schema(
     cart: {
       type: mongoose.Schema.ObjectId,
       ref: "Cart",
+     
     },
   },
   {

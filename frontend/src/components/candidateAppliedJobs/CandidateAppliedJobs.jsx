@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FaEye, FaTimes } from "react-icons/fa";
-import EmpSidebar from "../EmpSidebar/EmpSidebar";
+
 import img1 from "../../public/airbnb.jpg";
+import CandidateSidebar from "../CandidateSidebar/CandidateSidebar";
 
 const CandidateAppliedJobs = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ const CandidateAppliedJobs = () => {
 
   return (
     <div className="mt-[50px] bg-[#F5F7FC] h-screen">
-      <EmpSidebar />
+      <CandidateSidebar />
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
         <h3 className="py-4 text-base md:text-2xl">Applied Jobs</h3>
         <div className="bg-white p-4 md:p-[30px] rounded">

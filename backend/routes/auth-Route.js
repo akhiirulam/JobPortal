@@ -14,6 +14,7 @@ router.post('/candidate/signup',userController.signupCandidate);
 router.post('/employer/signup',userController.signupEmployer);
 router.post('/forgotPassword',isAuth,userController.forgotPassword);
 router.post('/resetPassword',isAuth,userController.resetPassword);
+router.post('/logout',userController.logout);
 
 const JWT_SECRET = process.env.JWT_SECRET;
 

@@ -1,123 +1,124 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-
-const jobSchema = new Schema({
+const jobSchema = new Schema(
+  {
+    // employerId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: Employer
+    // },
     featuredImage: {
-        type: String,
+      type: String,
     },
     company: {
-        type: String,
+      type: String,
     },
     title: {
-        type: String,
-        required: true,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true,
-        required: true,
+      type: String,
+      required: true,
     },
     category: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     type: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     tags: [
-        {
-            type: String,
-        },
+      {
+        type: String,
+      },
     ],
     gender: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     jobApplyType: {
-        type: String,
-        required: true,
-        required: true,
+      type: String,
+      required: true,
     },
     externalURLforApply: {
-        type: String,
+      type: String,
     },
     jobApplyEmail: {
-        type: String,
-        required: true,
-        required: true,
+      type: String,
+      required: true,
     },
     salaryType: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     minSalary: {
-        type: Number,
-        required: true,
-        required: true,
+      type: Number,
+      required: true,
     },
     maxSalary: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     experience: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     careerLevel: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     qualification: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     introVideoURL: {
-        type: String,
+      type: String,
     },
     photos: [
-        {
-            type: String,
-        },
+      {
+        type: String,
+      },
     ],
     applicationDeadlineDate: {
-        type: Date,  // Changed to Date type for better handling of dates
+      type: Date, // Changed to Date type for better handling of dates
     },
     address: {
-        type: String,
+      type: String,
     },
-    
 
     location: {
-        type: {
-            type: String,  // This will always be 'Point'
-            enum: ['Point'],
-            
-        },
-        coordinates: {
-            type: [Number],  // Array of numbers: [longitude, latitude]
-            
-        },
+      type: {
+        type: String, // This will always be 'Point'
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number], // Array of numbers: [longitude, latitude]
+      },
     },
     preferredSkills: [
-    
-        {
-            type: String,
-        },
+      {
+        type: String,
+      },
     ],
     appliedCandidates: [
-        {
-            type: Schema.ObjectId,
-            ref: 'User',
+      {
+        candidate: {
+          type: Schema.ObjectId,
+          ref: "Candidate",
         },
+        date: {
+          type: Date,
+          default: Date.now, // or set this manually when saving
+        },
+      },
     ],
-        }, 
-        
-        { timestamps: true });
+  },
 
-const Job = mongoose.model('Job', jobSchema);
+  { timestamps: true }
+);
+
+const Job = mongoose.model("Job", jobSchema);
 
 module.exports = Job;
-

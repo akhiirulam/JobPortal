@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
-  faSuitcase,
-  faLocationDot,
+ 
 } from "@fortawesome/free-solid-svg-icons";
-import EmpSidebar from "../EmpSidebar/EmpSidebar";
-
-import img1 from "../../public/airbnb.jpg";
 import { FaTimes } from "react-icons/fa";
+import CandidateSidebar from "../CandidateSidebar/CandidateSidebar";
 
 const CandidateAlertJobs = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +58,7 @@ const CandidateAlertJobs = () => {
 
   return (
     <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
-      <EmpSidebar />
+      <CandidateSidebar />
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
         <h3 className="py-4 text-base md:text-2xl">Following Employers</h3>
         <div className="bg-white p-4 md:p-[30px] rounded">

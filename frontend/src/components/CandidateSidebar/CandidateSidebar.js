@@ -24,6 +24,8 @@ import { FaTimes } from "react-icons/fa";
 const CandidateSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  
+
   const sideBarItems = [
     {
       id: 1,
@@ -31,48 +33,48 @@ const CandidateSidebar = () => {
       description: "User Dashboard",
       link: "/user",
     },
-    { id: 2, icon: faUserTie, description: "Profile", link: "/profile" },
-    { id: 3, icon: faFile, description: "My Resume", link: "/myResume" },
+    { id: 2, icon: faUserTie, description: "Profile", link: "/candidate/candProfile" },
+    { id: 3, icon: faFile, description: "My Resume", link: "/candidate/ResumeAdd" },
     {
       id: 4,
       icon: faBullhorn,
       description: "My Applied",
-      link: "/myapplied-jobs",
+      link: "/candidate/applied-jobs",
     },
     {
       id: 5,
       icon: faBookmark,
       description: "Shortlist Jobs",
-      link: "/candidateshortlist-jobs",
+      link: "/candidate/shortlistjobs",
     },
     {
       id: 6,
       icon: faUser,
       description: "Following Employers",
-      link: "/following-employers",
+      link: "/candidate/following-employers",
     },
     {
       id: 7,
       icon: faBullhorn,
       description: "Alert Jobs",
-      link: "/alert-jobs",
+      link: "/candidate/alertJobs",
     },
-    { id: 8, icon: faBoxesPacking, description: "Messages", link: "/candidateMessages" },
-    { id: 9, icon: faComments, description: "Meetings", link: "/candidateMeetings" },
+    { id: 8, icon: faBoxesPacking, description: "Messages", link: "/candidate/message" },
+    { id: 9, icon: faComments, description: "Meetings", link: "/candidate/meetings" },
     
     {
       id: 10,
       icon: faLock,
       description: "Change Password",
-      link: "/change-password",
+      link: "/candidate/change-password",
     },
     {
       id: 11,
       icon: faUserXmark,
       description: "Delete Profile",
-      link: "/delete-profile",
+      link: "/candidate/delete-profile",
     },
-    { id: 13, icon: faArrowRightFromBracket, description: "Logout", link: "/" },
+    { id: 13, icon: faArrowRightFromBracket, description: "Logout", link:  "http://localhost:5000/api/v1/profile/logout" },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);

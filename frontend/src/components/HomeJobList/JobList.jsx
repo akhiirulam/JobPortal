@@ -36,6 +36,7 @@ function JobList() {
       {jobListData.map((job, index) => (
         <CompanyCard
           key={index}
+          jobId={job._id}
           image={job.featuredImage} // Use a default image if job.image is not available
           company={job.company}
           title={job.title}

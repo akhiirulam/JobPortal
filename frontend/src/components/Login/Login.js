@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -28,8 +29,10 @@ const Login = () => {
       setLoading(false);
 
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
         toast.success("Login successful");
+       
+        Cookies.set('token', response.data.token, { expires: 7, path: '/' });
+
         if(response.data.userType === 'Candidate')
         {
           navigate("/candidate/dashBoard");

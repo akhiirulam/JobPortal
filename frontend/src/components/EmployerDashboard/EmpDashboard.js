@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import img1 from "../../public/member1.jpg";
 import GraphComponent from "./GraphComponent";
 import EmpSidebar from "../EmpSidebar/EmpSidebar";
+import Cookies from 'js-cookie';
 
 import {
   FaEye,
@@ -20,6 +21,9 @@ const EmpDashboard = () => {
     { icon: FaEye, label: "Views", value: 2408 },
     { icon: FaCheck, label: "Shortlisted", value: 3 },
   ];
+
+  console.log("tokeen",Cookies.get('token'));
+  
 
   const notification = [
     {

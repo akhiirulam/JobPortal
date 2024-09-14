@@ -193,6 +193,24 @@ const Jobpost = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchJobData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/v1/job/addJobPage', {
+          withCredentials: true, // Ensure cookies are sent with the request
+        });
+        // Handle response data if needed
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching job data:', error);
+        toast.error('Failed to fetch job data');
+        setLoading(false);
+      }
+    };
+
+    fetchJobData();
+  }, []);
+
   return (
     <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
     <EmpSidebar />

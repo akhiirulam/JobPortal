@@ -21,6 +21,7 @@ const storage = new CloudinaryStorage({
 
 // Route to add job details
 router.post('/add',isAuth, upload, jobController.addJobDetails);
+router.get('/addJobPage',isAuth,jobController.addJobPage)
 
 // Route to edit job details
 router.put('/edit/:id', isAuth, jobController.editJobDetails);

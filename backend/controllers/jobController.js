@@ -1,10 +1,13 @@
 const asyncHandler = require("express-async-handler");
 const Job = require("../models/jobModel");
+const Employer = require("../models/employerModel");
 
 const jobController = {
   // Add Job Details
   addJobDetails: asyncHandler(async (req, res) => {
+    const {employerId} = employerId.cookies;
     const {
+      
       jobTitle: title,
       jobDescription: description,
       location,
@@ -65,6 +68,7 @@ const jobController = {
 
       // Create a new job object
       const newJob = new Job({
+        employerId,
         title,
         description,
         location: {
@@ -108,6 +112,28 @@ const jobController = {
     }
   }),
 
+  addJobPage:asyncHandler(async(req,res)=>{
+
+    try {
+      const employerId = req.cookies.employerId;
+      console.log(employerId);
+  
+      const validEmployee = await Employer.findById({employerId });
+      console.log(validEmployee);
+      
+      if (validEmployee) {
+        // If valid employee, send a response indicating success
+        res.json({ success: true, message: 'Access granted' });
+      } else {
+        // If not a valid employee, send a response indicating failure
+        res.status(403).json({ success: false, message: 'Access denied' });
+      }
+    } catch (error) {
+      console.error('Error in /addJobPage route:', error);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+
+  }),
   // Edit Job Details
   editJobDetails: asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -127,6 +153,17 @@ const jobController = {
       updatedJob,
     });
   }),
+
+  //Job Applied Candidates
+  appliedCandidates: asyncHandler(async(req,res) => {
+    const employerId = req.cookies.employerId;
+
+    const candidateDetails = await Job.find().populate('appliedCandidates', '_id name jobTitle').exec();
+
+
+  }),
+
+
 
   // Delete Job Details
   deleteJobDetails: asyncHandler(async (req, res) => {
