@@ -16,8 +16,6 @@ import CandidateAppliedJobPage from "./CandidateAppliedJobPage";
 import DeleteAccount from "./DeleteAccount";
 import ChangeAccountPassword from "./ChangeAccountPassword";
 import EmployerCandidateAlertPage from "./EmployerCandidateAlertPage";
-<<<<<<< HEAD
-=======
 import HomeEmployersListPage from "./HomePageEmployerList";
 import HomeCandidateListPage from "./homePageCandidateList";
 import CandidateProfilePage from "./CandidateProfilePage";
@@ -38,7 +36,6 @@ import EmployerMyJobs from "./EmployerMyJobs";
 import EmployerShortlistCandidate from "./EmployerShortlistCandidate";
 import Signup from "../components/SignupPage/SignUp";
 
->>>>>>> origin/akhilChandran
 
 function Landing() {
   return (
@@ -48,15 +45,6 @@ function Landing() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mainJobList" element={<MainJob/>} />
-<<<<<<< HEAD
-        <Route path="/findJobs" element = {<FindJobs/>} />
-        <Route path="/employerList" element = {<EmployerList/>} />
-        <Route path="/dashBoard" element = {<DashBoard/>} />
-        <Route path="/shortlistjobs" element = {<ShortListjobs/>} />
-        <Route path="/meetings" element= {< Meeting/>} />
-        <Route path="/empDashBoard" element={< EmpDashBoard/>} />
-        <Route path="/jobPost" element={< Jobpost/>} />
-=======
         <Route path="/employerList" element={<HomeEmployersListPage/>} />
         <Route path="/candidateList" element={<HomeCandidateListPage/>} />
         <Route path="/jobDetails" element={<JobDetails/>} />
@@ -67,7 +55,6 @@ function Landing() {
         <Route path="/candidate/dashBoard" element = {<DashBoard/>} />
         <Route path="/candidate/candProfile" element = {<CandidateProfilePage/>} />
         <Route path="/candidate/ResumeAdd" element = {<CandidateResumeAddPage/>} />
->>>>>>> origin/akhilChandran
         <Route path="/candidate/applied-jobs" element={<CandidateAppliedJobPage/>} />
         <Route path="/candidate/shortlistjobs" element = {<ShortListjobs/>} />
         <Route path="/candidate/following-employers" element={<CandidateFollowingEmployer/>} />
