@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth-Route');
 const conversationRoutes = require('./routes/conversationRoute');
 const messageRoutes = require('./routes/messageRoute');
 const employerRoutes = require('./routes/employerRoute'); 
+const candidateAlertRoutes = require('./routes/candidateAlertRoute');
 
 const port = process.env.PORT || 5000;
 const apiRouter = require('./routes');
@@ -33,7 +34,7 @@ app.use("/auth", authRoutes);
 app.use('/api/v1', apiRouter);
 app.use('/api/conversations', conversationRoutes);
 app.use('/api/messages', messageRoutes);
-
+app.use('/api/candidate-alerts', candidateAlertRoutes);
 app.use('/api/employers', employerRoutes); 
 
 // Server listen logic

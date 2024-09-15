@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const candidateSchema = new mongoose.Schema(
   {
-
     email: {
       type: String,
       required: true,
@@ -214,6 +213,12 @@ const candidateSchema = new mongoose.Schema(
     cart: {
       type: mongoose.Schema.ObjectId,
       ref: "Cart",
+    },
+    alertCreatedAt: {
+      type: Date,
+    },
+    alertExpiresAt: {
+      type: Date,
     },
   },
   {
