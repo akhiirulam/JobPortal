@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const ScheduleMeeting = ({candidateId}) => {
+const ScheduleMeeting = ({id}) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [duration, setDuration] = useState('');
   const [message, setMessage] = useState('');
   const [isZoomMeeting, setIsZoomMeeting] = useState(false);
+  const [meetings, setMeetings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
    
-    const formData = new FormData();
-    
-      formData.append("candidateId", candidateId)
-      formData.append("date", date);
-      formData.append("time",time);
-      formData.append("duration",duration);
-      formData.append("message",message);
-      formData.append("isZoomMeeting",isZoomMeeting);
-           
+    const meetingData = {
+      date,
+      time,
+      duration,
+      message,
+      isZoomMeeting
+    };
    try {
-    const response = await axios.post("http://localhost:5000/api/v1/meeting/scheduleMeeting", formData,
-      {
-        headers: {"Content-Type": "application/json"},
+    const response = await axios.post(`http://localhost:5000/api/v1/meeting/rescheduleMeeting`,meetingData, {
+      params: {
+        meetingId: id 
       }
-    )
+    });
     if (response.data.success) {
       alert("Meeting scheduled successfully!");
-      window.location.href = "http://localhost:3000/employer/jobApplicant";
+      window.location.href = "http://localhost:3000/employer/meetings";
   }
     
    } catch (error) {
@@ -79,7 +79,7 @@ const ScheduleMeeting = ({candidateId}) => {
             id="duration"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            placeholder="e.g. 30 minutes"
+            placeholder={id}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
             required
           />

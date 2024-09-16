@@ -63,6 +63,7 @@ const EmployerShortlistCandidatePage = () => {
             <CandidateData /> 
           </div>
         </div>
+        
       </div>
     </div>
   );

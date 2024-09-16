@@ -27,6 +27,7 @@ const userController = {
         user = empUser;
         userType = 'Employer';
         userId = empUser._id 
+        
       } else {
          candUser = await Candidate.findOne({ email });
         if (candUser) {
@@ -47,30 +48,33 @@ const userController = {
         expiresIn: "1h",
       });
 
+     
+
       if(empUser){
+        console.log(empUser)
           res.cookie('userId', empUser._id, {
           maxAge:3600000,
-          httpOnly: true, 
+          httpOnly: false, 
           secure: process.env.NODE_ENV === 'development', 
+          
       });
       }
       else if( candUser)
       {
         res.cookie('userId', candUser._id, {
           maxAge:3600000,
-          httpOnly: true, 
+          httpOnly: false, 
           secure: process.env.NODE_ENV === 'development', 
       });
       }
   
-    
       res.cookie("token", token, {
         httpOnly: false,
         secure: process.env.NODE_ENV === "development",
         sameSite: "Strict",
         maxAge: 3600000,
       });
-
+    
 
       res.cookie("email", email, { httpOnly: true, maxAge: 3600000 });
       res.json({ message: "Login successful", token,userType, userId });

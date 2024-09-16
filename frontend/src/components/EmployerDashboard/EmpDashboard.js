@@ -22,7 +22,7 @@ const EmpDashboard = () => {
     { icon: FaCheck, label: "Shortlisted", value: 3 },
   ];
 
-  console.log("tokeen",Cookies.get('token'));
+  console.log("tokeen",Cookies.get('userId'));
   
 
   const notification = [

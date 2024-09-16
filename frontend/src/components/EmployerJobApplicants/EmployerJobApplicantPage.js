@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import EmpSidebar from "../EmpSidebar/EmpSidebar";
-import ScheduleMeeting from './ScheduleMeeting';
-import Modal from './Modal';
+import ScheduleMeeting from "./ScheduleMeeting";
+import Modal from "./Modal";
+
+import Cookies from "js-cookie";
 import {
   FaCheck,
   FaDownload,
@@ -168,14 +170,20 @@ const JobApplicantListPage = () => {
                     <FaPlus
                       onClick={toggleScheduleMeeting}
                       className="bg-gray-100 h-6 w-6 p-1 cursor-pointer hover:bg-gray-200 rounded"
+                      title="Create Meeting"
                     />
-
-                 
-
-                    <FaCheck className="bg-gray-100 h-6 w-6 p-1" />
-                    <FaRetweet className="bg-gray-100 h-6 w-6 p-1" />
-                    <FaDownload className="bg-gray-100 h-6 w-6 p-1" />
-                    <FaTimes className="bg-gray-100 h-6 w-6 p-1" />
+                    <FaRetweet
+                      className="bg-gray-100 h-6 w-6 p-1 cursor-pointer hover:bg-gray-200 rounded"
+                      title="Undo Approval"
+                    />
+                    <FaDownload
+                      className="bg-gray-100 h-6 w-6 p-1 cursor-pointer hover:bg-gray-200 rounded"
+                      title="Download CV"
+                    />
+                    <FaTimes
+                      className="bg-gray-100 h-6 w-6 p-1 cursor-pointer hover:bg-gray-200 rounded"
+                      title="Remove"
+                    />
                   </div>
                 </p>
               </li>
@@ -184,10 +192,9 @@ const JobApplicantListPage = () => {
         ) : (
           <p>No applicants found.</p>
         )}
-         
       </div>
       <Modal isOpen={showScheduleMeeting} onClose={toggleScheduleMeeting}>
-        <ScheduleMeeting candidateId = {candidateId}/>
+        <ScheduleMeeting candidateId={candidateId} />
       </Modal>
     </div>
   );

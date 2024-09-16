@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from "../components/Navbar/Navbar";
-import Meeting from "../components/Meeting/Meeting"
+import Meeting from "../components/EmployerMeeting/Meeting"
 
 class Meetings extends Component {
     render() {
