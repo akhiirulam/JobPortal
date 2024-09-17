@@ -39,6 +39,7 @@ import Signup from "../components/SignupPage/SignUp";
 //
 import ProtectedRoute from "./ProtectedRoute";
 import HomeProductPage from "./HomeProductPage";
+import HomeCandidateDetails from "./HomeCandidateDetails";
 
 
 function Landing() {
@@ -55,6 +56,8 @@ function Landing() {
         <Route path="/employerDetails" element={<EmployerDetails />} />
         <Route path="/loginSuccess" element={<LoginSuccess />} />
         <Route path="/Products" element={<HomeProductPage/>}></Route>
+        <Route path="/candidateDetails" element={<HomeCandidateDetails/>}></Route>
+        
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
 
         <Route
