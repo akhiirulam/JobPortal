@@ -124,7 +124,7 @@ const CandidateDetailsPage = () => {
           <div className="bg-white p-4 shadow-md rounded-md">
             <ul>
               <li className="mb-2">
-                <span className="font-semibold">Job Description</span>
+                <span className="font-semibold">About Candidate</span>
                 <p>
                   As a Product Designer, you will work within a Product Delivery
                   Team fused with UX, engineering, product and data talent. You
@@ -137,7 +137,7 @@ const CandidateDetailsPage = () => {
                 </p>
               </li>
               <li className="mb-2">
-                <span className="font-semibold">Key Responsibilities</span>
+                <span className="font-semibold">Education</span>
                 <p>
                   Be involved in every step of the product design cycle from
                   discovery to developer handoff and user acceptance testing.
@@ -159,7 +159,7 @@ const CandidateDetailsPage = () => {
                 </p>
               </li>
               <li className="mb-2">
-                <span className="font-semibold">Skill & Experience</span>
+                <span className="font-semibold">Work & Experience</span>
                 <p>
                   You have at least 3 years’ experience working as a Product
                   Designer. You have experience using Sketch and InVision or
@@ -169,7 +169,7 @@ const CandidateDetailsPage = () => {
                 </p>
               </li>
               <li>
-                <span className="font-semibold">Photos :</span>
+                <span className="font-semibold">Portfolio:</span>
                 <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-2">
                     <img
@@ -189,6 +189,16 @@ const CandidateDetailsPage = () => {
                     />
                   </div>
                 </div>
+              </li>
+              <li className="mb-2">
+                <span className="font-semibold">Awards</span>
+                <p>
+                  You have at least 3 years’ experience working as a Product
+                  Designer. You have experience using Sketch and InVision or
+                  Framer X You have some previous experience working in an agile
+                  environment – Think two-week sprints. You are familiar using
+                  Jira and Confluence in your workflow
+                </p>
               </li>
               <li className="mt-4">
                 <span className="font-semibold">Video :</span>
@@ -218,70 +228,58 @@ const CandidateDetailsPage = () => {
           <div className="bg-white p-4 shadow-md rounded-md">
             <div className="bg-gray-200 p-4 shadow-md rounded-md">
               <ul>
-                <span className="font-semibold">Job Description</span>
+               
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaCalendar className="text-blue-600" />
-                    <span className="ml-2">Date Posted</span>
+                    <span className="ml-2">Offered Salary</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">$2000 / year</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaMapMarker className="text-blue-600" />
-                    <span className="ml-2">Location</span>
+                    <span className="ml-2">Gender</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">Female</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaDollarSign className="text-blue-600" />
-                    <span className="ml-2">Offered Salary:</span>
+                    <span className="ml-2">Age:</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">20-25</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaCalendar className="text-blue-600" />
-                    <span className="ml-2">Date Posted</span>
+                    <span className="ml-2">Qualification</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">Master’s Degree</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaHourglass className="text-blue-600" />
-                    <span className="ml-2">Expiration date</span>
+                    <span className="ml-2">Languages</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">English</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaUser className="text-blue-600" />
-                    <span className="ml-2">Experience</span>
+                    <span className="ml-2">Email</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">ali@apus.com</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaNeuter className="text-blue-600" />
-                    <span className="ml-2">Gender</span>
+                    <span className="ml-2">Phone Number</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]"> (+88) 123 456 ***</span>
                 </li>
-                <li className="mb-2 mt-4">
-                  <div className="flex items-center">
-                    <FaCertificate className="text-blue-600" />
-                    <span className="ml-2">Qualification</span>
-                  </div>
-                  <span className="ml-[22px]">Date Posted</span>
-                </li>
-                <li className="mb-2 mt-4">
-                  <div className="flex items-center">
-                    <FaLevelUpAlt className="text-blue-600" />
-                    <span className="ml-2">Career Level</span>
-                  </div>
-                  <span className="ml-[22px]">Date Posted</span>
-                </li>
+                
+               
               </ul>
             </div>
             <div className="bg-gray-200 mt-4 p-4 shadow-md rounded-md">

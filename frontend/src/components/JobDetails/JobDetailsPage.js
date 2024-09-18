@@ -274,18 +274,21 @@ const JobDetailsPage = () => {
             <div className="bg-gray-200 mt-4 p-4 shadow-md rounded-md">
               <ul>
                 <span className="font-semibold">Job Skills</span>
-                <li className="mb-2">
-                  <p></p>
-                </li>
-                <li className="mb-2">
-                  <span className="font-semibold">Job Description</span>
-                  <p>
-                    You have at least 3 years’ experience working as a Product
-                    Designer. You have experience using Sketch and InVision or
-                    Framer X You have some previous experience working in an
-                    agile environment – Think two-week sprints. You are familiar
-                    using Jira and Confluence in your workflow
-                  </p>
+                <li className="flex flex-col md:flex-row mb-2 items-center">
+                  <div className="flex flex-wrap md:space-x-2 md:space-y-0">
+                    <button className="bg-blue-500 text-white p-2 rounded">
+                      Skill 1
+                    </button>
+                    <button className="bg-blue-500 text-white p-2 rounded">
+                      Skill 2
+                    </button>
+                    <button className="bg-blue-500 text-white p-2 rounded">
+                      Skill 3
+                    </button>
+                    <button className="bg-blue-500 text-white p-2 rounded">
+                      Skill 4
+                    </button>
+                  </div>
                 </li>
               </ul>
             </div>

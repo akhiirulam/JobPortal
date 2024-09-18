@@ -11,7 +11,7 @@ const GraphComponent = () => {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
     datasets: [
       {
-        label: 'User Data',
+        label: 'Sales Data',
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: false,
         backgroundColor: 'rgb(75, 192, 192)',
