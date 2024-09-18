@@ -348,10 +348,11 @@ const userProfileController = {
 
   viewCompanyProfile: asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const companyFound = Employer.findById(id);
+    const companyFound = await Employer.findById(id);
     if (!companyFound) {
       throw new Error("Company Not Found");
     }
+    
     res.send({
       name: companyFound.name,
       designation: companyFound.designation,
@@ -369,17 +370,18 @@ const userProfileController = {
 
   filterEmployer: asyncHandler(async (req, res) => {
     const { tags, location, category, foundDateFrom, foundDateTo } = req.query;
+    
 
     let filter = {};
 
     if (tags) {
-      filter.tags = { $all: tags }; // Match all tags
+      filter.tags = tags; // Match all tags
     }
     if (location) {
       filter.location = location;
     }
     if (category) {
-      filter.type = category;
+      filter.category = category;
     }
     if (foundDateFrom || foundDateTo) {
       filter.foundDate = {
@@ -391,6 +393,8 @@ const userProfileController = {
     console.log(filter);
 
     const employerList = await Employer.find(filter);
+    console.log(employerList);
+    
 
     res.send(employerList);
   }),

@@ -51,8 +51,8 @@ function Landing() {
         <Route path="/mainJobList" element={<MainJob />} />
         <Route path="/employerList" element={<HomeEmployersListPage />} />
         <Route path="/candidateList" element={<HomeCandidateListPage />} />
-        <Route path="/jobDetails" element={<JobDetails />} />
-        <Route path="/employerDetails" element={<EmployerDetails />} />
+        <Route path="/job/:id" element={<JobDetails />} />
+        <Route path="/employer/:id" element={<EmployerDetails />} />
         <Route path="/loginSuccess" element={<LoginSuccess />} />
         <Route path="/Products" element={<HomeProductPage/>}></Route>
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}

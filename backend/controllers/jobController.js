@@ -233,6 +233,9 @@ const jobController = {
     viewJob: asyncHandler(async(req,res)=>{
       const {id} = req.params;
       const job = await Job.findById(id)
+      if(!job){
+        throw new Error("No Job Found")
+      }
       res.send(job)
     })
 };

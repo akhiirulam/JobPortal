@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Navbar from "../components/Navbar/Navbar";
-import PostJob from "../components/EmployerJobPost/Jobpost"
+import PostJob from "../components/employerJobPost/Jobpost"
 
 class JoblistHomePage extends Component {
     render() {

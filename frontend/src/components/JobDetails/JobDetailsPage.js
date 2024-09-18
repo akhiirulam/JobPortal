@@ -14,10 +14,33 @@ import {
   FaCertificate,
   FaLevelUpAlt,
 } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { viewJobDetailsAPI } from "../../services/jobServies";
 
 // import "./EmployersList.css";
 
 const JobDetailsPage = () => {
+  const {id} = useParams()
+  const {data}=useQuery({
+    queryKey:['get-job-data'],
+    queryFn:()=>viewJobDetailsAPI(id)
+  })
+let dateOfSubmission = new Date(data?.createdAt);
+
+let dd = dateOfSubmission.getDate();
+let mm = dateOfSubmission.getMonth() + 1;
+
+let yyyy = dateOfSubmission.getFullYear();
+
+if (dd < 10) {
+    dd = '0' + dd;
+}
+if (mm < 10) {
+    mm = '0' + mm;
+}
+dateOfSubmission = dd + '/' + mm + '/' + yyyy;
+  
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
@@ -39,20 +62,20 @@ const JobDetailsPage = () => {
             {/* Job Info */}
             <div>
               <h1 className="text-xl font-bold">
-                Junior Graphic Designer (Web)
+                {data?.title}
               </h1>
               <p className="text-sm text-gray-600 mt-1">
-                Category:{" "}
-                <span className="font-medium">Design, Development</span> <br />
-                Location: <span className="font-medium">New York</span> <br />
-                Date: <span className="font-medium">June 20, 2021</span> <br />
-                Salary: <span className="font-medium">$150 - $180 / week</span>
+                Category: 
+                <span className="font-medium">{data?.category}</span> <br />
+                Location: <span className="font-medium">{data?.address}</span> <br />
+                Date: <span className="font-medium">{(dateOfSubmission==="NaN/NaN/NaN") ? 0:dateOfSubmission}</span> <br />
+                Salary: <span className="font-medium">${data?.minSalary} - ${data?.maxSalary}  / year</span>
               </p>
 
               {/* Buttons */}
               <div className="mt-4 space-x-2">
                 <button className="px-4 py-2 bg-green-500 text-white rounded-md">
-                  Full Time
+                  {data?.type}
                 </button>
                 <button className="px-4 py-2 bg-red-500 text-white rounded-md">
                   Urgent
@@ -82,46 +105,19 @@ const JobDetailsPage = () => {
               <li className="mb-2">
                 <span className="font-semibold">Job Description</span>
                 <p>
-                  As a Product Designer, you will work within a Product Delivery
-                  Team fused with UX, engineering, product and data talent. You
-                  will help the team design beautiful interfaces that solve
-                  business challenges for our clients. We work with a number of
-                  Tier 1 banks on building web-based applications for AML, KYC
-                  and Sanctions List management workflows. This role is ideal if
-                  you are looking to segue your career into the FinTech or Big
-                  Data arenas.
+                  {data?.description}
                 </p>
               </li>
               <li className="mb-2">
                 <span className="font-semibold">Key Responsibilities</span>
                 <p>
-                  Be involved in every step of the product design cycle from
-                  discovery to developer handoff and user acceptance testing.
-                  Work with BAs, product managers and tech teams to lead the
-                  Product Design Maintain quality of the design process and
-                  ensure that when designs are translated into code they
-                  accurately reflect the design specifications. Accurately
-                  estimate design tickets during planning sessions. Contribute
-                  to sketching sessions involving non-designersCreate, iterate
-                  and maintain UI deliverables including sketch files, style
-                  guides, high fidelity prototypes, micro interaction
-                  specifications and pattern libraries. Ensure design choices
-                  are data led by identifying assumptions to test each sprint,
-                  and work with the analysts in your team to plan moderated
-                  usability test sessions. Design pixel perfect responsive UI’s
-                  and understand that adopting common interface patterns is
-                  better for UX than reinventing the wheel Present your work to
-                  the wider business at Show & Tell sessions.
+                  {data?.keyResponsibilities}
                 </p>
               </li>
               <li className="mb-2">
                 <span className="font-semibold">Skill & Experience</span>
                 <p>
-                  You have at least 3 years’ experience working as a Product
-                  Designer. You have experience using Sketch and InVision or
-                  Framer X You have some previous experience working in an agile
-                  environment – Think two-week sprints. You are familiar using
-                  Jira and Confluence in your workflow
+                  {data?.skillAndExperience}
                 </p>
               </li>
               <li>
@@ -135,9 +131,6 @@ const JobDetailsPage = () => {
                     <button className="flex items-center px-4 py-2 bg-blue-400 text-white rounded-md">
                       <FaTwitter className="mr-2" /> Twitter
                     </button>
-                    <button className="flex items-center px-4 py-2 bg-red-600 text-white rounded-md">
-                      <FaPinterest className="mr-2" /> Pinterest
-                    </button>
                   </div>
                 </div>
               </li>
@@ -145,21 +138,13 @@ const JobDetailsPage = () => {
                 <span className="font-semibold">Photos :</span>
                 <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-2">
-                    <img
+                    {data?.photos?.map((element)=>(
+                      <img
                       className="w-full sm:w-auto flex items-center text-white rounded-md"
-                      src={img1}
+                      src={element}
                       alt="image"
                     />
-                    <img
-                      className="w-full sm:w-auto flex items-center text-white rounded-md"
-                      src={img1}
-                      alt="image"
-                    />
-                    <img
-                      className="w-full sm:w-auto flex items-center text-white rounded-md"
-                      src={img1}
-                      alt="image"
-                    />
+                    ))}
                   </div>
                 </div>
               </li>
@@ -169,9 +154,8 @@ const JobDetailsPage = () => {
                   <video
                     className="w-full h-auto aspect-video rounded-lg shadow-md"
                     controls
-                    src="/path/to/video.mp4" // Replace with your video file path
+                    src={data?.introVideoURL}
                   >
-                    Your browser does not support the video tag.
                   </video>
                 </div>
               </li>
@@ -192,80 +176,58 @@ const JobDetailsPage = () => {
                     <FaCalendar className="text-blue-600" />
                     <span className="ml-2">Date Posted</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">{(dateOfSubmission==="NaN/NaN/NaN") ? 0:dateOfSubmission}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaMapMarker className="text-blue-600" />
                     <span className="ml-2">Location</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">{data?.address}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaDollarSign className="text-blue-600" />
                     <span className="ml-2">Offered Salary:</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
-                </li>
-                <li className="mb-2 mt-4">
-                  <div className="flex items-center">
-                    <FaCalendar className="text-blue-600" />
-                    <span className="ml-2">Date Posted</span>
-                  </div>
-                  <span className="ml-[22px]">Date Posted</span>
-                </li>
-                <li className="mb-2 mt-4">
-                  <div className="flex items-center">
-                    <FaHourglass className="text-blue-600" />
-                    <span className="ml-2">Expiration date</span>
-                  </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">${data?.minSalary} - ${data?.maxSalary}/{data?.salaryType}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaUser className="text-blue-600" />
                     <span className="ml-2">Experience</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">{data?.experience}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaNeuter className="text-blue-600" />
                     <span className="ml-2">Gender</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">{data?.gender}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaCertificate className="text-blue-600" />
                     <span className="ml-2">Qualification</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">{data?.qualification}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaLevelUpAlt className="text-blue-600" />
                     <span className="ml-2">Career Level</span>
                   </div>
-                  <span className="ml-[22px]">Date Posted</span>
+                  <span className="ml-[22px]">{data?.careerLevel}</span>
                 </li>
               </ul>
             </div>
             <div className="bg-gray-200 mt-4 p-4 shadow-md rounded-md">
               <ul>
-                <span className="font-semibold">Job Location</span>
-                <li className="mb-2">
-                  <p></p>
-                </li>
                 <li className="mb-2">
                   <span className="font-semibold">Job Description</span>
                   <p>
-                    You have at least 3 years’ experience working as a Product
-                    Designer. You have experience using Sketch and InVision or
-                    Framer X You have some previous experience working in an
-                    agile environment – Think two-week sprints. You are familiar
-                    using Jira and Confluence in your workflow
+                    {data?.description}
                   </p>
                 </li>
               </ul>
@@ -275,17 +237,7 @@ const JobDetailsPage = () => {
               <ul>
                 <span className="font-semibold">Job Skills</span>
                 <li className="mb-2">
-                  <p></p>
-                </li>
-                <li className="mb-2">
-                  <span className="font-semibold">Job Description</span>
-                  <p>
-                    You have at least 3 years’ experience working as a Product
-                    Designer. You have experience using Sketch and InVision or
-                    Framer X You have some previous experience working in an
-                    agile environment – Think two-week sprints. You are familiar
-                    using Jira and Confluence in your workflow
-                  </p>
+                  <p>{data?.preferredSkills?.map((element)=>element)}</p>
                 </li>
               </ul>
             </div>

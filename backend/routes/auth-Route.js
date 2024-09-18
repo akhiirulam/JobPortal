@@ -7,7 +7,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
 router.post('/login', userController.login);
-// router.post('/signup',userController.signup);
+//router.post('/signup',userController.signup);
 router.post('/otpGeneration',userController.otpGeneration);
 router.post('/otpVerification',userController.otpVerification);
 router.post('/candidate/signup',userController.signupCandidate);

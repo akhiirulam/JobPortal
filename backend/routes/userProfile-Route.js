@@ -41,6 +41,6 @@ router.get('/candidate/:id', isAuth, userProfile.viewPersonProfile)
 router.get('/employer/:id', isAuth, userProfile.viewCompanyProfile)
 router.post('/editProfile',isAuth,userProfile.editProfile);
 router.get('/filter-candidate',userProfile.filterCandidate);
-router.get('/filter-employer',userProfile.filterEmployer);
+router.post('/filter-employer',userProfile.filterEmployer);
 
 module.exports = router;

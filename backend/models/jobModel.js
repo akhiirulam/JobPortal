@@ -110,8 +110,11 @@ const jobSchema = new Schema(
         },
       },
     ],
+    employerInfo:{
+      type:mongoose.Schema.ObjectId,
+      ref:"Employer"
+    }
   },
-
   { timestamps: true }
 );
 

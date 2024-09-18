@@ -10,9 +10,12 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
 import "./Style.css";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { filterEmployerSearchAPI } from "../../services/employerServices";
 
 const EmployerSidebar = ({ isOpen, closeSidebar }) => {
   const [locationValue, setLocationValue] = useState("");
+  const [filter,setFilter] = useState()
 
   const selectHandleChange = (event) => {
     setLocationValue(event.target.value);
@@ -50,6 +53,10 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
   const handleFoundedSliderChange = (event, newValue) => {
     setFoundedSliderValue(newValue);
   };
+  const {data,mutateAsync} = useMutation({
+    mutationKey:['filter-data-employer'],
+    mutationFn:()=>filterEmployerSearchAPI(filter)
+  })
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,24 +64,12 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
     const formData = new FormData(event.target);
 
     const data = Object.fromEntries(formData.entries());
-
-    console.log(data);
-
-    fetch("/your-api-endpoint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Form submission result:", result);
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-      });
+    setFilter(data)
+    mutateAsync("filter-data-employer") 
   };
+
+  console.log(data);
+  
 
   return (
 

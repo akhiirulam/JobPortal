@@ -17,6 +17,9 @@ import {
   FaBookmark,
 } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
+import { useQuery } from "@tanstack/react-query";
+import { viewEmployerDataAPI } from "../../services/employerServices";
+import { useParams } from "react-router-dom";
 
 const EmployerDetailsPage = () => {
   const [formData, setFormData] = useState({
@@ -26,12 +29,7 @@ const EmployerDetailsPage = () => {
     message: "",
   });
 
-  const employerDetails = {
-    name: "Awesome Company",
-    description: "This is an awesome company known for its great work culture.",
-    location: "New York, NY",
-    // Add more details as needed
-  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,12 +78,16 @@ const EmployerDetailsPage = () => {
 
   const [reviews, setReviews] = useState([]);
 
-  //   useEffect(() => {
+  const {id}= useParams()
+  
 
-  //     fetch('/api/reviews?employerId=123')
-  //       .then(response => response.json())
-  //       .then(data => setReviews(data));
-  //   }, []);
+const {data} = useQuery({
+  queryKey:['get-emp-data'],
+  queryFn:()=>viewEmployerDataAPI(id)
+})
+
+
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -93,43 +95,43 @@ const EmployerDetailsPage = () => {
         <div className="w-full max-w-4xl p-4 rounded-lg  flex flex-col md:flex-row">
           <div className="flex-1 flex items-start space-x-4">
             <div className="w-24 h-24 bg-gray-300 rounded-md"> 
+              {data?.logoImg?
               <img
-                src="https://via.placeholder.com/150"
-                alt="Job Image"
-                className="w-full h-full object-cover rounded-md"
-              />
+              src={data.logoImg}
+              alt="Job Image"
+              className="w-full h-full object-cover rounded-md"
+            />:""}
             </div>
 
             {/* Job Info */}
             <div>
               <h1 className="text-xl font-bold">
-                Junior Graphic Designer (Web)
+                {data?.name}
               </h1>
               <p className="text-sm text-gray-600 mt-2">
                 <div className="flex items-center">
                   <FaBriefcase />
-                  <span className="font-medium ml-4">Design, Development</span>
+                  <span className="font-medium ml-4">{data?.categories?.map((element)=>(element))}</span>
                 </div>
-
                 <div className="flex items-center">
                   <FaMapMarker />
-                  <span className="font-medium ml-4">New York</span>
+                  <span className="font-medium ml-4">{data?.location}</span>
                 </div>
 
                 <div className="flex items-center">
                   <FaPhone />
-                  <span className="font-medium ml-4">123 456 *** </span>
+                  <span className="font-medium ml-4">{data?.mobile}</span>
                 </div>
                 <div className="flex items-center">
                   <FaEnvelope />
-                  <span className="font-medium ml-4">udamy@apus.com</span>
+                  <span className="font-medium ml-4">{data?.email}</span>
                 </div>
               </p>
 
               {/* Buttons */}
               <div className="mt-4 space-x-2">
                 <span className="px-4 py-2 bg-green-500 text-white rounded-md">
-                  Open Job - 1
+                  Open Job - {data?.listedJobs?.length || 0}
                 </span>
               </div>
             </div>
@@ -154,14 +156,7 @@ const EmployerDetailsPage = () => {
               <li className="mb-2">
                 <span className="font-semibold">About Company</span>
                 <p>
-                  As a Product Designer, you will work within a Product Delivery
-                  Team fused with UX, engineering, product and data talent. You
-                  will help the team design beautiful interfaces that solve
-                  business challenges for our clients. We work with a number of
-                  Tier 1 banks on building web-based applications for AML, KYC
-                  and Sanctions List management workflows. This role is ideal if
-                  you are looking to segue your career into the FinTech or Big
-                  Data arenas.
+                  {data?.description}
                 </p>
               </li>
 
@@ -176,9 +171,6 @@ const EmployerDetailsPage = () => {
                     <button className="flex items-center px-4 py-2 bg-blue-400 text-white rounded-md">
                       <FaTwitter className="mr-2" /> Twitter
                     </button>
-                    <button className="flex items-center px-4 py-2 bg-red-600 text-white rounded-md">
-                      <FaPinterest className="mr-2" /> Pinterest
-                    </button>
                   </div>
                 </div>
               </li>
@@ -186,21 +178,15 @@ const EmployerDetailsPage = () => {
                 <span className="font-semibold">Portfolio</span>
                 <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-2">
-                    <img
+                    {data?.images?.map((element)=>(
+                      <img
                       className="w-full sm:w-auto flex items-center text-white rounded-md"
-                      src={img1}
+                      src={element}
                       alt="image"
                     />
-                    <img
-                      className="w-full sm:w-auto flex items-center text-white rounded-md"
-                      src={img1}
-                      alt="image"
-                    />
-                    <img
-                      className="w-full sm:w-auto flex items-center text-white rounded-md"
-                      src={img1}
-                      alt="image"
-                    />
+                    ))}
+                    
+                    
                   </div>
                 </div>
               </li>
@@ -225,7 +211,7 @@ const EmployerDetailsPage = () => {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
                     <span className="font-semibold">Categories:</span>
                     <a className="hover:cursor-pointer">
-                      <span className="text-gray-700">Advertising</span>
+                      <span className="text-gray-700">{data?.categories?.[0]}</span>
                     </a>
                   </div>
                 </li>
@@ -233,7 +219,7 @@ const EmployerDetailsPage = () => {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
                     <span className="font-semibold">Founded Date:</span>
                     <a className="hover:cursor-pointer">
-                      <span className="text-gray-700">2011</span>
+                      <span className="text-gray-700">{data?.foundYear}</span>
                     </a>
                   </div>
                 </li>
@@ -241,7 +227,7 @@ const EmployerDetailsPage = () => {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
                     <span className="font-semibold">Company Size:</span>
                     <a className="hover:cursor-pointer">
-                      <span className="text-gray-700">50-100</span>
+                      <span className="text-gray-700">{data?.companySize}</span>
                     </a>
                   </div>
                 </li>
@@ -250,7 +236,7 @@ const EmployerDetailsPage = () => {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
                     <span className="font-semibold">Location:</span>
                     <a className="hover:cursor-pointer">
-                      <span className="text-gray-700">New York</span>
+                      <span className="text-gray-700">{data?.location}</span>
                     </a>
                   </div>
                 </li>
@@ -259,7 +245,7 @@ const EmployerDetailsPage = () => {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
                     <span className="font-semibold">Phone Number:</span>
                     <a className="hover:cursor-pointer">
-                      <span className="text-gray-700">123 456 ***</span>
+                      <span className="text-gray-700">{data?.mobile}</span>
                     </a>
                   </div>
                 </li>
@@ -268,7 +254,7 @@ const EmployerDetailsPage = () => {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4">
                     <span className="font-semibold">Email:</span>
                     <a className="hover:cursor-pointer">
-                      <span className="text-gray-700">udamy@apus.com</span>
+                      <span className="text-gray-700">{data?.email}</span>
                     </a>
                   </div>
                 </li>
@@ -278,7 +264,10 @@ const EmployerDetailsPage = () => {
                     <span className="font-semibold">Social Media:</span>
                     <a className="hover:cursor-pointer">
                       <span className="flex text-gray-700 gap-x-2">
-                        <FaFacebook /> <FaTwitter /> <FaLinkedin />
+                        <button><a href={data?.facebook}/> <FaFacebook /> </button>
+                        <button><a href={data?.twitter}/> <FaTwitter /> </button>
+                        <button><a href={data?.linkedIn}/> <FaLinkedin /> </button>
+                         
                       </span>
                     </a>
                   </div>
@@ -294,11 +283,7 @@ const EmployerDetailsPage = () => {
                 <li className="mb-2">
                   <span className="font-semibold">Job Description</span>
                   <p>
-                    You have at least 3 years’ experience working as a Product
-                    Designer. You have experience using Sketch and InVision or
-                    Framer X You have some previous experience working in an
-                    agile environment – Think two-week sprints. You are familiar
-                    using Jira and Confluence in your workflow
+                  {data?.description}
                   </p>
                 </li>
               </ul>
@@ -313,7 +298,7 @@ const EmployerDetailsPage = () => {
                 <li className="mb-2">
                   <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
                     <h2 className="text-xl font-semibold mb-4">
-                      Contact Udamy
+                      Contact {data?.name}
                     </h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div>

@@ -4,18 +4,19 @@ const bcrypt = require("bcrypt");
 const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET;
 const OTP = require("../models/otpModel");
 const Employer = require("../models/employerModel");
 const Candidate = require("../models/candidateModel");
+require("dotenv").config();
 
 const userController = {
   login: asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    try {
+
       let user;
       let userType;
       let userId
@@ -78,10 +79,7 @@ const userController = {
 
       res.cookie("email", email, { httpOnly: true, maxAge: 3600000 });
       res.json({ message: "Login successful", token,userType, userId });
-    } catch (error) {
-      console.error("Error details:", error);
-      res.status(500).json({ error: "An error occurred while logging in" });
-    }
+   
   }),
 
   signupEmployer: asyncHandler(async (req, res) => {
@@ -136,7 +134,7 @@ const userController = {
   
     try {
       await newUser.save();
-      res.status(201).json({ message: "Registration Succesfull" });
+      res.status(201).json({ message: "Registration Successfull" });
     } catch (error) {
       console.error("Error saving user:", error);
       

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import JobpostPage from "../components/EmployerJobPost/Jobpost"
+import JobpostPage from "../components/employerJobPost/Jobpost"
 import Navbar from "../components/Navbar/Navbar";
 
 class Jobpost extends Component {

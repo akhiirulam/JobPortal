@@ -35,10 +35,6 @@ const employerSchema = new mongoose.Schema(
       default: null,
       trim: true,
     },
-    foundedDate: {
-      type: Date,
-      trim: true,
-    },
     companySize: {
       type: String,
     },
@@ -53,7 +49,7 @@ const employerSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      required: true,
+      required: false,
       enum: ["Employer"],
     },
     description: {
@@ -69,7 +65,7 @@ const employerSchema = new mongoose.Schema(
       default: null,
       trim: true,
     },
-    instagram: {
+    linkedIn: {
       type: String,
       default: null,
       trim: true,
@@ -103,8 +99,11 @@ const employerSchema = new mongoose.Schema(
     cart: {
       type: mongoose.Schema.ObjectId,
       ref: "Cart",
-     
     },
+    listedJobs:{
+      type:[mongoose.Schema.ObjectId],
+      ref:"Job"
+    }
   },
   {
     timestamps: true,
