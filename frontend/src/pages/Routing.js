@@ -56,7 +56,7 @@ function Landing() {
         <Route path="/employer/:id" element={<EmployerDetails />} />
         <Route path="/loginSuccess" element={<LoginSuccess />} />
         <Route path="/Products" element={<HomeProductPage/>}></Route>
-        <Route path="/candidateDetails" element={<HomeCandidateDetails/>}></Route>
+        <Route path="/candidateDetails/:id" element={<HomeCandidateDetails/>}></Route>
         
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
 

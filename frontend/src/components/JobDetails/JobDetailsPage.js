@@ -26,20 +26,11 @@ const JobDetailsPage = () => {
     queryKey:['get-job-data'],
     queryFn:()=>viewJobDetailsAPI(id)
   })
-let dateOfSubmission = new Date(data?.createdAt);
+  let dateOfSubmission = new Date(data?.createdAt);
+  let formattedDate = dateOfSubmission?.toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-let dd = dateOfSubmission.getDate();
-let mm = dateOfSubmission.getMonth() + 1;
-
-let yyyy = dateOfSubmission.getFullYear();
-
-if (dd < 10) {
-    dd = '0' + dd;
-}
-if (mm < 10) {
-    mm = '0' + mm;
-}
-dateOfSubmission = dd + '/' + mm + '/' + yyyy;
+  console.log(data);
+  
   
   return (
     <div className="flex flex-col h-screen">
@@ -68,7 +59,7 @@ dateOfSubmission = dd + '/' + mm + '/' + yyyy;
                 Category: 
                 <span className="font-medium">{data?.category}</span> <br />
                 Location: <span className="font-medium">{data?.address}</span> <br />
-                Date: <span className="font-medium">{(dateOfSubmission==="NaN/NaN/NaN") ? 0:dateOfSubmission}</span> <br />
+                Date: <span className="font-medium">{(formattedDate==="NaN/NaN/NaN") ? 0:formattedDate}</span> <br />
                 Salary: <span className="font-medium">${data?.minSalary} - ${data?.maxSalary}  / year</span>
               </p>
 
@@ -176,7 +167,7 @@ dateOfSubmission = dd + '/' + mm + '/' + yyyy;
                     <FaCalendar className="text-blue-600" />
                     <span className="ml-2">Date Posted</span>
                   </div>
-                  <span className="ml-[22px]">{(dateOfSubmission==="NaN/NaN/NaN") ? 0:dateOfSubmission}</span>
+                  <span className="ml-[22px]">{(formattedDate==="NaN/NaN/NaN") ? 0:formattedDate}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">

@@ -50,9 +50,9 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
 
   // const [foundedSliderValue, setFoundedSliderValue] = useState(2000);
 
-  const handleFoundedSliderChange = (event, newValue) => {
-    setFoundedSliderValue(newValue);
-  };
+  // const handleFoundedSliderChange = (event, newValue) => {
+  //   setFoundedSliderValue(newValue);
+  // };
   const {data,mutateAsync} = useMutation({
     mutationKey:['filter-data-employer'],
     mutationFn:()=>filterEmployerSearchAPI(filter)

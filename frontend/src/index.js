@@ -13,7 +13,7 @@ root.render(
   
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
+    <ReactQueryDevtools initialIsOpen={true} />
     <App />
     <Toaster />
     </QueryClientProvider>

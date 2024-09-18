@@ -14,10 +14,11 @@ export const popularJobCategoriesAPI = async()=>{
 export const viewJobDetailsAPI = async(id)=>{
     try {
     const response = await axios.get(`${BASE_URL}/job/${id}`)
+    console.log("dat=: ",response.data);
+    
     return response.data
     } catch (error) {
     console.log(error.response.data);
-    
     }
     
 }

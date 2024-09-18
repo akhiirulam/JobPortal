@@ -320,7 +320,7 @@ const userProfileController = {
 
   viewPersonProfile: asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const userFound = await Employer.findById(id);
+    const userFound = await Candidate.findById(id);
     if (!userFound) {
       throw new Error("User Not Found");
     }
@@ -439,6 +439,10 @@ const userProfileController = {
 
     res.send(candidateList);
   }),
+  viewCandidate:asyncHandler(async(req,res)=>{
+    const listCandidate = await Candidate.find()
+    res.send(listCandidate)
+  })
 };
 
 module.exports = userProfileController;
