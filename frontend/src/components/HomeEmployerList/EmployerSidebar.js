@@ -6,8 +6,8 @@ import {
   FaChevronDown,
   FaBriefcase,
 } from "react-icons/fa";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
+// import Box from "@mui/material/Box";
+// import Slider from "@mui/material/Slider";
 
 import "./Style.css";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -25,11 +25,11 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
     setLocationValue("");
   };
 
-  const [radiusSliderValue, setRadiusSliderValue] = useState(10);
+  // const [radiusSliderValue, setRadiusSliderValue] = useState(10);
 
-  const handleRadiusSliderChange = (event, newValue) => {
-    setRadiusSliderValue(newValue);
-  };
+  // const handleRadiusSliderChange = (event, newValue) => {
+  //   setRadiusSliderValue(newValue);
+  // };
 
  const [DropDownSelectedValue, DropDownsetSelectedValue] = useState("");
 
@@ -48,7 +48,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
     setDropDownLocationSelectedValue("");
   };
 
-  const [foundedSliderValue, setFoundedSliderValue] = useState(2000);
+  // const [foundedSliderValue, setFoundedSliderValue] = useState(2000);
 
   const handleFoundedSliderChange = (event, newValue) => {
     setFoundedSliderValue(newValue);
@@ -127,7 +127,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
               </div>
             </li>
             {/* Slider */}
-            <li>
+            {/* <li>
               <div className="flex justify-center">
                 <Box className="p-4" sx={{ width: 300 }}>
                   <span className="mt-2 text-lg font-semibold">
@@ -149,7 +149,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
                 </Box>
               </div>
             </li>
-            
+             */}
 
             {/* Location */}
             <li>
@@ -184,7 +184,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
                 )}
               </div>
             </li>
-
+{/* 
             <li>
               <Box className="p-4" sx={{ width: 300 }}>
                 <span className="mt-2 text-lg">
@@ -201,7 +201,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
                   sx={{ color: "#0080ff" }}
                 />
               </Box>
-            </li>
+            </li> */}
 
             {/* Job Catogory */}
             <li>

@@ -12,7 +12,7 @@ const candidateData = [
     salary:'35000',
     salaryType:'Monthly',
     jobTags:['App','Design','Php'],
-    buttonText: 'View Profile'
+    userId:'100'
   },
   {
     image: img1, // You can use different imported images for different companies
@@ -22,7 +22,7 @@ const candidateData = [
     salary:'45000',
     salaryType:'Monthly',
     jobTags:['React','Node','Php'],
-    buttonText: 'View Profile'
+    userId:'101'
   },
   // Add more company data as needed
 ];
@@ -39,7 +39,7 @@ const CandidateList = () => (
         salary = {candidate.salary}
         salaryType = {candidate.salaryType}
         jobTags = {candidate.jobTags}
-        buttonText={candidate.buttonText}
+        userId = {candidate.userId}
       />
     ))}
   </div>
