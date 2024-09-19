@@ -1,39 +1,17 @@
 import React, { useState, useEffect } from "react";
 import img1 from "../../public/member1.jpg";
 import GraphComponent from "./GraphComponent";
-<<<<<<< HEAD
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAddressBook, faUser, faFile, faBookmark, faComments, faHandshake } from '@fortawesome/free-regular-svg-icons'
-import { faBullhorn, faBoxesPacking, faUserTie, faLock, faUserXmark, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-=======
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faAddressBook,faUser, faFile,faBookmark,faComments,faHandshake} from '@fortawesome/free-regular-svg-icons'
-import {faBullhorn,faBoxesPacking,faUserTie,faLock,faUserXmark,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
->>>>>>> origin/doneByBasil
-import { NavLink } from 'react-router-dom';
+import EmpSidebar from "../EmpSidebar/EmpSidebar";
+import Cookies from 'js-cookie';
 
 import {
   FaEye,
   FaCheck,
-<<<<<<< HEAD
-
   FaStar,
   FaBriefcase,
-
   FaMapMarkerAlt,
   FaDollarSign,
 } from "react-icons/fa";
-import img1 from "../../public/emplyer.png";
-=======
-  
-  FaStar,
-  FaBriefcase,
-  
-  FaMapMarkerAlt,
-  FaDollarSign,
-} from "react-icons/fa";
-import img1 from "../../public/member1.jpg";
->>>>>>> origin/doneByBasil
 
 const EmpDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,138 +22,59 @@ const EmpDashboard = () => {
     { icon: FaCheck, label: "Shortlisted", value: 3 },
   ];
 
-  const sideBarItems = [
-<<<<<<< HEAD
-    { id: 1, icon: faAddressBook, description: "User Dashboard", link: "/user" },
-    { id: 2, icon: faUserTie, description: "Profile", link: "/profile" },
-    { id: 3, icon: faFile, description: "My Jobs", link: "/myJobs" },
-    { id: 4, icon: faBullhorn, description: "Submit Job", link: "/applied-jobs" },
-    { id: 5, icon: faBookmark, description: "Applicants Jobs", link: "/shortlisted-jobs" },
-    { id: 6, icon: faUser, description: "Shortlist Candidates", link: "/following-employee" },
-    { id: 7, icon: faBullhorn, description: "Candidate Alerts ", link: "/alert-jobs" },
-    { id: 8, icon: faBoxesPacking, description: "Packages", link: "/messages" },
-    { id: 9, icon: faComments, description: "Messages", link: "/messages" },
-    { id: 10, icon: faHandshake, description: "Meetings", link: "/meetings" },
-    { id: 11, icon: faLock, description: "Change Password", link: "/change-password" },
-    { id: 12, icon: faUserXmark, description: "Delete Profile", link: "/delete-profile" },
-    { id: 13, icon: faArrowRightFromBracket, description: "Logout", link: "/" }
-=======
-    {id:1, icon:faAddressBook, description:"User Dashboard",link:"/user"},
-    {id:2, icon:faUserTie, description:"Profile",link:"/profile"},
-    {id:3, icon:faFile, description:"My Jobs",link:"/myJobs"},
-    {id:4, icon:faBullhorn, description:"Submit Job",link:"/applied-jobs"},
-    {id:5, icon:faBookmark, description:"Applicants Jobs",link:"/shortlisted-jobs"},
-    {id:6, icon:faUser, description:"Shortlist Candidates",link:"/following-employee"},
-    {id:7, icon:faBullhorn, description:"Candidate Alerts ",link:"/alert-jobs"},
-    {id:8, icon:faBoxesPacking, description:"Packages",link:"/messages"},
-    {id:9, icon:faComments, description:"Messages",link:"/messages"},
-    {id:10, icon:faHandshake, description:"Meetings",link:"/meetings"},
-    {id:11, icon:faLock, description:"Change Password",link:"/change-password"},
-    {id:12, icon:faUserXmark, description:"Delete Profile",link:"/delete-profile"},
-    {id:13, icon:faArrowRightFromBracket, description:"Logout",link:"/"}
->>>>>>> origin/doneByBasil
-  ]
+  console.log("tokeen", Cookies.get('userId'));
 
-  const notification = [{ icon: FaBriefcase, label: "Job Status" }];
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+
+  const notification = [
+    {
+      icon: FaBriefcase,
+      label:
+        "This is a notification bar. you will get notifiacation if any employer short listed your job",
+    },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const sidebarElement = document.getElementById("default-sidebar");
+      if (sidebarElement && !sidebarElement.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-hidden bg-gray-100 ">
-      {/* Sidebar */}
-      <div
-        className={`fixed top-[115px] left-0 h-[calc(100vh-4rem)] overflow-y-auto bg-white text-gray-600 p-4 transition-transform duration-300 ease-in-out scrollbar-custom
-    ${isSidebarOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full"} 
-    md:w-96 md:translate-x-0`}
-      >
-        {/* Sidebar content */}
-        <div className="flex items-center space-x-4">
-          <img
-<<<<<<< HEAD
-            className="w-20 h-20 rounded-lg"
-            src={img1}
-            alt="avatar"
-          />
-          <div className="flex flex-col p-2 gap-1">
-            <span className="text-xl font-bold">Employer</span>
-            <span className="text-sm">New York</span>
-=======
-            className="w-20 h-20 rounded-full"
-            src={img1}
-            alt="Rounded avatar"
-          />
-          <div className="flex flex-col p-2 gap-1">
-            <span className="text-xl font-bold">Name</span>
-            <span className="text-sm">Place</span>
->>>>>>> origin/doneByBasil
-            <button className="text-sm text-white w-24 h-6 rounded-md bg-blue-600">
-              View Profile
-            </button>
-          </div>
-        </div>
-        {/* User Dashboard */}
-        <div className="flex flex-col space-y-2 p-4 mb-16">
-<<<<<<< HEAD
-          <ul className=''>
-            {sideBarItems.map((item) => (
-              <NavLink to={item.link} activeClassName="active" ><li key={item.id} className='mb-0.5 px-5 py-[13px] flex hover:text-[#1967D2] hover:bg-[#E8F0FA] text-[#696696] rounded-lg cursor-pointer'>
-                <div className='mr-[15px] '><FontAwesomeIcon icon={item.icon} size="xl" /></div>
-                <div>{item.description}</div>
-              </li>
-              </NavLink>
-            ))}
-          </ul>
-=======
-        <ul className=''>
-                    {sideBarItems.map((item)=>(
-                    <NavLink to={item.link} activeClassName="active" ><li  key={item.id} className='mb-0.5 px-5 py-[13px] flex hover:text-[#1967D2] hover:bg-[#E8F0FA] text-[#696696] rounded-lg cursor-pointer'>
-                        <div className='mr-[15px] '><FontAwesomeIcon icon={item.icon} size="xl" /></div>
-                        <div>{item.description}</div>
-                    </li>
-                    </NavLink>
-                    ))}
-                </ul>
->>>>>>> origin/doneByBasil
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div
-<<<<<<< HEAD
-        className={`flex-1 p-4 mt-[50px] ml-0 md:ml-96 overflow-y-auto transition-all duration-300 ease-in-out ${isSidebarOpen ? "ml-64" : "ml-0"
-          }`}
-=======
-        className={`flex-1 p-4 mt-[50px] ml-0 md:ml-96 overflow-y-auto transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? "ml-64" : "ml-0"
-        }`}
->>>>>>> origin/doneByBasil
-      >
-        <div className="p-4">
-          <button
-            className="md:hidden mb-4 p-2 bg-blue-500 text-white rounded"
-            onClick={toggleSidebar}
-          >
-            {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
-          </button>
-          {/* Main page Cards */}
-          <div className="">
-            <div className="flex flex-wrap gap-4 p-4">
-              {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="flex items-center bg-white rounded-lg shadow-md p-4 w-full sm:w-1/2 md:w-48"
-                >
-                  <stat.icon className="text-blue-500 text-4xl mr-4" />
-                  <div>
-                    <p className="text-2xl  text-blue-600 font-bold">
-                      {stat.value}
-                    </p>
-                    <span className="text-sm font-semibold">{stat.label}</span>
-                  </div>
+    <div className=" mt-[50px]">
+      <EmpSidebar />
+      {/* Overlay for mobile */}
+      <div className="p-4 md:ml-72 sm:ml-64">
+        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+          <div className="grid grid-cols-4 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-4">
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800 sm:flex-row"
+              >
+                <stat.icon className="text-blue-500 text-4xl sm:mr-4 mb-2 sm:mb-0 hidden sm:block sm:mr-4" />
+                <div className="text-center sm:text-left">
+                  <p className="text-2xl text-blue-600 font-bold">
+                    {stat.value}
+                  </p>
+                  <span className="text-sm font-semibold break-words">
+                    {stat.label}
+                  </span>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-4 mb-4">
@@ -225,16 +124,18 @@ const EmpDashboard = () => {
                   <FaMapMarkerAlt className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
                   <span className="text-xs sm:text-sm">New York</span>
                 </div>
-                <div className="flex items-center mt-2">
-<<<<<<< HEAD
-                  <button className="bg-blue-200 rounded-3xl ml-4 w-24 p-1 "> Full Time </button>
-                  <button className="bg-orange-200 rounded-3xl ml-4 w-24 p-1 "> Urgent </button>
+                <div className="flex items-center">
+                  <FaDollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
+                  <span className="text-xs sm:text-sm">$150 - $180 / week</span>
                 </div>
-=======
-                    <button className="bg-blue-200 rounded-3xl ml-4 w-24 p-1 "> Full Time </button>
-                    <button className="bg-orange-200 rounded-3xl ml-4 w-24 p-1 "> Urgent </button>
-                  </div>
->>>>>>> origin/doneByBasil
+              </div>
+              <div className="flex flex-col sm:flex-row items-center mt-2 space-y-2 sm:space-y-0 sm:space-x-4">
+                <button className="bg-blue-200 rounded-3xl w-20 sm:w-24 p-1 text-xs sm:text-sm">
+                  Full Time
+                </button>
+                <button className="bg-orange-200 rounded-3xl w-20 sm:w-24 p-1 text-xs sm:text-sm">
+                  Urgent
+                </button>
               </div>
             </div>
           </div>

@@ -1,13 +1,13 @@
-import React from 'react';
-<<<<<<< HEAD
-import Navbar from '../Navbar/Navbar';
-import SideBar from '../sideBar/SideBar';
-=======
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
->>>>>>> origin/doneByBasil
+import { FaTimes } from "react-icons/fa";
+import {
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+import EmpSidebar from "../EmpSidebar/EmpSidebar";
 
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+
 
 const EmployerCandidateAlert = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,48 +32,6 @@ const EmployerCandidateAlert = () => {
   }, [isOpen]);
 
   return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <>
-    <Navbar/>
-    <div className='flex'>
-        <SideBar/>
-        <div className='w-full px-[15px] h-screen bg-[#F5F7FC]'>
-          <div className='p-[60px]'>
-=======
-        <div className='w-full px-[15px] min-h-[calc(-111px_+_100vh)] bg-[#F5F7FC]'>
-          <div className='md:p-[60px]'>
->>>>>>> origin/doneByBasil
-            <h3 className='mb-[40px] text-3xl leading-[1.3] font-medium'>Candidate Alerts</h3>
-            <div className='bg-white border p-[30px] mb-[30px] rounded shadow-sm '>
-              <div className='w-full h-[47px] mb-[30px] flex w-[1383px] justify-between '>
-                <div className=''>
-                  <form className=' bg-[#F0F5F7] w-[199px] flex w-fit rounded-lg'>
-                    <button type='submit' className='py-[5px] px-[15px] '><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
-                    <input
-                    className='bg-transparent outline-none h-[45px] p-[5px] w-[134px] text-gray-500' 
-                    type='text'
-                    placeholder='Search...'
-                    />
-                  </form>
-                </div>
-<<<<<<< HEAD
-                <div className='self-center text-center w-[230px] h-[45px] flex '>
-                  <span className='font-normal self-center'>Sort By:</span>
-=======
-                <div className='self-center text-center md:w-[230px] h-[45px] flex justify-end'>
-                  <span className='hidden md:block font-normal self-center'>Sort By:</span>
->>>>>>> origin/doneByBasil
-                  <div className='pr-5 w-[148px] bg-[#F0F5F7] flex  rounded-lg'>
-                  <select className='outline-blue-400 bg-transparent pr-[25px] h-[45px] px-5 self-center '>
-                    <option>Default</option>
-                    <option>Newest</option>
-                    <option>Oldest</option>
-                  </select>
-                  </div>
-                  
-                </div>
-=======
     <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
       <EmpSidebar />
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8">
@@ -100,18 +58,72 @@ const EmployerCandidateAlert = () => {
                   <option>Newest</option>
                   <option>Oldest</option>
                 </select>
->>>>>>> origin/akhilChandran
               </div>
-              <span className='text-[#54595F] leading-7 font-normal font-[15px]'>No candidate alert found</span>
             </div>
           </div>
+
+          <div className="overflow-x-auto sm:overflow-x-hidden">
+            <table className="min-w-full bg-white mb-6">
+              <thead className="h-12 bg-gray-100">
+                <tr className="text-blue-600">
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
+                    Title
+                  </th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
+                    Alert Query
+                  </th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
+                    Number Candidates
+                  </th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
+                    Times
+                  </th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b hover:bg-gray-50">
+                  <td className="px-2 py-2 sm:px-4">
+                    <div className="flex items-center space-x-2 md:space-x-4">
+                      <div>
+                        <span className="text-sm sm:text-sm ">
+                          Marketing
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-2 py-2 text-xs sm:text-sm text-gray-600 sm:px-4">
+                    ****
+                  </td>
+                  <td className="px-2 py-2 text-xs sm:text-sm text-gray-600 sm:px-4">
+                    Candidates found 14
+                  </td>
+                  <td className="px-2 py-2 text-xs sm:text-sm text-yellow-600 sm:px-4">
+                    Daily
+                  </td>
+                  <td className="px-2 py-2 sm:px-4">
+                    <div className="flex space-x-2">
+                      <button
+                        className="text-red-600 hover:text-red-800"
+                        data-job_id="1044"
+                        data-nonce="ddc42e1639"
+                        data-toggle="tooltip"
+                        title="Remove"
+                      >
+                        <FaTimes />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-<<<<<<< HEAD
+      </div>
     </div>
-    </>
-=======
->>>>>>> origin/doneByBasil
-  ) 
-}
+  );
+};
 
 export default EmployerCandidateAlert;

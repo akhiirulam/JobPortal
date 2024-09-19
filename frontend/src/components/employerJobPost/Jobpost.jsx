@@ -16,6 +16,7 @@ const Jobpost = () => {
   const [photos, setPhotos] = useState([]);
   // const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [file, setFile] = useState(null);
 
   const [jobTitle, setJobTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -37,8 +38,8 @@ const Jobpost = () => {
   const [salaryType, setSalaryType] = useState(null);
   const [CareerType, setCareerType] = useState(null);
   const [videoURL, setVideoURL] = useState(null);
-  
-  
+
+
   const categoryOptionsArray = [
     { value: "Accounting/Finance", label: "Accounting/Finance" },
     { value: "Automotive", label: "Automotive" },
@@ -97,26 +98,18 @@ const Jobpost = () => {
     { value: "Others", label: "Others" },
   ];
 
- 
+
   const handleSelectChange = (setter) => (option) => {
     setter(option);
     console.log(`Option selected:`, option);
   };
 
-<<<<<<< HEAD
-  const handleFileChange = (event, type) => {
-    const files = event.target.files;
-    if (type === "featuredImage") {
-      setFeaturedImage(files[0]);
-    } else if (type === "photos") {
-      setPhotos(Array.from(files));
-=======
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
       setStatus("uploading");
-      
+
       setTimeout(() => {
         if (Math.random() > 0.5) {
           setStatus("uploaded");
@@ -124,7 +117,6 @@ const Jobpost = () => {
           setStatus("error");
         }
       }, 2000);
->>>>>>> origin/doneByBasil
     }
     setStatus("uploading");
     setTimeout(() => {
@@ -205,17 +197,13 @@ const Jobpost = () => {
     } catch (error) {
       setLoading(false);
       console.error("Error submitting form:", error);
-<<<<<<< HEAD
-      toast.error("Error submitting form");
-=======
-      
->>>>>>> origin/doneByBasil
+
     }
   };
 
   return (
     <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
-    <EmpSidebar />
+      <EmpSidebar />
 
       {/* Main Content */}
       <div

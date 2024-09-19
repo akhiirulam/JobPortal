@@ -10,10 +10,7 @@ import AppDownload from "../components/AppDownload/AppDownload";
 import RecruitingBanner from "../components/RecruitingBanner/RecruitingBanner"
 import BottomFooter from "../components/Footer/BottomFooter"
 import Footer from "../components/Footer/Footer"
-<<<<<<< HEAD
-=======
 import Jobpost from "./Jobpost";
->>>>>>> origin/doneByBasil
 
 
 const HomePage = () => {
@@ -24,10 +21,6 @@ const HomePage = () => {
         <Banner />
         <div className="container mx-auto md:w-[1320px]">
         <Joblist />
-<<<<<<< HEAD
-        {/* <Listjobs /> */}
-=======
->>>>>>> origin/doneByBasil
         <Companies />
         </div>
         <hr className='w-screen' />
@@ -35,13 +28,6 @@ const HomePage = () => {
           <FindJob />
           <Counts />
         </div>
-<<<<<<< HEAD
-        <NewsArticles />
-        <AppDownload />
-       < RecruitingBanner />
-       <Footer />
-       <BottomFooter/>
-=======
         <NewsArticles />   
         <div className="container mx-auto md:w-[1320px]">
         <AppDownload />
@@ -50,7 +36,6 @@ const HomePage = () => {
         <BottomFooter/>
         </div>
        
->>>>>>> origin/doneByBasil
 
       </div>
     </div>

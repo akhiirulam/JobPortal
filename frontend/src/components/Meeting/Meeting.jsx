@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-// import React, { useState, useRef, useEffect } from "react";
-=======
 import React, { useState, useRef, useEffect } from "react";
 
->>>>>>> origin/doneByBasil
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAddressBook,
@@ -25,27 +20,6 @@ import { FaMessage } from "react-icons/fa6";
 
 const Meeting = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-<<<<<<< HEAD
-  // const [isOpen, setIsOpen] = useState(false);
-  // const dropdownRef = useRef(null);
-
-  // const toggleDropdown = () => {
-  //   setIsOpen(!isOpen);
-  // };
-
-  // const handleClickOutside = (event) => {
-  //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //     setIsOpen(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-=======
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -65,7 +39,6 @@ const Meeting = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
->>>>>>> origin/doneByBasil
 
   const sideBarItems = [
     {
@@ -192,22 +165,14 @@ const Meeting = () => {
                       </div>
                       <div>
                         <h2 className="text-md sm:text-lg font-semibold">
-<<<<<<< HEAD
-                          <a href="/" className="text-blue-600 hover:underline">
-=======
                           <a href="#" className="text-blue-600 hover:underline">
->>>>>>> origin/doneByBasil
                             Product Designer
                           </a>
                         </h2>
                         <div className="text-xs sm:text-sm text-gray-600 mt-1.5 sm:mt-2">
                           <div className="flex items-center space-x-2">
                             <i className="flaticon-briefcase-1"></i>
-<<<<<<< HEAD
-                            <a href="/" className="hover:underline">
-=======
                             <a href="#" className="hover:underline">
->>>>>>> origin/doneByBasil
                               Meeting with: Employer
                             </a>
                           </div>
