@@ -8,9 +8,7 @@ import {
   FaEye,
   FaCheck,
   FaStar,
-  FaBriefcase,
-  FaMapMarkerAlt,
-  FaDollarSign,
+  FaBriefcase
 } from "react-icons/fa";
 
 
@@ -105,37 +103,7 @@ const AdminDashboard = () => {
                 alt="job1"
               />
             </div>
-            <div className="flex flex-col sm:flex-col ">
-              <div>
-                <span className="text-sm sm:text-base">
-                  Junior Graphic Designer (Web)
-                </span>
-              </div>
-              <div className="flex flex-col sm:flex-row sm:space-x-4 mt-2">
-                <div className="flex items-center mb-2 sm:mb-0">
-                  <FaBriefcase className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
-                  <span className="text-xs sm:text-sm">
-                    Design, Development
-                  </span>
-                </div>
-                <div className="flex items-center mb-2 sm:mb-0">
-                  <FaMapMarkerAlt className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
-                  <span className="text-xs sm:text-sm">New York</span>
-                </div>
-                <div className="flex items-center">
-                  <FaDollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 mr-2" />
-                  <span className="text-xs sm:text-sm">$150 - $180 / week</span>
-                </div>
-              </div>
-              <div className="flex flex-col sm:flex-row items-center mt-2 space-y-2 sm:space-y-0 sm:space-x-4">
-                <button className="bg-blue-200 rounded-3xl w-20 sm:w-24 p-1 text-xs sm:text-sm">
-                  Full Time
-                </button>
-                <button className="bg-orange-200 rounded-3xl w-20 sm:w-24 p-1 text-xs sm:text-sm">
-                  Urgent
-                </button>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

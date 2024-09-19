@@ -13,7 +13,6 @@ function LoginSuccess() {
     if (token) {
       localStorage.setItem('token', token);
       localStorage.setItem('email', email);
-      console.log("success page:", email);
       navigate('/candidate/candProfile');
     } else {
       navigate('/'); 

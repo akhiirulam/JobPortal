@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Navbar from '../components/Navbar/Navbar';
-import AdminDashboard from '../components/Admin/AdminDashBoard/AdminDashboard';
+import AdminPurchaseCard from '../components/Admin/AdminPurchaseCardCreate/AdminPurchaseCard';
 
 
-class AdminControlPage extends Component {
+class AdminPurchaseCardPage extends Component {
     render() {
         return (
             <div>
@@ -11,7 +11,7 @@ class AdminControlPage extends Component {
                     <Navbar />
                 </div>
                 <div>
-                    <AdminDashboard />
+                    <AdminPurchaseCard />
                 </div>
                 
             </div>
@@ -19,4 +19,4 @@ class AdminControlPage extends Component {
     }
 }
 
-export default AdminControlPage;
+export default AdminPurchaseCardPage;
