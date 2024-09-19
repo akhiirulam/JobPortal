@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import JobpostPage from "../components/EmployerJobPost/Jobpost"
-import Navbar from "../components/Navbar/Navbar";
+import JobpostPage from '../components/employerJobPost/Jobpost'
 
 class Jobpost extends Component {
     render() {
         return (
-                <div className="pt-16">
-                    <JobpostPage/>
-                </div>
+            <div className="pt-16">
+                <JobpostPage />
+            </div>
         );
     }
 }

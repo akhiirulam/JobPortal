@@ -58,8 +58,8 @@ const userProfileController = {
       ? req.files["profileImage"][0].path
       : null;
 
-      const socialMediaEntries = JSON.parse(req.body.socialMediaEntries || '{}');
-     
+    const socialMediaEntries = JSON.parse(req.body.socialMediaEntries || '{}');
+
     const newUserData = {
       profileImg: profileImage || undefined,
       name: fullName || undefined,
@@ -79,7 +79,7 @@ const userProfileController = {
       jobTitle,
       description: jobDescription,
       facebook: socialMediaEntries.facebook || null,
-      twitter: socialMediaEntries.twitter || null,      
+      twitter: socialMediaEntries.twitter || null,
       instagram: socialMediaEntries.instagram || null,
       role,
       friendlyAddress,
@@ -87,12 +87,12 @@ const userProfileController = {
       //   type: 'Point',
       //   coordinates
       // },
-     
+
       profileVideo: introductionVideo,
-    
+
     };
 
-    console.log("hello",newUserData);
+    console.log("hello", newUserData);
 
     const user = await Candidate.findOne({ email });
     if (!user) {
@@ -112,8 +112,8 @@ const userProfileController = {
     }
   }),
 
-  addResume: asyncHandler(async (req,res) => {
-      // const { email } = req.cookies;
+  addResume: asyncHandler(async (req, res) => {
+    // const { email } = req.cookies;
     // if (!email) {
     //   return res.status(400).send("Email not found in cookies.");
     // }
@@ -124,58 +124,58 @@ const userProfileController = {
     const awards = JSON.parse(req.body.awards || '[]')
 
     const resumes = req.files["uploadedFile[]"]
-    ? req.files["uploadedFile[]"].map((file) => file.path)
-    : [];
+      ? req.files["uploadedFile[]"].map((file) => file.path)
+      : [];
 
     const images = req.files["images[]"]
-    ? req.files["images[]"].map((file) => file.path)
-    : [];
+      ? req.files["images[]"].map((file) => file.path)
+      : [];
 
-    console.log(education,previousExperience,awards)
+    console.log(education, previousExperience, awards)
     const educationalHistory = education.map((degree, index) => ({
       collegeName: degree.title,
       degreeName: degree.academy,
-      educationDescription: degree.description, 
+      educationDescription: degree.description,
       year: degree.year,
     }));
 
-   const previousWorkHistory = previousExperience.map((workHistory,index) => ({
-    previousDesignation : workHistory.title,
-    previousCompanyName : workHistory.company, 
-    previousStartingDate : workHistory.startYear,
-    previousEndDate : workHistory.endYear
-   }))
-    
-   const candidateAwards = awards.map((award,index) => ({
-    occasionName: award.title,
-    awardName: award.name,
-    shortSummery: award.description,
-    dateOfCertification: award.year
-   }))
+    const previousWorkHistory = previousExperience.map((workHistory, index) => ({
+      previousDesignation: workHistory.title,
+      previousCompanyName: workHistory.company,
+      previousStartingDate: workHistory.startYear,
+      previousEndDate: workHistory.endYear
+    }))
 
-   const newUserData = {
-   resume: Array.isArray(resumes) ? resumes : resumes ? [resumes] : [],
-   educationalHistory: educationalHistory.length ? educationalHistory : [], 
-   previousWorkHistory: previousWorkHistory.length ? previousWorkHistory : [], 
-   portfolioImgs :Array.isArray(images) ? images : images ? [images] : [],
-   awards: candidateAwards.length ? candidateAwards : [], 
-   }
+    const candidateAwards = awards.map((award, index) => ({
+      occasionName: award.title,
+      awardName: award.name,
+      shortSummery: award.description,
+      dateOfCertification: award.year
+    }))
 
-   const user = await Candidate.findOne({ email });
-   if (!user) {
-     return res.status(404).send("User not found.");
-   }
-   console.log(user);
+    const newUserData = {
+      resume: Array.isArray(resumes) ? resumes : resumes ? [resumes] : [],
+      educationalHistory: educationalHistory.length ? educationalHistory : [],
+      previousWorkHistory: previousWorkHistory.length ? previousWorkHistory : [],
+      portfolioImgs: Array.isArray(images) ? images : images ? [images] : [],
+      awards: candidateAwards.length ? candidateAwards : [],
+    }
 
-   const response = await Candidate.updateOne(
-     { email },
-     { $set: newUserData }
-   );
-   if (response) {
-     res.status(200).send("User information registered successfully.");
-   } else {
-     res.status(500).send("Failed to update user information.");
-   }
+    const user = await Candidate.findOne({ email });
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+    console.log(user);
+
+    const response = await Candidate.updateOne(
+      { email },
+      { $set: newUserData }
+    );
+    if (response) {
+      res.status(200).send("User information registered successfully.");
+    } else {
+      res.status(500).send("Failed to update user information.");
+    }
   }),
 
 
@@ -434,6 +434,94 @@ const userProfileController = {
     const candidateList = await Candidate.find(filter);
 
     res.send(candidateList);
+  }),
+
+  //view applied jobs
+  viewAppliedJobs: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+
+    const candidate = await Candidate.findById(candidateId).populate('listedJobs');
+
+
+    if (!candidate) {
+      res.status(404);
+      throw new Error('Candidate not found');
+    }
+
+    res.status(200).json({
+      message: "Applied jobs",
+      appliedJobs: candidate.listedJobs,
+    })
+  }),
+
+  //shortlist jobs
+  shortlistJob: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+
+    const { jobId } = req.body;
+
+    if (!jobId) {
+      res.status(400);
+      throw new Error("Job ID is required");
+    }
+
+    const candidate = await Candidate.findById(candidateId);
+    if (!candidate) {
+      return res.status(404).send("Candidate not found.");
+    }
+
+    //check if the job is already shortlisted
+    if (candidate.shortlistedJobs.includes(jobId)) {
+      res.status(400);
+      throw new Error("Job already shortlisted");
+    }
+
+    candidate.shortlistedJobs.push(jobId);
+
+    await candidate.save();
+    res.status(200).send("Job shortlisted successfully");
+  }),
+
+  //follow employer
+  followEmployer: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+    const { employerId } = req.params;
+
+    const candidate = await Candidate.findById(candidateId,
+      { $addToSet: { followingEmployers: employerId } },
+      { new: true }
+    );
+
+    if (!candidate) {
+      res.status(404);
+      throw new Error("Candidate not found");
+    }
+
+    res.status(200).json({
+      message: "Employer followed successfully",
+      followingEmployers: candidate.followingEmployers,
+    });
+  }),
+
+  // unfollow employer
+  unfollowEmployer: asyncHandler(async (req, res) => {
+    const candidateId = req.user._id;
+    const { employerId } = req.params;
+
+    const candidate = await Candidate.findByIdAndUpdate(
+      candidateId,
+      { $pull: { followingEmployers: employerId } },
+      { new: true }
+    );
+
+    if (!candidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+
+    res.status(200).json({
+      message: 'Employer unfollowed successfully',
+      followingEmployers: candidate.followingEmployers,
+    });
   }),
 };
 

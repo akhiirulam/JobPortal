@@ -10,7 +10,7 @@ import DashBoard from "./UserDashBoard";
 import ShortListjobs from "./ShortListjob";
 import Meeting from "./Meeting";
 import EmpDashBoard from "./EmpDashboard";
-import Jobpost from "./JoblistHomePage";
+import Jobpost from "./Jobpost";
 import CandidateFollowingEmployer from "./CandidateFollowingEmployer";
 import CandidateAppliedJobPage from "./CandidateAppliedJobPage";
 import DeleteAccount from "./DeleteAccount";

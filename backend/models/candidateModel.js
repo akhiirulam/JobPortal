@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const candidateSchema = new mongoose.Schema(
   {
-   
+
     email: {
       type: String,
       required: true,
@@ -74,7 +74,7 @@ const candidateSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-   
+
     facebook: {
       type: String,
       default: null,
@@ -117,6 +117,18 @@ const candidateSchema = new mongoose.Schema(
         type: mongoose.Schema.ObjectId,
         ref: "Job",
       },
+    ],
+    shortlistedJobs: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Job'
+      }
+    ],
+    followingEmployers: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Employer'
+      }
     ],
     educationalHistory: [
       {
@@ -162,13 +174,13 @@ const candidateSchema = new mongoose.Schema(
         },
       },
     ],
-    
+
     portfolioImgs: [
       {
         type: String,
       },
     ],
-   
+
     resume: [
       {
         type: String,

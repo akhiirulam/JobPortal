@@ -109,96 +109,137 @@ const ShortList = () => {
                 />
               </form>
             </div>
-            <div className="flex items-center">
-              <span className="font-normal mr-2">Sort By:</span>
-              <div className="w-auto md:w-[148px] bg-gray-100 flex rounded-lg">
-                <select className="outline-blue-400 bg-transparent w-full mr-2 h-10 px-4">
-                  <option>Default</option>
-                  <option>Newest</option>
-                  <option>Oldest</option>
-                </select>
+
+            <div className="relative flex-1 flex items-center justify-end">
+              <div
+                ref={dropdownRef}
+                className={`relative inline-block text-left ease-in-out ${
+                  isOpen ? "opacity-100" : "opacity-100"
+                }`}
+              >
+                <div className="flex items-center">
+                  <span className="mr-2 text-gray-700">Sort By:</span>
+                  <button
+                    onClick={toggleDropdown}
+                    className="bg-gray-100 text-black px-4 py-2 rounded shadow flex items-center justify-between w-full md:w-36"
+                  >
+                    Default
+                    <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+                  </button>
+                </div>
+                {isOpen && (
+                  <div className="absolute right-0 mt-2 w-full md:w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                    <ul className="py-1">
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                          Option 1
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                          Option 2
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                          Option 3
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex justify-center mt-8 md:ml-72">
-        <div className="w-full max-w-4xl bg-white border border-gray-200 overflow-x-auto rounded-lg">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead>
-              <tr className="bg-gray-100 border-b">
-                <th className="px-4 py-2 text-left font-semibold text-gray-600">
-                  Job Title
-                </th>
-                <th className="px-4 py-2 text-left font-semibold text-gray-600">
-                  Posted Date
-                </th>
-                <th className="px-4 py-2 text-left font-semibold text-gray-600">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="px-4 py-2">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 sm:w-24 sm:h-24">
-                      <a href="/">
-                        <img
-                          src={img1}
-                          alt="Descriptionofimage"
-                          className="rounded-full object-cover w-full h-full"
-                        />
-                      </a>
-                    </div>
-                    <div>
-                      <h2 className="text-sm sm:text-lg font-semibold">
-                        <a href="/" className="text-blue-600 hover:underline">
-                          Product Designer
-                        </a>
-                      </h2>
-                      <div className="text-xs sm:text-sm text-gray-600">
-                        <div className="flex items-center space-x-2">
-                          <i className="flaticon-briefcase-1"></i>
-                          <a href="/">Accounting / Finance</a>
+          <div className="flex justify-center mt-8">
+            <div className="w-full max-w-4xl bg-white border border-gray-200 overflow-x-auto rounded-lg">
+              <table className="min-w-full bg-white border border-gray-200">
+                <thead>
+                  <tr className="bg-gray-100 border-b">
+                    <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                      Job Title
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                      Posted Date
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold text-gray-600">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b hover:bg-gray-50">
+                    <td className="px-4 py-2">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 sm:w-24 sm:h-24">
+                          <a href="#">
+                            <img
+                              src={img1}
+                              alt="Description of image"
+                              className="rounded-full object-cover w-full h-full"
+                            />
+                          </a>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <i className="flaticon-location"></i>
-                          <a href="/">New York</a>
+                        <div>
+                          <h2 className="text-sm sm:text-lg font-semibold">
+                            <a
+                              href="#"
+                              className="text-blue-600 hover:underline"
+                            >
+                              Product Designer
+                            </a>
+                          </h2>
+                          <div className="text-xs sm:text-sm text-gray-600">
+                            <div className="flex items-center space-x-2">
+                              <i className="flaticon-briefcase-1"></i>
+                              <a href="#">Accounting / Finance</a>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <i className="flaticon-location"></i>
+                              <a href="#">New York</a>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-4 py-2 text-xs sm:text-sm text-gray-600">
-                  March 29, 2021
-                </td>
-                <td className="px-4 py-2">
-                  <div className="flex space-x-2">
-                    <button
-                      className="text-red-600 hover:text-red-800"
-                      data-job_id="1044"
-                      data-nonce="ddc42e1639"
-                      data-toggle="tooltip"
-                      title="Remove"
-                    >
-                      <FaTimes />
-                    </button>
-                    <a
-                      href="/"
-                      className="text-blue-600 hover:text-blue-800"
-                      data-toggle="tooltip"
-                      title="View Job"
-                    >
-                      <FaEye />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    </td>
+                    <td className="px-4 py-2 text-xs sm:text-sm text-gray-600">
+                      March 29, 2021
+                    </td>
+                    <td className="px-4 py-2">
+                      <div className="flex space-x-2">
+                        <button
+                          className="text-red-600 hover:text-red-800"
+                          data-job_id="1044"
+                          data-nonce="ddc42e1639"
+                          data-toggle="tooltip"
+                          title="Remove"
+                        >
+                          <FaTimes />
+                        </button>
+                        <a
+                          href="#"
+                          className="text-blue-600 hover:text-blue-800"
+                          data-toggle="tooltip"
+                          title="View Job"
+                        >
+                          <FaEye />
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import img1 from "../../public/member1.jpg";
 import GraphComponent from "./GraphComponent";
 import EmpSidebar from "../EmpSidebar/EmpSidebar";
 import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 import {
   FaEye,
@@ -54,7 +55,7 @@ const EmpDashboard = () => {
 
   return (
     <div className=" mt-[50px]">
-      <EmpSidebar/>
+      <EmpSidebar />
       {/* Overlay for mobile */}
       <div className="p-4 md:ml-72 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">

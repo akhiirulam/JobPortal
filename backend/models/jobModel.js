@@ -10,12 +10,12 @@ const jobSchema = new Schema(
       type: String,
     },
     title: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     description: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     category: {
       type: String,
@@ -35,23 +35,23 @@ const jobSchema = new Schema(
       required: true,
     },
     jobApplyType: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     externalURLforApply: {
       type: String,
     },
     jobApplyEmail: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     salaryType: {
       type: String,
       required: true,
     },
     minSalary: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: true,
     },
     maxSalary: {
       type: Number,
@@ -78,25 +78,29 @@ const jobSchema = new Schema(
       },
     ],
     applicationDeadlineDate: {
-      type: Date, // Changed to Date type for better handling of dates
+        type: Date,  
     },
     address: {
       type: String,
     },
 
+
     location: {
-      type: {
-        type: String, // This will always be 'Point'
-        enum: ["Point"],
-      },
-      coordinates: {
-        type: [Number], // Array of numbers: [longitude, latitude]
-      },
+        type: {
+            type: String,  // This will always be 'Point'
+            enum: ['Point'],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],  // Array of numbers: [longitude, latitude]
+            required: true,
+        },
     },
     preferredSkills: [
-      {
-        type: String,
-      },
+
+        {
+            type: String,
+        },
     ],
     appliedCandidates: [
       {
@@ -110,10 +114,14 @@ const jobSchema = new Schema(
         },
       },
     ],
-  },
+    employer: {
+        type: Schema.ObjectId,
+        ref: 'Employer',
+        required: true,
+    }
+},
 
-  { timestamps: true }
-);
+    { timestamps: true });
 
 const Job = mongoose.model("Job", jobSchema);
 

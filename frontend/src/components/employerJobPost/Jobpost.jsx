@@ -17,6 +17,7 @@ const Jobpost = () => {
   const [photos, setPhotos] = useState([]);
   // const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [file, setFile] = useState(null);
 
   const [jobTitle, setJobTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -104,12 +105,19 @@ const Jobpost = () => {
     console.log(`Option selected:`, option);
   };
 
-  const handleFileChange = (event, type) => {
-    const files = event.target.files;
-    if (type === "featuredImage") {
-      setFeaturedImage(files[0]);
-    } else if (type === "photos") {
-      setPhotos(Array.from(files));
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setStatus("uploading");
+
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          setStatus("uploaded");
+        } else {
+          setStatus("error");
+        }
+      }, 2000);
     }
     setStatus("uploading");
     setTimeout(() => {
@@ -278,30 +286,12 @@ const Jobpost = () => {
       }
     } finally {
       setLoading(false);
+      console.error("Error submitting form:", errors);
+
     }
   };
 
-  // useEffect(() => {
-  //   const fetchJobData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:5000/api/v1/job/addJobPage",
-  //         {
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching job data:", error);
-  //       toast.error("Failed to fetch job data");
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchJobData();
-  // }, []);
-
-  return (
+   return (
     <div className="mt-[50px] bg-[#F5F7FC] h-[calc(-111px_+_100vh)]">
       <EmpSidebar />
 

@@ -89,7 +89,7 @@ const EmployerCandidateAlert = () => {
                     <div className="flex items-center space-x-2 md:space-x-4">
                       <div>
                         <span className="text-sm sm:text-sm ">
-                            Marketing
+                          Marketing
                         </span>
                       </div>
                     </div>

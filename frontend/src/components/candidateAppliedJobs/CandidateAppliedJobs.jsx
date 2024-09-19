@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FaEye, FaTimes } from "react-icons/fa";
 
 import img1 from "../../public/airbnb.jpg";
@@ -64,18 +64,10 @@ const CandidateAppliedJobs = () => {
             <table className="min-w-full bg-white mb-6">
               <thead className="h-12 bg-gray-100">
                 <tr className="text-blue-400">
-                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Job Title
-                  </th>
-                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Date Applied
-                  </th>
-                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Status
-                  </th>
-                  <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Actions
-                  </th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">Job Title</th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">Date Applied</th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">Status</th>
+                  <th className="px-2 py-2 text-left font-semibold sm:px-4">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,17 +77,15 @@ const CandidateAppliedJobs = () => {
                       <div className="w-8 h-8 sm:w-10 sm:h-10">
                         <a href="/">
                           <img
-                            src={img1}
-                            alt="Description"
+                            src={img1} // Replace with actual image path
+                            alt="Profile"
                             className="rounded-full object-cover w-full h-full"
                           />
                         </a>
                       </div>
                       <div>
                         <h2 className="text-sm sm:text-lg font-semibold">
-                          <a href="/" className="hover:underline">
-                            Product Designer
-                          </a>
+                          <a href="/" className="hover:underline">Product Designer</a>
                         </h2>
                         <div className="text-xs sm:text-sm text-gray-600">
                           <div className="flex items-center space-x-1 sm:space-x-2">
@@ -110,29 +100,14 @@ const CandidateAppliedJobs = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="px-2 py-2 text-xs sm:text-sm text-gray-600 sm:px-4">
-                    March 29, 2021
-                  </td>
-                  <td className="px-2 py-2 text-xs sm:text-sm text-yellow-600 sm:px-4">
-                    Pending
-                  </td>
-                  <td className="px-2 py-2 sm:px-4">
+                  <td className="px-4 py-2 text-xs sm:text-sm text-gray-600">March 29, 2021</td>
+                  <td className="px-4 py-2 text-xs sm:text-sm text-[#F6BF4E]">Pending</td>
+                  <td className="px-4 py-2">
                     <div className="flex space-x-2">
-                      <button
-                        className="text-red-600 hover:text-red-800"
-                        data-job_id="1044"
-                        data-nonce="ddc42e1639"
-                        data-toggle="tooltip"
-                        title="Remove"
-                      >
+                      <button className="text-red-600 hover:text-red-800" title="Remove">
                         <FaTimes />
                       </button>
-                      <a
-                        href="/"
-                        className="text-blue-600 hover:text-blue-800"
-                        data-toggle="tooltip"
-                        title="View Job"
-                      >
+                      <a href="#" className="text-blue-600 hover:text-blue-800" title="View Job">
                         <FaEye />
                       </a>
                     </div>

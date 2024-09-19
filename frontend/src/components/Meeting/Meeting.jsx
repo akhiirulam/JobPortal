@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-// import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAddressBook,
@@ -20,25 +20,25 @@ import { FaMessage } from "react-icons/fa6";
 
 const Meeting = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const [isOpen, setIsOpen] = useState(false);
-  // const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  // const toggleDropdown = () => {
-  //   setIsOpen(!isOpen);
-  // };
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
-  // const handleClickOutside = (event) => {
-  //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //     setIsOpen(false);
-  //   }
-  // };
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const sideBarItems = [
     {
@@ -165,14 +165,14 @@ const Meeting = () => {
                       </div>
                       <div>
                         <h2 className="text-md sm:text-lg font-semibold">
-                          <a href="/" className="text-blue-600 hover:underline">
+                          <a href="#" className="text-blue-600 hover:underline">
                             Product Designer
                           </a>
                         </h2>
                         <div className="text-xs sm:text-sm text-gray-600 mt-1.5 sm:mt-2">
                           <div className="flex items-center space-x-2">
                             <i className="flaticon-briefcase-1"></i>
-                            <a href="/" className="hover:underline">
+                            <a href="#" className="hover:underline">
                               Meeting with: Employer
                             </a>
                           </div>

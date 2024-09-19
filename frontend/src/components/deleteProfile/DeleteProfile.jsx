@@ -33,7 +33,7 @@ const Exm = () => {
       <div className="lg:ml-72 md:ml-0 px-4 md:px-8 ">
         <h3 className="py-4 text-base md:text-2xl">Candidate Alert</h3>
         <div className="bg-white p-4 md:p-[30px] rounded">
-        <div className="text-lg font-medium">
+          <div className="text-lg font-medium">
             Are you sure! You want to delete your profile.
           </div>
           <div className="mb-[15px]">This can't be undone!</div>

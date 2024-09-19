@@ -39,8 +39,12 @@ router.post('/addResume',resumeUpload,userProfile.addResume);
 router.get('/viewProfile',isAuth,userProfile.viewUserProfile);
 router.get('/candidate/:id', isAuth, userProfile.viewPersonProfile)
 router.get('/employer/:id', isAuth, userProfile.viewCompanyProfile)
-router.post('/editProfile',isAuth,userProfile.editProfile);
-router.get('/filter-candidate',userProfile.filterCandidate);
-router.get('/filter-employer',userProfile.filterEmployer);
+router.post('/editProfile', isAuth, userProfile.editProfile);
+router.get('/filter-candidate', userProfile.filterCandidate);
+router.get('/filter-employer', userProfile.filterEmployer);
+router.post('/shortlist-job', isAuth, userProfile.shortlistJob);
+router.get('/applied-jobs', isAuth, userProfile.viewAppliedJobs);
+router.post('/follow-employer', isAuth, userProfile.followEmployer);
+router.post('/unfollow-employer', isAuth, userProfile.unfollowEmployer);
 
 module.exports = router;
