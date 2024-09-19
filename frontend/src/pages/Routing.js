@@ -40,6 +40,9 @@ import Signup from "../components/SignupPage/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
 import HomeProductPage from "./HomeProductPage";
 import HomeCandidateDetails from "./HomeCandidateDetails";
+import AdminControlPage from "./AdminPage";
+
+
 
 
 function Landing() {
@@ -57,7 +60,8 @@ function Landing() {
         <Route path="/loginSuccess" element={<LoginSuccess />} />
         <Route path="/Products" element={<HomeProductPage/>}></Route>
         <Route path="/candidateDetails/:id" element={<HomeCandidateDetails/>}></Route>
-        
+        <Route path="/adminControl" element={<AdminControlPage/>}></Route>
+     
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
 
         <Route
