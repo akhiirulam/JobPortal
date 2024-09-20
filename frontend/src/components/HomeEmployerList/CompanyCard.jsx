@@ -19,7 +19,7 @@ const CompanyCard = ({ image, name, buttonText }) => (
     {/* Card Content */}
     <div>
       <button className="py-2 px-4 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300 text-sm md:text-base">
-        {buttonText}
+      Vacancy
       </button>
     </div>
   </div>

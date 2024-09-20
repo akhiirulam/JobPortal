@@ -41,6 +41,11 @@ import ProtectedRoute from "./ProtectedRoute";
 import HomeProductPage from "./HomeProductPage";
 import HomeCandidateDetails from "./HomeCandidateDetails";
 import AdminControlPage from "./AdminPage";
+import AdminCandidateListPage from "./AdminCandidateList";
+import AdminEmployerListPage from "./AdminEmployerList";
+import AdminPurchaseCardPage from "./AdminPurchaseCardCreate";
+import AdminPurchaseCardEditPage from "./AdminPurchaseCardEdit";
+import AdminPurchaseCardManagement from "./AdminPurchaseCardManagement";
 
 
 
@@ -61,7 +66,13 @@ function Landing() {
         <Route path="/Products" element={<HomeProductPage/>}></Route>
         <Route path="/candidateDetails/:id" element={<HomeCandidateDetails/>}></Route>
         <Route path="/adminControl" element={<AdminControlPage/>}></Route>
-     
+        <Route path="/adminCandidateList" element={<AdminCandidateListPage/>}></Route>
+        <Route path="/adminEmployerList" element={<AdminEmployerListPage/>}></Route>
+        <Route path="/adminPurchaseCard" element={<AdminPurchaseCardManagement/>}></Route>
+        <Route path="/adminPurchaseCardCreate" element={<AdminPurchaseCardPage/>}></Route>
+        <Route path="/adminPurchaseCardEdit/:id" element={<AdminPurchaseCardEditPage/>}></Route>
+       
+
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
 
         <Route

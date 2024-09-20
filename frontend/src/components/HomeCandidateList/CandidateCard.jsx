@@ -16,7 +16,6 @@ const CandidateCard = ({
   const navigate = useNavigate();
 
   const handleViewProfile = (userId) => {
-    console.log("hello")
     navigate("/candidateDetails");
   };
   return (
@@ -52,7 +51,7 @@ const CandidateCard = ({
             </div>
           </div>
           <div className="flex flex-row items-center mt-1 space-x-4">
-            {jobTags.map((tags, index) => (
+            {jobTags?.map((tags, index) => (
               <button
                 key={index}
                 className="bg-gray-200 hover:bg-gray-600 hover:text-white rounded-xl w-fit px-2"

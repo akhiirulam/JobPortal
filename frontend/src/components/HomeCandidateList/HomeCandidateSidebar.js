@@ -10,8 +10,11 @@ import {
 // import Box from "@mui/material/Box";
 // import Slider from "@mui/material/Slider";
 import "./Style.css";
+import { useQuery } from "@tanstack/react-query";
+import { filterCandidateSearchAPI } from "../../services/candidateServices";
 
-const HomeCandidateSidebar = ({ isOpen, closeSidebar }) => {
+const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
+  const [filter,setFilter] = useState({searchQuery:"",location:"",category:"",qualification:"",gender:"",})
 
   // const [radiusSliderValue, setRadiusSliderValue] = useState(10);
 
@@ -87,33 +90,25 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar }) => {
 
   const clearEmailSelection = (event) => [setDropDownEmailAlertSelectedValue("")]
 
+  const {data,isLoading} = useQuery({
+    queryKey:['filter-data-employer'],
+    queryFn:()=>filterCandidateSearchAPI(filter),
+  })
+  setFetchedData(data)
+  console.log(data);
 
   const clearGenderSelection = (event) => [setDropDownGenderSelectedValue("")];
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
-
     const data = Object.fromEntries(formData.entries());
-
-    console.log(data);
-
-    fetch("/your-api-endpoint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Form submission result:", result);
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-      });
+    console.log("filter=",data);
+    
+    setFilter(data)
   };
+
+
 
   return (
     <aside
@@ -156,12 +151,12 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar }) => {
               <div className="flex bg-white border mt-4 border-gray-200 w-full h-12 rounded-md items-center relative">
                 <FaMapMarkerAlt className="text-gray-500 ml-4" />
                 <select
-                  name="jobType"
+                  name="location"
                   value={DropDownSelectedValue}
                   onChange={handleDropDownChange}
                   className="flex-1 appearance-none bg-transparent pl-4 pr-10 focus:outline-none"
                 >
-                  <option value="" disabled>
+                  <option value="">
                     City or Pincode
                   </option>
                   <option value="Kochi">Kochi</option>
@@ -213,12 +208,12 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar }) => {
               <div className="flex bg-white mt-4 border border-gray-200 w-full h-12 rounded-md items-center relative">
                 <FaBriefcase className="text-gray-500 ml-4" />
                 <select
-                  name="locationDropdown"
+                  name="category"
                   value={DropDownLocationSelectedValue}
                   onChange={handleLocationDropDownChange}
                   className="appearance-none w-full h-full pl-4 pr-10 text-gray-700 bg-transparent focus:outline-none ml-2"
                 >
-                  <option value="" disabled>
+                  <option value="">
                     Choose a category
                   </option>
                   <option value="Advertising">Advertising</option>
@@ -249,12 +244,12 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar }) => {
                 <div className="flex bg-white mt-4 border border-gray-200 w-full h-12 rounded-md items-center relative">
                   <FaUser className="text-gray-500 ml-4" />
                   <select
-                    name="genderDropdown"
+                    name="gender"
                     value={DropDownGenderSelectedValue}
                     onChange={handleGenderDropDownChange}
                     className="appearance-none w-full h-full pl-4 pr-10 text-gray-700 bg-transparent focus:outline-none ml-2"
                   >
-                    <option value="" disabled>
+                    <option value="" >
                       Choose a gender
                     </option>
                     <option value="Male">Male</option>
@@ -382,7 +377,7 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar }) => {
                       <label className="inline-flex items-center cursor-pointer">
                         <input
                           type="checkbox"
-                          name="qualificationLevels"
+                          name="qualification"
                           value={level}
                           className="sr-only peer"
                           checked={isChecked}

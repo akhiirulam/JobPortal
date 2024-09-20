@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaTimes,
   FaSearch,
@@ -10,12 +10,12 @@ import {
 // import Slider from "@mui/material/Slider";
 
 import "./Style.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {useQuery, useQueryClient } from "@tanstack/react-query";
 import { filterEmployerSearchAPI } from "../../services/employerServices";
 
-const EmployerSidebar = ({ isOpen, closeSidebar }) => {
+const EmployerSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   const [locationValue, setLocationValue] = useState("");
-  const [filter,setFilter] = useState()
+  const [filter,setFilter] = useState({searchQuery:"",location:"",category:"",pincode:""})
 
   const selectHandleChange = (event) => {
     setLocationValue(event.target.value);
@@ -24,7 +24,6 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
   const selectHandleClear = () => {
     setLocationValue("");
   };
-
   // const [radiusSliderValue, setRadiusSliderValue] = useState(10);
 
   // const handleRadiusSliderChange = (event, newValue) => {
@@ -53,23 +52,19 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
   // const handleFoundedSliderChange = (event, newValue) => {
   //   setFoundedSliderValue(newValue);
   // };
-  const {data,mutateAsync} = useMutation({
-    mutationKey:['filter-data-employer'],
-    mutationFn:()=>filterEmployerSearchAPI(filter)
+
+  const {data} = useQuery({
+    queryKey:['filter-data-employer'],
+    queryFn:()=>filterEmployerSearchAPI(filter),
   })
+  setFetchedData(data)
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
-
     const data = Object.fromEntries(formData.entries());
     setFilter(data)
-    mutateAsync("filter-data-employer") 
   };
-
-  console.log(data);
-  
 
   return (
 
@@ -108,9 +103,9 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
               <div className="relative flex items-center bg-white border h-12 border-gray-300 rounded-md p-2">
                 <FaMapMarkerAlt className="text-gray-500 mr-2" />
                 <input
-                  type="text"
-                  name="location"
-                  placeholder="City or Pincode"
+                  type="number"
+                  name="pincode"
+                  placeholder="Pincode"
                   value={locationValue}
                   onChange={selectHandleChange}
                   className="w-full bg-transparent border-none outline-none text-gray-700 placeholder-gray-400"
@@ -156,13 +151,13 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
               <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md items-center relative">
                 <FaMapMarkerAlt className="text-gray-500 ml-4" />
                 <select
-                  name="locationDropdown"
+                  name="location"
                   value={DropDownSelectedValue}
                   onChange={handleDropDownChange}
                   className="flex-1 appearance-none bg-transparent pl-4 pr-10 focus:outline-none"
                 >
-                  <option value="" disabled>
-                    City or Pincode
+                  <option value="">
+                    City
                   </option>
                   <option value="Kochi">Kochi</option>
                   <option value="Calicut">Calicut</option>
@@ -208,12 +203,12 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
               <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md items-center relative">
                 <FaBriefcase className="text-gray-500 ml-4" />
                 <select
-                  name="jobType"
+                  name="category"
                   value={DropDownLocationSelectedValue}
                   onChange={handleLocationDropDownChange}
                   className="appearance-none w-full h-full pl-4 pr-10 text-gray-700 bg-transparent focus:outline-none ml-2"
                 >
-                  <option value="" disabled>
+                  <option value="">
                     Choose a category
                   </option>
                   <option value="Advertising">Advertising</option>

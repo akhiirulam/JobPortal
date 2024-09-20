@@ -4,6 +4,7 @@ import CandidateList from "./CandidateList";
 
 const HomeCandidatePage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const[fetchedData,setFetchedData] = useState()
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -59,7 +60,7 @@ const HomeCandidatePage = () => {
       </div>
 
       {/* Sidebar */}
-      <HomeCandidateSidebar isOpen={isOpen} closeSidebar={closeSidebar} />
+      <HomeCandidateSidebar isOpen={isOpen} closeSidebar={closeSidebar} setFetchedData={setFetchedData} />
 
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 h-fit md:ml-32 sm:ml-0 mt-24 md:mt-24 p-4 transition-all duration-300 md:mr-12">
@@ -89,7 +90,7 @@ const HomeCandidatePage = () => {
           </div>
 
           <div>
-            <CandidateList /> 
+            <CandidateList data={fetchedData} /> 
           </div>
         </aside>
       </div>

@@ -27,9 +27,9 @@ const candidateData = [
   // Add more company data as needed
 ];
 
-const CandidateList = () => (
+const CandidateList = ({data}) => (
   <div className="space-y-4">
-    {candidateData.map((candidate, index) => (
+    {data?.map((candidate, index) => (
       <CandidateCard
         key={index}
         image={candidate.image}

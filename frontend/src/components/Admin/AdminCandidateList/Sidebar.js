@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMoneyBill1,
   faUser,
-  faBookmark,
  } from "@fortawesome/free-regular-svg-icons";
 import {
  
@@ -29,13 +28,13 @@ const Sidebar = () => {
       description: "Admin Dashboard",
       link: "/user",
     },
-    { id: 2, icon: faUserTie, description: "Candidate Management", link: "/candidate/candProfile" },
-    { id: 3, icon: faUserTie, description: "Employer Management", link: "/candidate/ResumeAdd" },
+    { id: 2, icon: faUserTie, description: "Candidate Management", link: "/adminCandidateList" },
+    { id: 3, icon: faUserTie, description: "Employer Management", link: "/adminEmployerList" },
     {
       id: 4,
       icon: faMoneyBill1,
       description: "Purchase Management",
-      link: "/candidate/applied-jobs",
+      link: "/adminPurchaseCard",
     },
     
    

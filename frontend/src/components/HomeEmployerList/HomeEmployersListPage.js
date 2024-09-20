@@ -4,6 +4,7 @@ import CompanyList from "./CompanyList";
 
 const HomeEmployersPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const[fetchedData,setFetchedData] = useState()
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -31,6 +32,7 @@ const HomeEmployersPage = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+  
 
   return (
     <div className="relative flex flex-col md:flex-row h-[calc(100vh_-_111px)] p-4 ">
@@ -59,7 +61,7 @@ const HomeEmployersPage = () => {
       </div>
 
       {/* Sidebar */}
-      <EmployerSidebar isOpen={isOpen} closeSidebar={closeSidebar} />
+      <EmployerSidebar isOpen={isOpen} closeSidebar={closeSidebar} setFetchedData={setFetchedData} />
 
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 h-fit md:ml-32 sm:ml-0 mt-24 md:mt-24 p-4 transition-all duration-300 md:mr-12">
@@ -89,7 +91,7 @@ const HomeEmployersPage = () => {
           </div>
 
           <div>
-            <CompanyList /> 
+            <CompanyList data={fetchedData} /> 
           </div>
         </aside>
       </div>

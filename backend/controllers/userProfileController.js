@@ -369,8 +369,8 @@ const userProfileController = {
   }),
 
   filterEmployer: asyncHandler(async (req, res) => {
-    const { tags, location, category, foundDateFrom, foundDateTo } = req.query;
-    
+    const { tags, location, category,pincode} = req.query;
+     
 
     let filter = {};
 
@@ -383,13 +383,9 @@ const userProfileController = {
     if (category) {
       filter.category = category;
     }
-    if (foundDateFrom || foundDateTo) {
-      filter.foundDate = {
-        $gte: new Date(foundDateFrom),
-        $lte: new Date(foundDateTo),
-      };
-    }
+    if(pincode){
 
+    }
     console.log(filter);
 
     const employerList = await Employer.find(filter);
@@ -404,7 +400,6 @@ const userProfileController = {
       location,
       category,
       gender,
-      datePosted,
       experienceLevel,
       qualification,
     } = req.query;
@@ -412,7 +407,7 @@ const userProfileController = {
     let filter = {};
 
     if (tags) {
-      filter.tags = { $all: tags }; // Match all tags
+      filter.tags = tags; // Match all tags
     }
     if (location) {
       filter.location = location;
@@ -423,11 +418,6 @@ const userProfileController = {
     if (gender) {
       filter.gender = gender;
     }
-    if (datePosted) {
-      const lastDay = new Date();
-      lastDay.setDate(lastDay.getDate() - datePosted);
-      filter.updatedAt = { $gte: lastDay };
-    }
     if (experienceLevel) {
       filter.experienceLevel = experienceLevel;
     }
@@ -435,6 +425,8 @@ const userProfileController = {
       filter.educationalQualification = qualification;
     }
 
+    console.log("filter=",filter);
+    
     const candidateList = await Candidate.find(filter);
 
     res.send(candidateList);
@@ -443,8 +435,8 @@ const userProfileController = {
     const listCandidate = await Candidate.find()
     res.send(listCandidate)
   }),
-  viewCandidate:asyncHandler(async(req,res)=>{
-    const listCandidate = await Employer  .find()
+  viewEmployer:asyncHandler(async(req,res)=>{
+    const listCandidate = await Employer.find()
     res.send(listCandidate)
   }),
 };

@@ -77,7 +77,7 @@ const userController = {
       });
     
 
-      res.cookie("email", email, { httpOnly: true, maxAge: 3600000 });
+      res.cookie("email", email, { httpOnly: false, maxAge: 3600000 });
       res.json({ message: "Login successful", token,userType, userId });
    
   }),
