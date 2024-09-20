@@ -46,6 +46,7 @@ import AdminEmployerListPage from "./AdminEmployerList";
 import AdminPurchaseCardPage from "./AdminPurchaseCardCreate";
 import AdminPurchaseCardEditPage from "./AdminPurchaseCardEdit";
 import AdminPurchaseCardManagement from "./AdminPurchaseCardManagement";
+import EmployerPackagePage from "./EmployerPackagePage";
 
 
 
@@ -250,6 +251,16 @@ function Landing() {
             </ProtectedRoute>
           }
         />
+         <Route
+          path="/employer/packages"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EmployerPackagePage />{" "}
+            </ProtectedRoute>
+          }
+        />
+      
         <Route
           path="/employer/message"
           element={

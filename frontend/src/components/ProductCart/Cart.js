@@ -50,6 +50,7 @@ const CartPage = () => {
   };
 
   const handleCheckout = async () => {
+    
     try {
       if (cartItem) {
         const response = await axios.post('http://localhost:5000/api/v1/payment/checkout', { cartItems: [cartItem], totalPrice: getTotalPrice(), coupon });

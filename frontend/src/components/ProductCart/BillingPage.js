@@ -3,11 +3,11 @@ import Select from "react-select";
 import { countries } from "./Countries";
 import axios from "axios";
 import { useFormik } from 'formik';
-
+import { useNavigate } from 'react-router-dom'; 
 
 
 const BillingPage = () => {
-
+  const navigate = useNavigate(); 
 
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -46,15 +46,15 @@ const BillingPage = () => {
     initialValues: {
       firstName: "",
       lastName: "",
-      companyName: "",
-      country: "",
-      streetAddress: "",
-      apartment: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      phone: "",
-      email: "",
+      // companyName: "",
+      // country: "",
+      // streetAddress: "",
+      // apartment: "",
+      // city: "",
+      // state: "",
+      // zipCode: "",
+      // phone: "",
+      // email: "",
       paymentMethod: "",
     },
     onSubmit: async (values) => {
@@ -65,13 +65,14 @@ const BillingPage = () => {
       }
 
       try {
-        // Create an order on your backend and get the order ID
+       
         const orderResponse = await axios.post("http://localhost:5000/api/v1/payment/order", {
-          amount: totalAmount * 1, // Razorpay requires amount in paise (1 INR = 100 paise)
+          amount: totalAmount * 1, 
           currency: "INR",
           receipt: "receipt#1",
           billingDetails: values,
-          cartItems, // Send cart items to the backend
+          cartItems,
+          formik 
         });
 
         const { id: order_id, currency, amount } = orderResponse.data;
@@ -91,11 +92,19 @@ const BillingPage = () => {
               razorpay_signature: response.razorpay_signature,
             };
 
+            const savePaymentData = {
+              amount: amount,
+              cartItems
+            }
+
+
             // Verify the payment on the server-side
             try {
               const verifyResponse = await axios.post("http://localhost:5000/api/v1/payment/verify", paymentResult);
               if (verifyResponse.data.success) {
+                const savePayment = await axios.post("http://localhost:5000/api/v1/payment/savePayment",savePaymentData);
                 alert("Payment successful!");
+                navigate("/Products"); 
               } else {
                 alert("Payment verification failed. Please try again.");
               }

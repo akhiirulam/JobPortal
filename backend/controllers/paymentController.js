@@ -2,12 +2,10 @@ const Razorpay = require("razorpay");
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { CartItem } = require("../models/CartItem");
-const crypto = require('crypto');
+const crypto = require("crypto");
+const Payment = require("../models/paymentModel");
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
@@ -114,20 +112,22 @@ const paymentController = {
   }),
 
   verifyPayment: asyncHandler(async (req, res) => {
-    try {
-     
-      const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
+    const userId = req.cookies.userId;
 
+    try {
+      const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+        req.body;
       const secret = process.env.RAZORPAY_KEY_SECRET;
       if (!secret) {
-    
-        return res.status(500).json({ success: false, message: "Internal server error" });
+        return res
+          .status(500)
+          .json({ success: false, message: "Internal server error" });
       }
-  
+
       const generatedSignature = crypto
-        .createHmac('sha256', secret)
+        .createHmac("sha256", secret)
         .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-        .digest('hex');
+        .digest("hex");
 
       if (generatedSignature === razorpay_signature) {
         return res.json({ success: true });
@@ -136,7 +136,57 @@ const paymentController = {
       }
     } catch (error) {
       console.error("Error in verifyPayment function:", error);
-      return res.status(500).json({ success: false, message: "Internal server error" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  }),
+
+  savePayment: asyncHandler(async (req, res) => {
+    const { amount, cartItems } = req.body;
+
+    // Validate that cart items exist
+    if (!cartItems || cartItems.length === 0) {
+      return res.status(400).json({ message: "No cart items provided" });
+    }
+  
+    try {
+      // Save payment for each cart item
+      const savedPayments = await Promise.all(
+        cartItems.map(async (item) => {
+          const paymentData = new Payment({
+            userId: item.userId,
+            productId: item.productId,
+            name: item.name,
+            price: item.price,
+            totalPrice: item.totalPrice,
+            createdAt: new Date(),  // Use the current date for `createdAt`
+          });
+          return await paymentData.save();
+        })
+      );
+  
+      // Extract userId and productIds from cartItems to delete from the cart
+      const userId = cartItems[0].userId;  // Assuming all cart items belong to the same user
+      const productIds = cartItems.map(item => item.productId);
+  
+      // Delete the items from the cart
+      const deleteResult = await CartItem.deleteMany({ userId, productId: { $in: productIds } });
+  
+      if (deleteResult.deletedCount > 0) {
+        console.log("Deleted items from cart:", deleteResult.deletedCount);
+      } else {
+        console.log("No items found to delete");
+      }
+  
+      // Respond with success
+      res.status(201).json({
+        message: "Payments saved successfully and cart items deleted",
+        data: savedPayments,
+      });
+    } catch (error) {
+      console.error("Error saving payments or deleting cart items:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
   }),
 };

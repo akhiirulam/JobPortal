@@ -7,6 +7,9 @@ router.post('/checkout',paymentController.checkoutOrder)
 router.get('/billing',paymentController.billing)
 router.post('/order',paymentController.createOrder);
 router.post('/verify',paymentController.verifyPayment);
+router.post('/savePayment',paymentController.savePayment);
 
+
+  
 
 module.exports = router

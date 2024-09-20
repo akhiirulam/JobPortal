@@ -9,7 +9,7 @@ import EmpSidebar from "../EmpSidebar/EmpSidebar";
 
 
 
-const EmployerCandidateAlert = () => {
+const EmployerPackages = () => {
   const [isOpen, setIsOpen] = useState(false);
 
  
@@ -50,19 +50,19 @@ const EmployerCandidateAlert = () => {
               <thead className="h-12 bg-gray-100">
                 <tr className="text-blue-600">
                   <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Title
+                    Package
                   </th>
                   <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Alert Query
+                    Price
                   </th>
                   <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Number Candidates
+                   Id
                   </th>
                   <th className="px-2 py-2 text-left font-semibold sm:px-4">
                     Times
                   </th>
                   <th className="px-2 py-2 text-left font-semibold sm:px-4">
-                    Actions
+                    Validity
                   </th>
                 </tr>
               </thead>
@@ -109,4 +109,4 @@ const EmployerCandidateAlert = () => {
   );
 };
 
-export default EmployerCandidateAlert;
+export default EmployerPackages;

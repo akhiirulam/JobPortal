@@ -1,5 +1,5 @@
 const asyncHandler = require ("express-async-handler");
-const meeting = require('../models/meetingModel');
+
 const Meeting = require("../models/meetingModel");
 
 const conversationController = {
@@ -20,7 +20,7 @@ const conversationController = {
                 isZoomMeeting
             };
 
-            const savedMeeting = await meeting.create(meetingData);
+            const savedMeeting = await Meeting.create(meetingData);
 
             res.status(201).json({
                 success: true,
@@ -93,14 +93,24 @@ const conversationController = {
           });
         }
       }),
+      removeMeeting:asyncHandler(async (req,res)=>{
+        const { id } = req.params; // Assuming the meeting ID is sent as a URL parameter
 
-    startMessage: asyncHandler(async(req,res)=>{
-        // const senderId = req.cookies.userId;
-
-        const {senderId,receiverId,subject,message} = req.body;
-
-        console.log(senderId,subject,message);
-    })
+        console.log(id);
+        
+        if (!id) {
+            return res.status(400).json({ message: "Meeting ID is required" });
+        }
+    
+        // Attempt to delete the meeting
+        const deletedMeeting = await Meeting.findByIdAndDelete(id);
+    
+        if (!deletedMeeting) {
+            return res.status(404).json({ message: "Meeting not found" });
+        }
+    
+        res.status(200).json({ message: "Meeting deleted successfully" });
+      }),
 }
 
 module.exports = conversationController;

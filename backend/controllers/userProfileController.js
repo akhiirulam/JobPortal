@@ -33,27 +33,7 @@ const userProfileController = {
       friendlyAddress,
       introductionVideo,
     } = req.body;
-// console.log("Data from frontend:", fullName,
-//   DOB,
-//   gender,
-//   mobile,
-//   age,
-//   qualification,
-//   experience,
-//   language,
-//   salaryType,
-//   salary,
-//   role,
-//   category,
-//   subCategories,
-//   profile,
-//   jobTitle,
-//   jobDescription,
-//   // location,
-//   friendlyAddress,
-//   introductionVideo,)
-  
-      
+
     const profileImage = req.files["profileImage"]
       ? req.files["profileImage"][0].path
       : null;

@@ -47,8 +47,9 @@ const Navbar = () => {
   useEffect(() => {
 
    const token = Cookies.get("token");
-   console.log("Token from cookies:", token);
-   setIsLoggedIn(!!token);
+   const userId = Cookies.get("userId");
+  
+   setIsLoggedIn(!!token && !!userId);
       
   }, []);
 

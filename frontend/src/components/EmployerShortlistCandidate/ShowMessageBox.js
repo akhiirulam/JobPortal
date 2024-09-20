@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const ScheduleMeeting = ({candidateId}) => {
 
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [isZoomMeeting, setIsZoomMeeting] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
    
     const formData = new FormData();
-      formData.append("senderId",Cookies.get('userId'))
+      formData.append("senderId",Cookies.get('userId').replace(/^j:/, '').replace(/"/g, ''))
       formData.append("receiverId", candidateId)
-      formData.append("subject",subject);
-      formData.append("message",message);
+      formData.append("messageBody",message);
    try {
-    const response = await axios.post("http://localhost:5000/api/v1/message/startMessage", formData,
+    const response = await axios.post("http://localhost:5000/api/v1/message/send", formData,
       {
         headers: {"Content-Type": "application/json"},
       }
     )
+    if (response.status === 200) {
+      navigate("/semployer/shortlistCandidate");
+  }
    } catch (error) {
-    
+    console.error("Error sending message:", error);
    }
         
   };

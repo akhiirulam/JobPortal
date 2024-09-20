@@ -58,7 +58,9 @@ const EmpSidebar = () => {
       description: "Candidate Alerts",
       link: "/employer/candidate-alerts",
     },
-    { id: 8, icon: faBoxesPacking, description: "Packages", link: "/product/cartPage" },
+    { id: 8, icon: faBoxesPacking, description: "Packages", link: "/employer/packages" },
+  
+    // { id: 8, icon: faBoxesPacking, description: "Packages", link: "/product/cartPage" },
     { id: 9, icon: faComments, description: "Messages", link: "/employer/message" },
     { id: 10, icon: faHandshake, description: "Meetings", link: "/employer/meetings" },
     {

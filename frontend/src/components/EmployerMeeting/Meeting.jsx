@@ -13,9 +13,20 @@ const Meeting = () => {
   const [selectedMeetingId, setSelectedMeetingId] = useState(null);  // Add state for selected meeting ID
 
   const toggleScheduleMeeting = (meetingId) => {
-    setSelectedMeetingId(meetingId);  // Set the selected meeting ID
+    setSelectedMeetingId(meetingId);  
     setShowScheduleMeeting(!showScheduleMeeting);
   };
+
+  const handleRemoveMeeting = async (Id) => {
+    console.log(Id);
+    
+    try {
+        await axios.delete(`http://localhost:5000/api/v1/meeting/removeMeeting/${Id}`);
+        setMeetings(prev => prev.filter(meeting => meeting._id !== Id)); 
+    } catch (error) {
+        console.error("Error removing meeting:", error);
+    }
+};
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -113,6 +124,7 @@ const Meeting = () => {
                         <button
                           className="text-red-600 hover:text-red-800"
                           title="Remove"
+                          onClick={()=> handleRemoveMeeting(meeting._id)}
                         >
                           <FaTimes />
                         </button>
