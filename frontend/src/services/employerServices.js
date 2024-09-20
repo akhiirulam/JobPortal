@@ -14,7 +14,7 @@ export const viewEmployerDataAPI = async(id)=>{
 export const filterEmployerSearchAPI = async(filter)=>{
     try {
         console.log(filter);
-        console.log(`${BASE_URL}/user/filter-employer?tags=${filter.searchQuery}&location=${filter.location}&category=${filter.locationDropdown}`);
+        console.log(`${BASE_URL}/user/filter-employer?tags=${filter.searchQuery}&location=${filter.location}&category=${filter.jobType}`);
         
         const response = await axios.post(`${BASE_URL}/user/filter-employer?tags=${filter.searchQuery}&location=${filter.location}&category=${filter.locationDropdown}`)
         return response

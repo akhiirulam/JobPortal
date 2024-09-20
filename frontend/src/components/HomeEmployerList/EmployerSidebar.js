@@ -156,7 +156,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
               <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md items-center relative">
                 <FaMapMarkerAlt className="text-gray-500 ml-4" />
                 <select
-                  name="jobType"
+                  name="locationDropdown"
                   value={DropDownSelectedValue}
                   onChange={handleDropDownChange}
                   className="flex-1 appearance-none bg-transparent pl-4 pr-10 focus:outline-none"
@@ -208,7 +208,7 @@ const EmployerSidebar = ({ isOpen, closeSidebar }) => {
               <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md items-center relative">
                 <FaBriefcase className="text-gray-500 ml-4" />
                 <select
-                  name="locationDropdown"
+                  name="jobType"
                   value={DropDownLocationSelectedValue}
                   onChange={handleLocationDropDownChange}
                   className="appearance-none w-full h-full pl-4 pr-10 text-gray-700 bg-transparent focus:outline-none ml-2"

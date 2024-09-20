@@ -39,6 +39,7 @@ router.post('/addResume',resumeUpload,userProfile.addResume);
 router.get('/viewProfile',isAuth,userProfile.viewUserProfile);
 router.get('/candidate/:id', isAuth, userProfile.viewPersonProfile)
 router.get('/candidate', isAuth, userProfile.viewCandidate)
+router.get('/employer', isAuth, userProfile.viewCandidate)
 router.get('/employer/:id', isAuth, userProfile.viewCompanyProfile)
 router.post('/editProfile',isAuth,userProfile.editProfile);
 router.get('/filter-candidate',userProfile.filterCandidate);

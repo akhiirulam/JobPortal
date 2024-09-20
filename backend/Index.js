@@ -6,7 +6,6 @@ const passport = require('passport');
 require('./utilis/passport');
 const cookieParser = require('cookie-parser');
 const cloudinary = require('cloudinary').v2;
-const http = require('http');
 const port = process.env.PORT || 5000;
 const apiRouter = require('./routes');
 const errorHandler = require('./middlewares/errorHandler');

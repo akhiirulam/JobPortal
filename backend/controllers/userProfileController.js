@@ -442,7 +442,11 @@ const userProfileController = {
   viewCandidate:asyncHandler(async(req,res)=>{
     const listCandidate = await Candidate.find()
     res.send(listCandidate)
-  })
+  }),
+  viewCandidate:asyncHandler(async(req,res)=>{
+    const listCandidate = await Employer  .find()
+    res.send(listCandidate)
+  }),
 };
 
 module.exports = userProfileController;
