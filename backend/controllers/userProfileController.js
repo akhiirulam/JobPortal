@@ -404,6 +404,9 @@ const userProfileController = {
       qualification,
     } = req.query;
 
+    console.log(qualification);
+    
+
     let filter = {};
 
     if (tags) {

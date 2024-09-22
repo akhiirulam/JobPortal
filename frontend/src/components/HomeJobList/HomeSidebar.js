@@ -5,17 +5,12 @@ import { FaTimes, FaSearch, FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
 import SearchableDropdown from "./SearchableDropdown";
 import { names } from "./data/names";
 import "./Style.css";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { filterJobSearchAPI } from "../../services/jobServies";
 
-const HomeSidebar = ({ isOpen, closeSidebar }) => {
+const HomeSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   const [locationValue, setLocationValue] = useState("");
-
-  const selectHandleChange = (event) => {
-    setLocationValue(event.target.value);
-  };
-
-  const selectHandleClear = () => {
-    setLocationValue("");
-  };
+  const [filter,setFilter] = useState({searchQuery:"",location:"",jobType:"",qualification:"",careerLevels:""})
 
   // const [radiusSliderValue, setRadiusSliderValue] = useState(10);
 
@@ -86,22 +81,21 @@ const HomeSidebar = ({ isOpen, closeSidebar }) => {
     const data = Object.fromEntries(formData.entries());
 
     console.log(data);
+    setFilter(data)
 
-    fetch("/your-api-endpoint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Form submission result:", result);
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-      });
+    
   };
+  const queryClient = useQueryClient()
+  const {data, isSuccess} = useQuery({
+    queryKey:['filter-data-job'],
+    queryFn:()=>filterJobSearchAPI(filter),
+    
+  })
+  if(data){
+    queryClient.invalidateQueries('filter-data-job')
+  }
+  setFetchedData(data)
+  console.log(data);
 
   return (
     <aside
@@ -134,27 +128,23 @@ const HomeSidebar = ({ isOpen, closeSidebar }) => {
                 />
               </div>
             </li>
-            {/* Location Input */}
+            {/* Location*/}
             <li>
-              <div className="relative flex items-center bg-white border h-12 border-gray-300 rounded-md p-2">
-                <FaMapMarkerAlt className="text-gray-500 mr-2" />
-                <input
-                  type="text"
+              <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md">
+                <select
                   name="location"
-                  placeholder="City or Pincode"
-                  value={locationValue}
-                  onChange={selectHandleChange}
-                  className="w-full bg-transparent border-none outline-none text-gray-700 placeholder-gray-400"
-                />
-                {locationValue && (
-                  <button
-                    type="button"
-                    onClick={selectHandleClear}
-                    className="absolute right-2 text-gray-500"
-                  >
-                    <FaTimes />
-                  </button>
-                )}
+                  value={DropDownSelectedValue}
+                  onChange={handleDropDownChange}
+                  className="flex justify-between ml-4 px-2"
+                >
+                  <option value="" >
+                    Location
+                  </option>
+                  <option value="Kochi">Kochi</option>
+                  <option value="Calicut">Calicut</option>
+                  <option value="Trivandrum">Trivandrum</option>
+                  <option value="Trissur">Trissur</option>
+                </select>
               </div>
             </li>
             {/* Slider */}
@@ -180,30 +170,6 @@ const HomeSidebar = ({ isOpen, closeSidebar }) => {
                 </Box>
               </div>
             </li> */}
-            {/* Category Input */}
-            <li>
-              <div className="relative flex items-center bg-white border border-gray-300 h-12 rounded-md p-1">
-                <FaBriefcase className="text-gray-500 mr-2 ml-2" />
-                <SearchableDropdown
-                  options={names}
-                  label="name"
-                  id="id"
-                  selectedVal={categoryValue}
-                  handleChange={(val) => setCategoryValue(val)}
-                />
-                <input type="hidden" name="category" value={categoryValue} />
-                {categoryValue && (
-                  <button
-                    type="button"
-                    onClick={categoryHandleClear}
-                    className="absolute text-red-500 ml-48"
-                  >
-                    <FaTimes />
-                  </button>
-                )}
-              </div>
-            </li>
-            {/* Job Type */}
             <li>
               <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md">
                 <select
@@ -212,8 +178,8 @@ const HomeSidebar = ({ isOpen, closeSidebar }) => {
                   onChange={handleDropDownChange}
                   className="flex justify-between ml-4 px-2"
                 >
-                  <option value="" disabled>
-                    Select Job Type
+                  <option value="">
+                    Select category
                   </option>
                   <option value="Full Time">Full Time</option>
                   <option value="Internship">Internship</option>
@@ -339,25 +305,6 @@ const HomeSidebar = ({ isOpen, closeSidebar }) => {
                     </label>
                   </div>
                 ))}
-              </div>
-            </li>
-            {/* Location Dropdown */}
-            <li>
-              <div className="flex bg-white border border-gray-200 w-full h-12 rounded-md">
-                <select
-                  name="locationDropdown"
-                  value={DropDownSelectedValue}
-                  onChange={handleDropDownChange}
-                  className="flex justify-between ml-4 px-2"
-                >
-                  <option value="" disabled>
-                    Location
-                  </option>
-                  <option value="Kochi">Kochi</option>
-                  <option value="Calicut">Calicut</option>
-                  <option value="Trivandrum">Trivandrum</option>
-                  <option value="Trissur">Trissur</option>
-                </select>
               </div>
             </li>
             {/* Submit Button */}

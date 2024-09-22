@@ -192,40 +192,35 @@ const jobController = {
   }),
   //filter Jobs
   filterJobs: asyncHandler(async(req,res)=>{
-    const { tags, location, jobType, datePosted, experienceLevel, careerLevel, salaryRange } = req.query
+    const { tags, location, category, experienceLevels, careerLevel } = req.query
+    console.log(req.query);
+    
     
     let filter = {};
     
     if (tags) {
-        filter.tags = { $all: tags }; // Match all tags
+        filter.tags = tags ; // Match all tags
     }
     if (location) {
         filter.location = location;
     }
-    if (jobType) {
-        filter.type = {$in:jobType};
+    if (category) {
+        filter.type = {$in:category};
     }
-    if (datePosted) {
-        const lastDay = new Date();
-        lastDay.setDate(lastDay.getDate() - datePosted);
-        filter.updatedAt = { $gte: lastDay };
+    if(experienceLevels === "undefined"){
+    }else if (experienceLevels) {
+        filter.experienceLevel =  experienceLevels 
     }
-    if (experienceLevel) {
-        filter.experienceLevel =  experienceLevel 
-    }
-    if (careerLevel) {
-        filter.careerLevel =   careerLevel 
-    }
-    if (salaryRange) {
-         const [minSalary, maxSalary] = salaryRange.split('-');
-         filter.minSalary = { $gte: parseInt(minSalary)};
-         filter.maxSalary = { $lte: parseInt(maxSalary)};
-      } 
-      console.log(filter);
+    if(careerLevel === "undefined"){
+    }else if (careerLevel) {
+      filter.careerLevel =   careerLevel 
+  }
       
          
     
       const jobs = await Job.find(filter);
+      console.log(jobs);
+      
     
       res.send(jobs)
     

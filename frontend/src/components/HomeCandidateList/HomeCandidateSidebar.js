@@ -59,7 +59,7 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
     }));
   };
 
-  const [qualificationLevels, setqualificationLevels] = useState({
+  const [qualification, setqualification] = useState({
     Certificate: false,
     AssociateDegree: false,
     BachelorDegree: false,
@@ -68,7 +68,7 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   });
 
   const handleQualificationToggle = (level) => {
-    setqualificationLevels((prevLevels) => ({
+    setqualification((prevLevels) => ({
       ...prevLevels,
       [level]: !prevLevels[level],
     }));
@@ -90,7 +90,7 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
 
   const clearEmailSelection = (event) => [setDropDownEmailAlertSelectedValue("")]
 
-  const {data,isLoading} = useQuery({
+  const {data} = useQuery({
     queryKey:['filter-data-employer'],
     queryFn:()=>filterCandidateSearchAPI(filter),
   })
@@ -371,7 +371,7 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
             <li>
               <label className="text-lg font-semibold">Qualification</label>
               <div className="mt-4 mb-4">
-                {Object.entries(qualificationLevels).map(
+                {Object.entries(qualification).map(
                   ([level, isChecked]) => (
                     <div className="mb-4" key={level}>
                       <label className="inline-flex items-center cursor-pointer">
