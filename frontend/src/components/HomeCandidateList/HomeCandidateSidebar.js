@@ -10,8 +10,8 @@ import {
 // import Box from "@mui/material/Box";
 // import Slider from "@mui/material/Slider";
 import "./Style.css";
-import { useQuery } from "@tanstack/react-query";
-import { filterCandidateSearchAPI } from "../../services/candidateServices";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { filterCandidateSearchAPI, viewCandidateSearchAPI } from "../../services/candidateServices";
 
 const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   const [filter,setFilter] = useState({searchQuery:"",location:"",category:"",qualification:"",gender:"",})
@@ -90,25 +90,37 @@ const HomeCandidateSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
 
   const clearEmailSelection = (event) => [setDropDownEmailAlertSelectedValue("")]
 
-  const {data} = useQuery({
-    queryKey:['filter-data-employer'],
-    queryFn:()=>filterCandidateSearchAPI(filter),
-  })
-  setFetchedData(data)
-  console.log(data);
+
+
 
   const clearGenderSelection = (event) => [setDropDownGenderSelectedValue("")];
+  const queryClient =useQueryClient()
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     console.log("filter=",data);
-    
     setFilter(data)
+    mutateAsync()
   };
+  const {data:qData} = useQuery({
+    queryKey:['view-all-data-candidate'],
+    queryFn:()=>viewCandidateSearchAPI(),
+    refetchOnWindowFocus:false
+  })
 
 
+
+  const {data:mData,mutateAsync}=useMutation({
+    mutationKey:['filter-data-candidate'],
+    mutationFn:()=>filterCandidateSearchAPI(filter),
+    onSuccess:()=>{
+      queryClient.invalidateQueries(['view-all-data-candidate'])
+    }
+  })
+
+  setFetchedData(mData || qData)
 
   return (
     <aside

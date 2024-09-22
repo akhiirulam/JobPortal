@@ -23,14 +23,20 @@ export const viewJobDetailsAPI = async(id)=>{
     
 }
 export const filterJobSearchAPI = async(filter)=>{
-    console.log(filter);
-    
-    
+
     try {
         const response = await axios.get(`${BASE_URL}/job/job-filter?tags=${filter.searchQuery}&experienceLevels=${filter.experienceLevels}&location=${filter.location}&category=${filter.jobType}&&careerLevel=${filter.careerLevels}`)
         return response.data
     } catch (error) {
         console.log(error.response.data);
         
+    }
+}
+export const viewJobSearchAPI = async()=>{
+    try {
+        const response = await axios.get(`${BASE_URL}/job/jobs`)
+        return response.data
+    } catch (error) {
+        console.log(error.response.data);
     }
 }

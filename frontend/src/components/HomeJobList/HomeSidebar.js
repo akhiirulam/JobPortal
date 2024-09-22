@@ -5,8 +5,8 @@ import { FaTimes, FaSearch, FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
 import SearchableDropdown from "./SearchableDropdown";
 import { names } from "./data/names";
 import "./Style.css";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { filterJobSearchAPI } from "../../services/jobServies";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { filterJobSearchAPI, viewJobSearchAPI } from "../../services/jobServies";
 
 const HomeSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   const [locationValue, setLocationValue] = useState("");
@@ -75,27 +75,28 @@ const HomeSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
-
     const data = Object.fromEntries(formData.entries());
-
-    console.log(data);
+    console.log("data=",data);
     setFilter(data)
+    mutateAsync()
 
     
   };
   const queryClient = useQueryClient()
-  const {data, isSuccess} = useQuery({
-    queryKey:['filter-data-job'],
-    queryFn:()=>filterJobSearchAPI(filter),
-    
+  const {data:qData,refetch} = useQuery({
+    queryKey:['view-all-data-job'],
+    queryFn:()=>viewJobSearchAPI(),
+    refetchOnWindowFocus:false,
   })
-  if(data){
-    queryClient.invalidateQueries('filter-data-job')
-  }
-  setFetchedData(data)
-  console.log(data);
+  const{data:mData,mutateAsync}=useMutation({
+    mutationKey:["filter-data-job"],
+    mutationFn:()=>filterJobSearchAPI(filter),
+    onSuccess:()=>{
+      queryClient.invalidateQueries(["view-all-data-job"])
+    }
+  })
+  setFetchedData(mData || qData)
 
   return (
     <aside
@@ -309,7 +310,7 @@ const HomeSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
             </li>
             {/* Submit Button */}
             <li>
-              <button
+              <button onClick={()=>refetch()}
                 type="submit"
                 className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4"
               >

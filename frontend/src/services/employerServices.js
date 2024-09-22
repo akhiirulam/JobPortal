@@ -20,3 +20,12 @@ export const filterEmployerSearchAPI = async(filter)=>{
         
     }
 }
+export const viewEmployerSearchAPI = async()=>{
+    try {
+        const response = await axios.get(`${BASE_URL}/user/employer`)
+        return response.data
+    } catch (error) {
+        console.log(error.response.data);
+        
+    }
+}

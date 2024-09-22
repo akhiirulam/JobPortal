@@ -15,7 +15,7 @@ const CandidateList = ({data}) => (
         salary = {candidate.salary}
         salaryType = {candidate.salaryType}
         jobTags = {candidate.jobTags}
-        userId = {candidate.userId}
+        userId = {candidate._id}
       />
     ))}
   </div>

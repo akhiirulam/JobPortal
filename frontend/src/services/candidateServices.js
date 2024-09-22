@@ -21,3 +21,13 @@ export const filterCandidateSearchAPI = async(filter)=>{
         
     }
 }
+
+export const viewCandidateSearchAPI = async()=>{
+    try {
+        const response = await axios.get(`${BASE_URL}/user/candidate`)
+        return response.data
+    } catch (error) {
+        console.log(error.response.data);
+        
+    }
+}

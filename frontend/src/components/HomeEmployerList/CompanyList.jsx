@@ -10,6 +10,7 @@ const CompanyList = ({data}) => (
         key={index}
         image={company.image}
         name={company.name}
+        companyId={company._id}
       />
     ))}
   </div>

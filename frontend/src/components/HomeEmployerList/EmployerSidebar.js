@@ -10,8 +10,8 @@ import {
 // import Slider from "@mui/material/Slider";
 
 import "./Style.css";
-import {useQuery, useQueryClient } from "@tanstack/react-query";
-import { filterEmployerSearchAPI } from "../../services/employerServices";
+import {useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { filterEmployerSearchAPI, viewEmployerSearchAPI } from "../../services/employerServices";
 
 const EmployerSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   const [locationValue, setLocationValue] = useState("");
@@ -52,18 +52,28 @@ const EmployerSidebar = ({ isOpen, closeSidebar,setFetchedData }) => {
   // const handleFoundedSliderChange = (event, newValue) => {
   //   setFoundedSliderValue(newValue);
   // };
+  const queryClient = useQueryClient()
 
-  const {data} = useQuery({
-    queryKey:['filter-data-employer'],
-    queryFn:()=>filterEmployerSearchAPI(filter),
+  const {data:qData} = useQuery({
+    queryKey:['view-all-data-employer'],
+    queryFn:()=>viewEmployerSearchAPI(),
+    refetchOnWindowFocus:false
   })
-  setFetchedData(data)
 
+  const{data:mData,mutateAsync}=useMutation({
+  mutationKey:['filter-data-employer'],
+  mutationFn:()=>filterEmployerSearchAPI(filter),
+  onSuccess:()=>{
+    queryClient.invalidateQueries(["view-all-data-job"])
+  }
+})
+setFetchedData(mData || qData)
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     setFilter(data)
+    mutateAsync()
   };
 
   return (

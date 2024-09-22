@@ -1,12 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const Job = require("../models/jobModel");
 const Employer = require("../models/employerModel");
+const { default: mongoose } = require("mongoose");
 
 const jobController = {
   // Add Job Details
   addJobDetails: asyncHandler(async (req, res) => {
    const {userId} = req.cookies
-   console.log(userId);
    
     const {
       jobTitle: title,
@@ -116,10 +116,10 @@ const jobController = {
 
     try {
       const employerId = req.cookies.userId;
-      console.log(employerId);
+
   
       const validEmployee = await Employer.findById(employerId);
-      console.log(validEmployee);
+
       
       if (validEmployee) {
        
@@ -193,7 +193,7 @@ const jobController = {
   //filter Jobs
   filterJobs: asyncHandler(async(req,res)=>{
     const { tags, location, category, experienceLevels, careerLevel } = req.query
-    console.log(req.query);
+
     
     
     let filter = {};
@@ -219,7 +219,7 @@ const jobController = {
          
     
       const jobs = await Job.find(filter);
-      console.log(jobs);
+
       
     
       res.send(jobs)
@@ -227,11 +227,12 @@ const jobController = {
     }),
     viewJob: asyncHandler(async(req,res)=>{
       const {id} = req.params;
+
       const job = await Job.findById(id)
-      if(!job){
-        throw new Error("No Job Found")
-      }
-      res.send(job)
+      const emp = await Employer.findById(job.employer)
+      
+      
+      res.send({job,emp})
     })
 };
 

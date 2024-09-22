@@ -24,12 +24,11 @@ const JobDetailsPage = () => {
   const {id} = useParams()
   const {data}=useQuery({
     queryKey:['get-job-data'],
-    queryFn:()=>viewJobDetailsAPI(id)
+    queryFn:()=>viewJobDetailsAPI(id),
+    refetchOnWindowFocus:false
   })
-  let dateOfSubmission = new Date(data?.createdAt);
+  let dateOfSubmission = new Date(data?.job?.createdAt);
   let formattedDate = dateOfSubmission?.toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-  console.log(data);
   
   
   return (
@@ -44,8 +43,8 @@ const JobDetailsPage = () => {
             <div className="w-24 h-24 bg-gray-300 rounded-md">
               {/* Placeholder for Image */}
               <img
-                src="https://via.placeholder.com/150"
-                alt="Job Image"
+                src={data?.job?.featuredImage}
+                alt="featuredImage"
                 className="w-full h-full object-cover rounded-md"
               />
             </div>
@@ -53,20 +52,20 @@ const JobDetailsPage = () => {
             {/* Job Info */}
             <div>
               <h1 className="text-xl font-bold">
-                {data?.title}
+                {data?.job?.title}
               </h1>
               <p className="text-sm text-gray-600 mt-1">
                 Category: 
-                <span className="font-medium">{data?.category}</span> <br />
-                Location: <span className="font-medium">{data?.address}</span> <br />
+                <span className="font-medium">{data?.job?.category}</span> <br />
+                Location: <span className="font-medium">{data?.job?.address}</span> <br />
                 Date: <span className="font-medium">{(formattedDate==="NaN/NaN/NaN") ? 0:formattedDate}</span> <br />
-                Salary: <span className="font-medium">${data?.minSalary} - ${data?.maxSalary}  / year</span>
+                Salary: <span className="font-medium">${data?.job?.minSalary} - ${data?.job?.maxSalary}  / year</span>
               </p>
 
               {/* Buttons */}
               <div className="mt-4 space-x-2">
                 <button className="px-4 py-2 bg-green-500 text-white rounded-md">
-                  {data?.type}
+                  {data?.job?.type}
                 </button>
                 <button className="px-4 py-2 bg-red-500 text-white rounded-md">
                   Urgent
@@ -96,19 +95,19 @@ const JobDetailsPage = () => {
               <li className="mb-2">
                 <span className="font-semibold">Job Description</span>
                 <p>
-                  {data?.description}
+                  {data?.job?.description}
                 </p>
               </li>
               <li className="mb-2">
                 <span className="font-semibold">Key Responsibilities</span>
                 <p>
-                  {data?.keyResponsibilities}
+                  {data?.job?.keyResponsibilities}
                 </p>
               </li>
               <li className="mb-2">
                 <span className="font-semibold">Skill & Experience</span>
                 <p>
-                  {data?.skillAndExperience}
+                  {data?.job?.skillAndExperience}
                 </p>
               </li>
               <li>
@@ -129,7 +128,7 @@ const JobDetailsPage = () => {
                 <span className="font-semibold">Photos :</span>
                 <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-2">
-                    {data?.photos?.map((element)=>(
+                    {data?.job?.photos?.map((element)=>(
                       <img
                       className="w-full sm:w-auto flex items-center text-white rounded-md"
                       src={element}
@@ -145,7 +144,7 @@ const JobDetailsPage = () => {
                   <video
                     className="w-full h-auto aspect-video rounded-lg shadow-md"
                     controls
-                    src={data?.introVideoURL}
+                    src={data?.job?.introVideoURL}
                   >
                   </video>
                 </div>
@@ -174,42 +173,42 @@ const JobDetailsPage = () => {
                     <FaMapMarker className="text-blue-600" />
                     <span className="ml-2">Location</span>
                   </div>
-                  <span className="ml-[22px]">{data?.address}</span>
+                  <span className="ml-[22px]">{data?.job?.address}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaDollarSign className="text-blue-600" />
                     <span className="ml-2">Offered Salary:</span>
                   </div>
-                  <span className="ml-[22px]">${data?.minSalary} - ${data?.maxSalary}/{data?.salaryType}</span>
+                  <span className="ml-[22px]">${data?.job?.minSalary} - ${data?.job?.maxSalary}/{data?.job?.salaryType}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaUser className="text-blue-600" />
                     <span className="ml-2">Experience</span>
                   </div>
-                  <span className="ml-[22px]">{data?.experience}</span>
+                  <span className="ml-[22px]">{data?.job?.experience}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaNeuter className="text-blue-600" />
                     <span className="ml-2">Gender</span>
                   </div>
-                  <span className="ml-[22px]">{data?.gender}</span>
+                  <span className="ml-[22px]">{data?.job?.gender}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaCertificate className="text-blue-600" />
                     <span className="ml-2">Qualification</span>
                   </div>
-                  <span className="ml-[22px]">{data?.qualification}</span>
+                  <span className="ml-[22px]">{data?.job?.qualification}</span>
                 </li>
                 <li className="mb-2 mt-4">
                   <div className="flex items-center">
                     <FaLevelUpAlt className="text-blue-600" />
                     <span className="ml-2">Career Level</span>
                   </div>
-                  <span className="ml-[22px]">{data?.careerLevel}</span>
+                  <span className="ml-[22px]">{data?.job?.careerLevel}</span>
                 </li>
               </ul>
             </div>
@@ -218,7 +217,7 @@ const JobDetailsPage = () => {
                 <li className="mb-2">
                   <span className="font-semibold">Job Description</span>
                   <p>
-                    {data?.description}
+                    {data?.job?.description}
                   </p>
                 </li>
               </ul>
@@ -228,7 +227,7 @@ const JobDetailsPage = () => {
               <ul>
                 <span className="font-semibold">Job Skills</span>
                 <li className="mb-2">
-                  <p>{data?.preferredSkills?.map((element)=>element)}</p>
+                  <p>{data?.job?.preferredSkills?.map((element)=>element)}</p>
                 </li>
               </ul>
             </div>
@@ -238,10 +237,10 @@ const JobDetailsPage = () => {
                 {/* Employer Info */}
                 <div className="w-full bg-white p-4 rounded-md shadow-md">
                   <div className="flex items-center">
-                    <img src={img1}></img>
+                    <img src={data?.emp?.logoImg|| img1}></img>
                     <div className="flex flex-col">
                       <span className="text-xl font-semibold ml-2">
-                        Employer
+                        {data?.emp?.name || "Employer"}
                       </span>
                       <span className="text-md font-semibold mb-4 ml-2">
                         <a className="hover:cursor-pointer">Employer Details</a>
@@ -254,39 +253,39 @@ const JobDetailsPage = () => {
                       <span className="font-semibold">Category:</span> Developer
                     </li>
                     <li>
-                      <span className="font-semibold">Founded Date:</span> 2005
+                      <span className="font-semibold">Founded Date:</span> {data?.emp?.foundYear}
                     </li>
                     <li>
-                      <span className="font-semibold">Location:</span> New York
+                      <span className="font-semibold">Location:</span> {data?.emp?.location[0]}
                     </li>
                     <li>
-                      <span className="font-semibold">Phone Number:</span> 123
-                      444 ***
-                      <button className="ml-2 text-blue-500 hover:underline">
-                        Show
-                      </button>
+                      <span className="font-semibold">Phone Number:</span>{data?.emp?.mobile}
                     </li>
                     <li>
                       <span className="font-semibold">Email:</span>{" "}
                       <a
-                        href="mailto:employer@apus.com"
+                        href={`mailto:${data?.emp?.email}`}
                         className="text-blue-500 hover:underline"
                       >
-                        employer@apus.com
+                        {data?.emp?.email}
                       </a>
                     </li>
                     <li>
                       <span className="font-semibold">Socials:</span>
+                      
                       <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
-                        <button className="bg-blue-600 text-white px-3 py-2 rounded-md">
+                      {data?.emp?.facebook ?<button className="bg-blue-600 text-white px-3 py-2 rounded-md">
                           Facebook
-                        </button>
-                        <button className="bg-blue-400 text-white px-3 py-2 rounded-md">
+                        </button>:""}
+                        {data?.emp?.twitter ?<button className="bg-blue-400 text-white px-3 py-2 rounded-md">
                           Twitter
-                        </button>
-                        <button className="bg-red-600 text-white px-3 py-2 rounded-md">
+                        </button>:""}
+                        {data?.emp?.linkedIn ?<button className="bg-blue-700  text-white px-3 py-2 rounded-md">
                           Pinterest
-                        </button>
+                        </button>:""}
+                        
+                        
+                        
                       </div>
                     </li>
                   </ul>

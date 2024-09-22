@@ -14,9 +14,10 @@ const CandidateCard = ({
   jobTags,
 }) => {
   const navigate = useNavigate();
+  
 
   const handleViewProfile = (userId) => {
-    navigate("/candidateDetails");
+    navigate(`/candidateDetails/${userId}`);
   };
   return (
     <div className="flex flex-col md:flex-row items-center justify-between bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden p-4 md:h-36">

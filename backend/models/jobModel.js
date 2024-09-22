@@ -110,7 +110,7 @@ const jobSchema = new Schema(
         },
       },
     ],
-    employerInfo:{
+    employer:{
       type:mongoose.Schema.ObjectId,
       ref:"Employer"
     }

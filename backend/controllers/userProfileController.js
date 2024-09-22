@@ -386,10 +386,8 @@ const userProfileController = {
     if(pincode){
 
     }
-    console.log(filter);
 
     const employerList = await Employer.find(filter);
-    console.log(employerList);
     
 
     res.send(employerList);
@@ -403,8 +401,6 @@ const userProfileController = {
       experienceLevel,
       qualification,
     } = req.query;
-
-    console.log(qualification);
     
 
     let filter = {};
@@ -421,14 +417,15 @@ const userProfileController = {
     if (gender) {
       filter.gender = gender;
     }
-    if (experienceLevel) {
+    if(experienceLevel ==="undefined"){
+    }else if (experienceLevel) {
       filter.experienceLevel = experienceLevel;
     }
-    if (qualification) {
+    if (qualification==="undefined"){
+    }else if(qualification){
       filter.educationalQualification = qualification;
     }
 
-    console.log("filter=",filter);
     
     const candidateList = await Candidate.find(filter);
 

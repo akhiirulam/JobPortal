@@ -1,7 +1,17 @@
 // src/components/CompanyCard.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const CompanyCard = ({ image, name, buttonText }) => (
+const CompanyCard = ({ image, name, companyId}) => {
+  
+  const navigate = useNavigate()
+
+  const handleViewProfile=(companyId)=>{
+    navigate(`/employer/${companyId}`)
+
+  }
+  
+  return(
   <div className="flex flex-col md:flex-row items-center justify-between bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden p-4 md:h-36">
     {/* Company Image and Name */}
     <div className="flex items-center mb-4 md:mb-0">
@@ -18,11 +28,11 @@ const CompanyCard = ({ image, name, buttonText }) => (
 
     {/* Card Content */}
     <div>
-      <button className="py-2 px-4 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300 text-sm md:text-base">
+      <button onClick={()=>handleViewProfile(companyId)} className="py-2 px-4 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300 text-sm md:text-base">
       Vacancy
       </button>
     </div>
   </div>
-);
+)};
 
 export default CompanyCard;
