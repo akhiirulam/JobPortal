@@ -47,9 +47,8 @@ import AdminPurchaseCardPage from "./AdminPurchaseCardCreate";
 import AdminPurchaseCardEditPage from "./AdminPurchaseCardEdit";
 import AdminPurchaseCardManagement from "./AdminPurchaseCardManagement";
 import EmployerPackagePage from "./EmployerPackagePage";
-
-
-
+import AdminProtectedRoute from "./AdminProtected";
+import AdminLogin from "../components/Admin/AdminLogin/Login";
 
 function Landing() {
   return (
@@ -64,15 +63,58 @@ function Landing() {
         <Route path="/jobDetails" element={<JobDetails />} />
         <Route path="/employerDetails" element={<EmployerDetails />} />
         <Route path="/loginSuccess" element={<LoginSuccess />} />
-        <Route path="/Products" element={<HomeProductPage/>}></Route>
-        <Route path="/candidateDetails" element={<HomeCandidateDetails/>}></Route>
-        <Route path="/adminControl" element={<AdminControlPage/>}></Route>
-        <Route path="/adminCandidateList" element={<AdminCandidateListPage/>}></Route>
-        <Route path="/adminEmployerList" element={<AdminEmployerListPage/>}></Route>
-        <Route path="/adminPurchaseCard" element={<AdminPurchaseCardManagement/>}></Route>
-        <Route path="/adminPurchaseCardCreate" element={<AdminPurchaseCardPage/>}></Route>
-        <Route path="/adminPurchaseCardEdit/:id" element={<AdminPurchaseCardEditPage/>}></Route>
-       
+        <Route path="/Products" element={<HomeProductPage />}></Route>
+
+        <Route path="/admin/login" element={<AdminLogin/>}></Route>
+        <Route
+          path="/candidateDetails"
+          element={<HomeCandidateDetails />}
+        ></Route>
+
+        <Route
+          path="/adminControl"
+          element={
+            <AdminProtectedRoute>
+              <AdminControlPage />
+            </AdminProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/adminCandidateList"
+          element={
+            <AdminProtectedRoute>
+              <AdminCandidateListPage />
+            </AdminProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/adminEmployerList"
+          element={<AdminEmployerListPage />}
+        ></Route>
+        <Route
+          path="/adminPurchaseCard"
+          element={
+            <AdminProtectedRoute>
+              <AdminPurchaseCardManagement />
+            </AdminProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/adminPurchaseCardCreate"
+          element={
+            <AdminProtectedRoute>
+              <AdminPurchaseCardPage />
+            </AdminProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/adminPurchaseCardEdit/:id"
+          element={
+            <AdminProtectedRoute>
+              <AdminPurchaseCardEditPage />
+            </AdminProtectedRoute>
+          }
+        ></Route>
 
         {/* <Route path="/findJobs" element = {<FindJobs/>} /> */}
 
@@ -251,7 +293,7 @@ function Landing() {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/employer/packages"
           element={
             <ProtectedRoute>
@@ -260,7 +302,7 @@ function Landing() {
             </ProtectedRoute>
           }
         />
-      
+
         <Route
           path="/employer/message"
           element={

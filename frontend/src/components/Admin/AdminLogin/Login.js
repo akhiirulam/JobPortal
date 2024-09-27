@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-const Login = () => {
+const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,7 +18,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:5000/api/v1/profile/login",
+        "http://localhost:5000/api/v1/admin/adminLogin",
         {
           email,
           password,
@@ -30,37 +29,26 @@ const Login = () => {
 
       if (response.data.token) {
         toast.success("Login successful");
-       
-        Cookies.set('token', response.data.token, { expires: 7, path: '/' });
+        Cookies.set("token", response.data.token, { expires: 1 / 12, path: "/" });
 
-        if(response.data.userType === 'Candidate')
-        {
-          navigate("/candidate/dashBoard");
+        if (response.data.userType === "Admin") {
+          console.log(response.data.userType);
+          navigate("/adminControl");
         }
-        else if(response.data.userType === 'Employer')
-        {
-          navigate("/employer/empDashBoard");
-        }
-        
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {
         setError("An error occurred. Please try again.");
-        navigate("/login");
+        navigate("/admin/login");
       }
     }
   };
 
-  const handleGoogleLogin = async(event) =>
-    {
-      window.location.href = 'http://localhost:5000/api/v1/profile/google';
-    }
-
   return (
-    <div className="flex items-center justify-center h-screen w-[800px] px-5 sm:px-0">
-      <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
+    <div className="flex items-center justify-center h-screen w-full px-5 sm:px-2">
+      <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden w-full max-w-sm md:max-w-lg lg:max-w-4xl">
         <div
           className="hidden md:block lg:w-1/2 bg-cover bg-blue-700"
           style={{
@@ -83,12 +71,10 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="mt-4 flex flex-col justify-between">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Password
-                </label>
-              </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Password
+              </label>
               <input
                 className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                 type="password"
@@ -112,15 +98,13 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <button className="button google" onClick={handleGoogleLogin}>
-            <i className="fa fa-google"> Login with Google</i>
-          </button>
-          <div className="mt-4 flex items-center w-full text-center">
+          
+          <div className="mt-4 text-center">
             <a
               href="/signup"
-              className="text-xs text-gray-500 capitalize text-center w-full"
+              className="text-xs text-gray-500 capitalize"
             >
-              Don&apos;t have any account yet?
+              Don&apos;t have an account yet?
               <span className="text-blue-700"> Sign Up</span>
             </a>
           </div>
@@ -130,4 +114,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
