@@ -2,6 +2,7 @@ const express = require('express');
 const adminController = require('../controllers/adminController');
 const router = express.Router();
 
+router.post('/adminLogin',adminController.login);
 router.get('/adminDashboard',adminController.generateSalesReport);
 router.get('/candidateList',adminController.viewCandidate);
 router.delete('/removeCandidate/:id', adminController.removeCandidate);

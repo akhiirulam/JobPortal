@@ -2,8 +2,33 @@ const asyncHandler = require("express-async-handler");
 const Candidate = require("../models/candidateModel");
 const Employer = require("../models/employerModel");
 const purchaseCard = require("../models/purchaseCardModel");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const adminController = {
+  login: asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (email === "admin@jobportal.com" && password === "123") {
+      const userType = "Admin";
+
+      res.cookie("adminEmail", email, {
+        httpOnly: false,   
+        maxAge: 3600000,   
+        secure: process.env.NODE_ENV === 'production',  
+        sameSite: 'strict',
+      });
+
+    
+      const token = jwt.sign({ adminEmail: email }, JWT_SECRET_KEY, { expiresIn: '1h' });
+      res.json({ message: "Login successful", token, userType });
+    } else {
+      
+      res.status(401).json({ message: "Invalid email or password" });
+    }
+  }),
+
+
   viewCandidate: asyncHandler(async (req, res) => {
     try {
       const candidates = await Candidate.find();
